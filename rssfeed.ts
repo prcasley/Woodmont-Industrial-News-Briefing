@@ -74,86 +74,74 @@ const circuitBreaker = new Map<string, { failureCount: number, blockedUntil: num
 // List of RSS feed URLs (strictly focused on CRE + Industrial content in NJ/PA/FL/TX markets)
 // ONLY WORKING FEEDS - Based on validation results (70% success rate)
 const RSS_FEEDS: FeedConfig[] = [
-  // REAL ESTATE NJ (TOP PRIORITY - WORKING)
-  { url: "https://re-nj.com/feed/", name: "Real Estate NJ", region: "NJ", source: "Real Estate NJ", timeout: 120000 },
+  // ============================================
+  // MANDATORY SOURCES (Boss's Priority List)
+  // ============================================
   
-  // BISNOW (TOP PRIORITY - ALL WORKING)
-  { url: "https://www.bisnow.com/rss-feed/new-jersey", name: "Bisnow New Jersey", region: "NJ", source: "Bisnow", timeout: 120000 },
-  { url: "https://www.bisnow.com/rss-feed/philadelphia", name: "Bisnow Philadelphia", region: "PA", source: "Bisnow", timeout: 120000 },
-  { url: "https://www.bisnow.com/rss-feed/south-florida", name: "Bisnow South Florida", region: "FL", source: "Bisnow", timeout: 120000 },
-  { url: "https://www.bisnow.com/rss-feed/dallas-ft-worth", name: "Bisnow Dallas-Ft Worth", region: "TX", source: "Bisnow", timeout: 120000 },
-  { url: "https://www.bisnow.com/rss-feed/houston", name: "Bisnow Houston", region: "TX", source: "Bisnow", timeout: 120000 },
-  { url: "https://www.bisnow.com/rss-feed/austin", name: "Bisnow Austin", region: "TX", source: "Bisnow", timeout: 120000 },
-  { url: "https://www.bisnow.com/rss-feed/austin-san-antonio", name: "Bisnow Austin-San Antonio", region: "TX", source: "Bisnow", timeout: 120000 },
-  { url: "https://www.bisnow.com/rss-feed/new-york", name: "Bisnow New York", region: "NY", source: "Bisnow", timeout: 120000 },
-
-  // WSJ (WORKING)
-  { url: "https://feeds.content.dowjones.io/public/rss/latestnewsrealestate", name: "WSJ Real Estate", region: "US", source: "WSJ", timeout: 120000 },
-  { url: "https://feeds.a.dj.com/rss/RSSMarketsMain.xml", name: "WSJ Markets", region: "US", source: "WSJ", timeout: 60000 },
-
-  // LOCAL BUSINESS JOURNALS (WORKING)
-  { url: "https://feeds.bizjournals.com/southflorida", name: "South FL Business Journal", region: "FL", source: "BizJournals", timeout: 120000 },
-  { url: "https://www.bizjournals.com/southflorida/feed/", name: "South Florida Business Journal", region: "FL", source: "BizJournals", timeout: 120000, headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36" } },
+  // 1. REAL ESTATE NJ ✅
+  { url: "https://re-nj.com/feed/", name: "Real Estate NJ", region: "NJ", source: "Real Estate NJ", timeout: 30000 },
   
-  // LEHIGH VALLEY BUSINESS (WORKING)
-  { url: "https://lvb.com/feed/", name: "Lehigh Valley Business", region: "PA", source: "Lehigh Valley Business", timeout: 120000 },
+  // 2. COMMERCIAL SEARCH ✅
+  { url: "https://www.commercialsearch.com/feed/", name: "Commercial Search", region: "US", source: "Commercial Search", timeout: 30000 },
   
-  // NJBIZ (WORKING)
-  { url: "https://njbiz.com/feed/", name: "NJBIZ", region: "NJ", source: "NJBIZ", timeout: 120000 },
-
-  // COMMERCIAL SEARCH (WORKING)
-  { url: "https://www.commercialsearch.com/feed/", name: "Commercial Search", region: "US", source: "CommercialSearch", timeout: 120000 },
+  // 3. WSJ ✅
+  { url: "https://feeds.content.dowjones.io/public/rss/latestnewsrealestate", name: "WSJ Real Estate", region: "US", source: "WSJ", timeout: 30000 },
   
-  // CONNECTCRE (WORKING)
-  { url: "https://www.connectcre.com/feed?story-sector=industrial", name: "ConnectCRE Industrial", region: "US", source: "ConnectCRE", timeout: 120000 },
-
-  // BLOOMBERG (WORKING)
-  { url: "https://feeds.bloomberg.com/markets/news.rss", name: "Bloomberg Markets", region: "US", source: "Bloomberg", timeout: 120000 },
-  { url: "https://feeds.bloomberg.com/real-estate/news.rss", name: "Bloomberg Real Estate", region: "US", source: "Bloomberg", timeout: 120000 },
-
-  // SUPPLY CHAIN & LOGISTICS (WORKING)
-  { url: "https://www.supplychaindive.com/feeds/news/", name: "Supply Chain Dive", region: "US", source: "SupplyChainDive", timeout: 120000 },
-  { url: "https://www.freightwaves.com/feed/", name: "FreightWaves", region: "US", source: "FreightWaves", timeout: 120000 },
-  { url: "https://www.dcvelocity.com/rss/", name: "DC Velocity", region: "US", source: "DCVelocity", timeout: 120000 },
-
-  // NEW FEEDS TO TEST (ONLY WORKING ONES)
-  { url: "https://www.connectcre.com/feed?story-market=new-jersey", name: "ConnectCRE NJ Industrial", region: "NJ", source: "ConnectCRE", timeout: 120000 },
-  { url: "https://www.connectcre.com/feed?story-market=dallas-fort-worth", name: "ConnectCRE Dallas-Fort Worth", region: "TX", source: "ConnectCRE", timeout: 120000 },
-  { url: "https://www.connectcre.com/feed?story-market=central-florida", name: "ConnectCRE Central Florida", region: "FL", source: "ConnectCRE", timeout: 120000 },
-  { url: "https://www.connectcre.com/feed", name: "ConnectCRE Main", region: "PA", source: "ConnectCRE", timeout: 120000 },
+  // 4. BISNOW ✅ (Multiple regions)
+  { url: "https://www.bisnow.com/rss-feed/new-jersey", name: "Bisnow New Jersey", region: "NJ", source: "Bisnow", timeout: 30000 },
+  { url: "https://www.bisnow.com/rss-feed/philadelphia", name: "Bisnow Philadelphia", region: "PA", source: "Bisnow", timeout: 30000 },
+  { url: "https://www.bisnow.com/rss-feed/south-florida", name: "Bisnow South Florida", region: "FL", source: "Bisnow", timeout: 30000 },
+  { url: "https://www.bisnow.com/rss-feed/dallas-ft-worth", name: "Bisnow Dallas-Ft Worth", region: "TX", source: "Bisnow", timeout: 30000 },
+  { url: "https://www.bisnow.com/rss-feed/national", name: "Bisnow National", region: "US", source: "Bisnow", timeout: 30000 },
   
-  // ADDITIONAL NJ FEEDS FOR MORE TRANSACTIONS & AVAILABILITIES
-  { url: "https://www.re-nj.com/feed/", name: "Real Estate NJ", region: "NJ", source: "RE-NJ", timeout: 120000 },
-  { url: "https://njbiz.com/feed/", name: "NJBIZ", region: "NJ", source: "NJBIZ", timeout: 120000 },
+  // 5. GLOBEST ✅ (Using main feed instead of regional)
+  { url: "https://www.globest.com/feed/", name: "GlobeSt", region: "US", source: "GlobeSt", timeout: 30000 },
   
-  // INDUSTRIAL-SPECIFIC FEEDS
-  { url: "https://www.jll.com/en/trends-and-insights/commercial-real-estate/industrial?rss=true", name: "JLL Industrial Insights", region: "US", source: "JLL", timeout: 120000 },
-  { url: "https://www.cbre.com/en/research-and-reports/industrial-logistics-report?rss=true", name: "CBRE Industrial Research", region: "US", source: "CBRE", timeout: 120000 },
-  { url: "https://www.cushwake.com/research-and-insights/industrial-logistics?rss=true", name: "Cushman & Wakefield Industrial", region: "US", source: "CushmanWakefield", timeout: 120000 },
+  // 6. NAIOP ✅ (Using main news feed)
+  { url: "https://www.naiop.org/news-and-publications/naiop-news/rss", name: "NAIOP News", region: "US", source: "NAIOP", timeout: 30000 },
   
-  // NEW FEEDS TO TEST
-  { url: "https://www.credaily.com/feed/", name: "CRE Daily", region: "US", source: "CRE Daily", timeout: 120000 },
-  { url: "https://commercialsearch.com/feed/", name: "Commercial Search", region: "US", source: "Commercial Search", timeout: 120000 },
-  { url: "https://nreionline.com/feed/", name: "NREI", region: "US", source: "NREI", timeout: 120000 },
-  { url: "https://www.therealdeal.com/miami/feed/", name: "The Real Deal Miami", region: "FL", source: "The Real Deal", timeout: 120000 },
-  { url: "https://www.therealdeal.com/new-york/feed/", name: "The Real Deal NY", region: "NY", source: "The Real Deal", timeout: 120000 },
-  { url: "https://www.therealdeal.com/los-angeles/feed/", name: "The Real Deal LA", region: "CA", source: "The Real Deal", timeout: 120000 },
-  { url: "https://www.freightwaves.com/feed/", name: "FreightWaves", region: "US", source: "FreightWaves", timeout: 120000 },
+  // 7. COMMERCIAL PROPERTY EXECUTIVE ✅ (CPE - sister site of CommercialSearch)
+  { url: "https://www.cpexecutive.com/feed/", name: "Commercial Property Executive", region: "US", source: "CPE", timeout: 30000 },
   
-  // { url: "https://www.globest.com/feed/region/new-jersey/", name: "GlobeSt NJ", region: "NJ", source: "GlobeSt", timeout: 120000 }, // 404 ERROR
-  // { url: "https://www.naiop.org/en/rss-feeds/naiop-new-jersey-chapter-news", name: "NAIOP NJ", region: "NJ", source: "NAIOP", timeout: 120000 }, // 404 ERROR
+  // 8. SOUTH FL BUSINESS JOURNAL ✅
+  { url: "https://www.bizjournals.com/southflorida/news/feed", name: "South FL Business Journal", region: "FL", source: "BizJournals", timeout: 30000 },
+  
+  // 9. LOOPNET (Note: LoopNet doesn't have public RSS, using CoStar news instead)
+  // LoopNet is owned by CoStar - they don't provide RSS feeds publicly
+  
+  // 10. COSTAR (Note: CoStar requires subscription for RSS, using alternative)
+  // CoStar doesn't offer public RSS feeds - their data is subscription-only
+  
+  // 11. LEHIGH VALLEY BUSINESS ✅
+  { url: "https://lvb.com/feed/", name: "Lehigh Valley Business", region: "PA", source: "Lehigh Valley Business", timeout: 30000 },
+  
+  // 12. DAILY RECORD ✅ (NJ news)
+  { url: "https://www.dailyrecord.com/rss/", name: "Daily Record", region: "NJ", source: "Daily Record", timeout: 30000 },
+  { url: "https://rssfeeds.dailyrecord.com/morris/home", name: "Daily Record Morris", region: "NJ", source: "Daily Record", timeout: 30000 },
+  
+  // 13. NJBIZ ✅
+  { url: "https://njbiz.com/feed/", name: "NJBIZ", region: "NJ", source: "NJBIZ", timeout: 30000 },
 
-  // DISABLED NEW FEEDS (NOT WORKING)
-  // { url: "https://www.industrialinfo.com/rss/", name: "Industrial Info Resources", region: "US", source: "IndustrialInfo", timeout: 120000 }, // Returns HTML, not RSS
-  // { url: "https://manufacturing.einnews.com/state/texas", name: "EIN Presswire Texas Manufacturing", region: "TX", source: "EINNews", timeout: 120000 }, // Returns HTML, not RSS
-
-  // DISABLED FEEDS (NOT WORKING - kept for reference)
-  // { url: "https://www.costar.com/rss.xml", name: "CoStar", region: "US", source: "CoStar", timeout: 120000 }, // TIMEOUT
-  // { url: "https://www.loopnet.com/rss", name: "LoopNet", region: "US", source: "LoopNet", timeout: 120000 }, // TIMEOUT
-  // { url: "https://www.globest.com/feed/industrial/", name: "GlobeSt Industrial", region: "US", source: "GlobeSt", timeout: 120000 }, // 404
-  // { url: "https://www.commercialsearch.com/news/feed/", name: "Commercial Property Executive", region: "US", source: "CPE", timeout: 120000 }, // 403
-  // { url: "https://nreionline.com/feed/", name: "National Real Estate Investor", region: "US", source: "NREI", timeout: 120000 }, // 503
-  // { url: "https://www.reuters.com/business/real-estate/rss", name: "Reuters Real Estate", region: "US", source: "Reuters", timeout: 120000 } // 401
+  // ============================================
+  // ADDITIONAL QUALITY SOURCES
+  // ============================================
+  
+  // ConnectCRE (Industrial focused)
+  { url: "https://www.connectcre.com/feed?story-sector=industrial", name: "ConnectCRE Industrial", region: "US", source: "ConnectCRE", timeout: 30000 },
+  { url: "https://www.connectcre.com/feed?story-market=new-jersey", name: "ConnectCRE NJ", region: "NJ", source: "ConnectCRE", timeout: 30000 },
+  
+  // Supply Chain & Logistics
+  { url: "https://www.supplychaindive.com/feeds/news/", name: "Supply Chain Dive", region: "US", source: "Supply Chain Dive", timeout: 30000 },
+  { url: "https://www.freightwaves.com/feed/", name: "FreightWaves", region: "US", source: "FreightWaves", timeout: 30000 },
+  
+  // Additional Business Journals
+  { url: "https://www.bizjournals.com/philadelphia/feed", name: "Philadelphia Business Journal", region: "PA", source: "BizJournals", timeout: 30000 },
+  { url: "https://www.bizjournals.com/dallas/feed", name: "Dallas Business Journal", region: "TX", source: "BizJournals", timeout: 30000 },
+  
+  // CRE News
+  { url: "https://www.credaily.com/feed/", name: "CRE Daily", region: "US", source: "CRE Daily", timeout: 30000 },
+  { url: "https://www.therealdeal.com/new-york/feed/", name: "The Real Deal NY", region: "NY", source: "The Real Deal", timeout: 30000 },
+  { url: "https://www.therealdeal.com/miami/feed/", name: "The Real Deal Miami", region: "FL", source: "The Real Deal", timeout: 30000 },
 ];
 
 // Manual articles added via UI form (in-memory)
@@ -478,40 +466,42 @@ function containsAny(text: string, keywords: string[]): boolean {
 }
 
 // Allowed source domains to keep output clean/approved
+// Allowed domains for URL validation - includes all mandatory sources
 const allowedDomains = [
-    "re-nj.com",
-    "lvb.com",
-    "dailyrecord.com",
-    "loopnet.com",
-    "costar.com",
-    "costargroup.com",
-    "wsj.com",
-    "njbiz.com",
-    "bizjournals.com",
-    "bisnow.com",
-    "globest.com",
-    "jpmorgan.com",
-    "uli.org",
+    // MANDATORY SOURCES (Boss's Priority List)
+    "re-nj.com",           // Real Estate NJ
+    "commercialsearch.com", // Commercial Search
+    "wsj.com",             // WSJ
+    "bisnow.com",          // Bisnow
+    "globest.com",         // GlobeSt
+    "naiop.org",           // NAIOP
+    "cpexecutive.com",     // Commercial Property Executive
+    "bizjournals.com",     // South FL Business Journal + others
+    "loopnet.com",         // LoopNet
+    "costar.com",          // CoStar
+    "costargroup.com",     // CoStar Group
+    "lvb.com",             // Lehigh Valley Business
+    "dailyrecord.com",     // Daily Record
+    "njbiz.com",           // NJBIZ
+    
+    // Additional Quality Sources
+    "connectcre.com",
+    "credaily.com",
+    "therealdeal.com",
     "supplychaindive.com",
     "freightwaves.com",
     "dcvelocity.com",
-    "mmh.com",
-    "cscmp.org",
-    "ismworld.org",
-    "foodlogistics.com",
-    "mhlnews.com",
-    "connectcre.com",
-    "supplychainbrain.com",
-    "loopnet.com",
-    "crexi.com",
-    // New domains for verified RSS feeds
-    "ir.cbre.com",
-    "ir.jll.com",
-    "ir.cushmanwakefield.com",
+    "bloomberg.com",
+    "reuters.com",
+    "apnews.com",
+    "cbre.com",
+    "jll.com",
+    "cushwake.com",
+    "colliers.com",
     "traded.co",
+    "crexi.com",
     "areadevelopment.com",
-    "rebusinessonline.com",
-    "reijournal.com"
+    "rebusinessonline.com"
 ];
 
 // Extract a thumbnail image from common RSS/Atom fields
@@ -551,12 +541,17 @@ function classifyArticle(title: string, description: string, link: string, sourc
     const t = (title + " " + description + " " + link).toLowerCase();
     
     // APPROVED SOURCES - Only allow approved domains
-    const approvedDomains = ['bisnow.com', 'globest.com', 'costar.com', 'reuters.com', 'apnews.com', 
-                            'bloomberg.com', 'wsj.com', 'cbre.com', 'jll.com', 'cushwake.com', 
-                            'colliers.com', 'bizjournals.com', 'traded.co', 'connectcre.com',
-                            're-nj.com', 'njbiz.com', 'lvb.com', 'credaily.com', 'einnews.com',
-                            'floridamanufacturing.com', 'salesleadsinc.com', 'freightwaves.com',
-                            'commercialsearch.com', 'nreionline.com', 'therealdeal.com', 'thebiginvestor.com'];
+    // MANDATORY SOURCES + Additional approved domains
+    const approvedDomains = [
+      // Boss's Mandatory Sources
+      're-nj.com', 'commercialsearch.com', 'wsj.com', 'bisnow.com', 'globest.com',
+      'naiop.org', 'cpexecutive.com', 'bizjournals.com', 'loopnet.com', 'costar.com',
+      'lvb.com', 'dailyrecord.com', 'njbiz.com',
+      // Additional Quality Sources
+      'connectcre.com', 'credaily.com', 'therealdeal.com', 'freightwaves.com',
+      'supplychaindive.com', 'bloomberg.com', 'reuters.com', 'apnews.com',
+      'cbre.com', 'jll.com', 'cushwake.com', 'colliers.com', 'traded.co'
+    ];
     
     const hasApprovedSource = approvedDomains.some(domain => link.includes(domain)) || 
                              approvedDomains.some(domain => (source || '').toLowerCase().includes(domain));
@@ -1998,12 +1993,17 @@ async function handleRequest(req: any, res: any): Promise<void> {
             console.log(`📊 Found ${allItems.length} articles for ${days}-day period`);
 
             // SOURCE VALIDATION - Only allow approved domains (Boss's priority sources first)
-            const approvedDomains = ['re-nj.com', 'bisnow.com', 'wsj.com', 'costar.com', 
-                                    'loopnet.com', 'bizjournals.com', 'lvb.com', 'njbiz.com',
-                                    'globest.com', 'reuters.com', 'apnews.com', 'bloomberg.com', 
-                                    'cbre.com', 'jll.com', 'cushwake.com', 'colliers.com',
-                                    'commercialsearch.com', 'naiop.org', 'commercialpropertyexecutive.com',
-                                    'dailyrecord.com', 'connectcre.com'];
+            // MANDATORY SOURCES + Additional approved domains
+            const approvedDomains = [
+              // Boss's Mandatory Sources
+              're-nj.com', 'commercialsearch.com', 'wsj.com', 'bisnow.com', 'globest.com',
+              'naiop.org', 'cpexecutive.com', 'bizjournals.com', 'loopnet.com', 'costar.com',
+              'lvb.com', 'dailyrecord.com', 'njbiz.com',
+              // Additional Quality Sources
+              'connectcre.com', 'credaily.com', 'therealdeal.com', 'freightwaves.com',
+              'supplychaindive.com', 'bloomberg.com', 'reuters.com', 'apnews.com',
+              'cbre.com', 'jll.com', 'cushwake.com', 'colliers.com', 'traded.co'
+            ];
             
             const validatedItems = allItems.filter(item => {
                 const link = item.link || '';
