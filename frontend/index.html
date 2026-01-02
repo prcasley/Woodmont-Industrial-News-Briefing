@@ -849,6 +849,7 @@
                     >
                       📄 Download PDF
                     </button>
+                    {!IS_STATIC && (
                     <button
                       onClick={onSendEmail}
                       disabled={emailLoading}
@@ -863,6 +864,7 @@
                         <>📧 Send Email</>
                       )}
                     </button>
+                    )}
                 <button
                       onClick={onClear}
                       className="px-4 py-2 bg-slate-500 text-white rounded-lg font-medium hover:bg-slate-600 transition-colors"
@@ -1005,20 +1007,113 @@
         }
       }, [fetchItems, fetchLastFetchInfo]);
 
+      // Client-side newsletter HTML generator for static mode
+      const buildNewsletterHTML = (articles, days) => {
+        const now = new Date();
+        const startDate = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+        const dateRange = `${startDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} – ${now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })} (ET)`;
+        
+        const relevant = articles.filter(a => a.category === 'relevant').slice(0, 6);
+        const transactions = articles.filter(a => a.category === 'transaction').slice(0, 5);
+        const availabilities = articles.filter(a => a.category === 'availabilities').slice(0, 5);
+        const people = articles.filter(a => a.category === 'people').slice(0, 5);
+        
+        const renderArticle = (item) => {
+          const region = item.regions?.[0] || 'US';
+          const desc = (item.description || '').substring(0, 150) + '...';
+          return `<div class="article-card">
+            <div class="article-header">
+              <span class="badge badge-location">${region}</span>
+              <span class="badge badge-source">${item.source || 'Unknown'}</span>
+            </div>
+            <div class="article-content">${desc}</div>
+            <div class="article-source">
+              <a href="${item.link}" class="source-link" target="_blank">📖 Read Full Article – ${item.source || 'Source'}</a>
+            </div>
+          </div>`;
+        };
+        
+        const renderSection = (title, icon, items) => {
+          const content = items.length > 0 
+            ? items.map(renderArticle).join('') 
+            : '<div class="empty-section">No articles available for this section.</div>';
+          return `<div class="section">
+            <div class="section-header">
+              <div class="section-icon">${icon}</div>
+              <div class="section-title">${title}</div>
+            </div>
+            ${content}
+          </div>`;
+        };
+        
+        return `<!DOCTYPE html><html><head><style>
+          *{margin:0;padding:0;box-sizing:border-box}
+          body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);padding:20px}
+          .container{max-width:800px;margin:0 auto;background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+          .header{background:linear-gradient(135deg,#1e3c72,#2a5298);color:#fff;padding:40px 30px;text-align:center}
+          .header h1{font-size:28px;margin-bottom:10px}.header .subtitle{font-size:16px;opacity:.9;margin-bottom:8px}
+          .header .date-range{font-size:14px;opacity:.8;font-style:italic}
+          .content{padding:30px}.section{margin-bottom:35px}
+          .section-header{display:flex;align-items:center;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #667eea}
+          .section-icon{width:40px;height:40px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-right:15px;font-size:20px}
+          .section-title{font-size:20px;color:#1e3c72;font-weight:600}
+          .article-card{background:#f8f9fa;border-left:4px solid #667eea;padding:20px;margin-bottom:15px;border-radius:8px}
+          .article-header{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+          .badge{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;text-transform:uppercase}
+          .badge-location{background:#e3f2fd;color:#1976d2}.badge-source{background:#e8f5e9;color:#388e3c}
+          .article-content{color:#333;line-height:1.6;margin-bottom:10px}
+          .article-source{margin-top:12px;padding-top:12px;border-top:1px solid #dee2e6}
+          .source-link{color:#667eea;text-decoration:none;font-weight:500;font-size:14px}
+          .empty-section{background:#f8f9fa;padding:20px;border-radius:8px;text-align:center;color:#666;font-style:italic}
+          .footer{background:#f8f9fa;padding:25px 30px;text-align:center;color:#666;font-size:14px;border-top:1px solid #dee2e6}
+        </style></head><body><div class="container">
+          <div class="header">
+            <h1>🏭 Woodmont Industrial Partners</h1>
+            <div class="subtitle">Daily Industrial News Briefing</div>
+            <div class="date-range">Coverage Period: ${dateRange}</div>
+            <div class="date-range">Focus Markets: NJ, PA, FL, TX</div>
+          </div>
+          <div class="content">
+            ${renderSection('RELEVANT ARTICLES — Macro Trends & Industrial Real Estate News', '📰', relevant)}
+            ${renderSection('TRANSACTIONS — Notable Sales/Leases (≥100K SF or ≥$25M)', '💼', transactions)}
+            ${renderSection('AVAILABILITIES — New Industrial Properties for Sale/Lease', '🏢', availabilities)}
+            ${renderSection('PEOPLE NEWS — Personnel Moves in Industrial Brokerage/Development', '👥', people)}
+          </div>
+          <div class="footer">
+            <strong>Woodmont Industrial Partners</strong><br>
+            Daily Industrial News Briefing – Confidential & Proprietary<br>
+            © 2025 All Rights Reserved
+          </div>
+        </div></body></html>`;
+      };
+
       const generateNewsletter = useCallback(async () => {
         setLoading(true);
         try {
-          const res = await fetch((API_BASE || '') + `/api/newsletter?days=${newsletterTimeframe}`);
-          const data = await res.json();
-          setNewsletterHTML(data.html || '');
-          setNewsletterGenerated(true);
+          if (IS_STATIC) {
+            // Generate newsletter client-side using loaded articles
+            const days = parseInt(newsletterTimeframe, 10);
+            const cutoff = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
+            const recentArticles = items.filter(item => {
+              const pubDate = new Date(item.pubDate || item.fetchedAt || 0);
+              return pubDate >= cutoff;
+            });
+            const html = buildNewsletterHTML(recentArticles, days);
+            setNewsletterHTML(html);
+            setNewsletterGenerated(true);
+          } else {
+            const res = await fetch(`/api/newsletter?days=${newsletterTimeframe}`);
+            const data = await res.json();
+            setNewsletterHTML(data.html || '');
+            setNewsletterGenerated(true);
+          }
         } catch (e) {
           console.error('Error generating newsletter:', e);
           setNewsletterHTML('<p>Error generating newsletter. Please try again.</p>');
         } finally {
           setLoading(false);
         }
-      }, [newsletterTimeframe]);
+      }, [newsletterTimeframe, items]);
 
       const clearNewsletter = useCallback(() => {
         setNewsletterHTML('');
