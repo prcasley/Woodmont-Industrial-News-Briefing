@@ -2600,7 +2600,7 @@ async function buildStaticRSS() {
       <category><![CDATA[${categoryLabel}]]></category>
       <source><![CDATA[${item.source || item.publisher || 'Unknown'}]]></source>
       ${item.author ? `<author><![CDATA[${item.author}]]></author>` : ''}
-      ${item.image ? `<enclosure url="${item.image}" type="image/jpeg" />` : ''}
+      ${item.image ? `<enclosure url="${(Array.isArray(item.image) ? item.image[0] : item.image || '').replace(/&/g, '&amp;')}" type="image/jpeg" />` : ''}
     </item>`;
         }).join('');
 
@@ -2722,8 +2722,9 @@ async function buildStaticRSS() {
     </div>
 </body>
 </html>`;
-        fs.writeFileSync(path.join(docsDir, 'index.html'), htmlContent, 'utf8');
-        log('info', 'Generated docs/index.html', { itemCount: Math.min(rssItems.length, 50) });
+        // NOTE: Not overwriting index.html - using React frontend from frontend/index.html
+        // fs.writeFileSync(path.join(docsDir, 'index.html'), htmlContent, 'utf8');
+        log('info', 'Skipped docs/index.html (using React frontend)', { itemCount: rssItems.length });
 
         const duration = Date.now() - startTime;
         log('info', 'Static build completed successfully', {
