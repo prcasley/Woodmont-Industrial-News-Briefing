@@ -9,6 +9,7 @@ on:
 jobs:
   update-feed:
     runs-on: ubuntu-latest
+    timeout-minutes: 10  # Prevent hanging forever
 
     steps:
       - name: Checkout repository
