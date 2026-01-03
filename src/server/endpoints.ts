@@ -5,19 +5,106 @@ import { itemStore, feedStats, manualArticles, saveArticlesToFile } from '../sto
 import { buildBriefing, createBriefingEmailPayload } from './newsletter.js';
 import { sendEmail } from './email.js';
 
-const API_KEY = process.env.API_KEY || ""; // optional: require for /api/manual when set
+// Security Configuration
+const API_KEY = process.env.API_KEY || "";
+const REQUIRE_API_KEY = process.env.REQUIRE_API_KEY === "true"; // Set to true in production
 const windowDefaultHours = 720; // default articles window if not specified (30 days)
 const FRONTEND_FILE = path.join(process.cwd(), "frontend", "index.html");
+
+// CORS Configuration - Restrict to allowed origins in production
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || "").split(",").filter(Boolean);
+const CORS_ALLOW_ALL = process.env.CORS_ALLOW_ALL === "true"; // Only for development
+
+// Rate limiting configuration
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+const RATE_LIMIT_MAX_REQUESTS = parseInt(process.env.RATE_LIMIT_MAX || "100", 10);
+
+// Input validation constants
+const MAX_LIMIT = 1000; // Maximum articles per request
+const MIN_LIMIT = 1;
+const MAX_DAYS = 365; // Maximum newsletter lookback
+
+function getClientIP(req: IncomingMessage): string {
+    const forwarded = req.headers['x-forwarded-for'];
+    if (typeof forwarded === 'string') return forwarded.split(',')[0].trim();
+    return req.socket?.remoteAddress || 'unknown';
+}
+
+function checkRateLimit(clientIP: string): boolean {
+    const now = Date.now();
+    const record = rateLimitMap.get(clientIP);
+
+    if (!record || now > record.resetTime) {
+        rateLimitMap.set(clientIP, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+        return true;
+    }
+
+    if (record.count >= RATE_LIMIT_MAX_REQUESTS) {
+        return false;
+    }
+
+    record.count++;
+    return true;
+}
+
+function validateApiKey(req: IncomingMessage): boolean {
+    if (!REQUIRE_API_KEY || !API_KEY) return true;
+    const providedKey = req.headers["x-api-key"];
+    return providedKey === API_KEY;
+}
+
+function validateLimit(value: string | null, defaultVal: number = 200): number {
+    if (!value) return defaultVal;
+    const parsed = parseInt(value, 10);
+    if (isNaN(parsed)) return defaultVal;
+    return Math.max(MIN_LIMIT, Math.min(MAX_LIMIT, parsed));
+}
+
+function validateDays(value: string | null, defaultVal: number = 1): number {
+    if (!value) return defaultVal;
+    const parsed = parseInt(value, 10);
+    if (isNaN(parsed) || parsed < 1) return defaultVal;
+    return Math.min(MAX_DAYS, parsed);
+}
+
+function validateDateParam(value: string | null): string | null {
+    if (!value) return null;
+    const date = new Date(value);
+    if (isNaN(date.getTime())) return null;
+    return date.toISOString();
+}
 
 export async function handleRequest(req: IncomingMessage, res: ServerResponse): Promise<void> {
     const url = req.url || "/";
     const urlObj = new URL(url, `http://localhost:8080`);
     const method = req.method || 'GET';
+    const clientIP = getClientIP(req);
 
-    console.log(`🌐 Incoming request: ${method} ${urlObj.pathname}${urlObj.search}`);
+    console.log(`🌐 Incoming request: ${method} ${urlObj.pathname}${urlObj.search} from ${clientIP}`);
 
-    // Set CORS headers for all requests
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    // Rate limiting check
+    if (!checkRateLimit(clientIP)) {
+        res.writeHead(429, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Too many requests. Please try again later." }));
+        return;
+    }
+
+    // Set security headers
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+
+    // Set CORS headers - restricted in production
+    const origin = req.headers.origin || '';
+    if (CORS_ALLOW_ALL) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+    } else if (ALLOWED_ORIGINS.length > 0 && ALLOWED_ORIGINS.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+        res.setHeader('Vary', 'Origin');
+    } else if (ALLOWED_ORIGINS.length === 0) {
+        // No origins configured - allow same-origin only (no header set)
+    }
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-API-Key');
 
@@ -25,6 +112,17 @@ export async function handleRequest(req: IncomingMessage, res: ServerResponse): 
         res.writeHead(200);
         res.end();
         return;
+    }
+
+    // API Key validation for protected endpoints
+    const protectedEndpoints = ['/api/manual', '/api/approve-article', '/api/blacklist-article', '/api/send-newsletter'];
+    if (protectedEndpoints.some(ep => urlObj.pathname === ep)) {
+        if (!validateApiKey(req)) {
+            console.warn(`⚠️ Unauthorized access attempt to ${urlObj.pathname} from ${clientIP}`);
+            res.writeHead(401, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ error: "Unauthorized. Valid API key required." }));
+            return;
+        }
     }
 
     try {
@@ -63,12 +161,13 @@ export async function handleRequest(req: IncomingMessage, res: ServerResponse): 
 }
 
 async function handleArticlesEndpoint(req: IncomingMessage, res: ServerResponse, urlObj: URL) {
+    // Validate and sanitize input parameters
     const params = {
-        since: urlObj.searchParams.get("since") || null,
-        until: urlObj.searchParams.get("until") || null,
-        region: urlObj.searchParams.get("region") || null,
-        source: urlObj.searchParams.get("source") || null,
-        limit: parseInt(urlObj.searchParams.get("limit") || "200", 10)
+        since: validateDateParam(urlObj.searchParams.get("since")),
+        until: validateDateParam(urlObj.searchParams.get("until")),
+        region: urlObj.searchParams.get("region")?.slice(0, 50) || null, // Limit length
+        source: urlObj.searchParams.get("source")?.slice(0, 100) || null, // Limit length
+        limit: validateLimit(urlObj.searchParams.get("limit"), 200)
     };
 
     const items = getItemsFiltered(params);
@@ -82,12 +181,13 @@ async function handleArticlesEndpoint(req: IncomingMessage, res: ServerResponse,
 }
 
 async function handleBriefEndpoint(req: IncomingMessage, res: ServerResponse, urlObj: URL) {
+    // Validate and sanitize input parameters
     const params = {
-        since: urlObj.searchParams.get("since") || null,
-        until: urlObj.searchParams.get("until") || null,
-        region: urlObj.searchParams.get("region") || null,
-        source: urlObj.searchParams.get("source") || null,
-        limit: parseInt(urlObj.searchParams.get("limit") || "200", 10)
+        since: validateDateParam(urlObj.searchParams.get("since")),
+        until: validateDateParam(urlObj.searchParams.get("until")),
+        region: urlObj.searchParams.get("region")?.slice(0, 50) || null,
+        source: urlObj.searchParams.get("source")?.slice(0, 100) || null,
+        limit: validateLimit(urlObj.searchParams.get("limit"), 200)
     };
 
     const grouped = getBriefByRegion(params);
@@ -100,8 +200,8 @@ async function handleBriefEndpoint(req: IncomingMessage, res: ServerResponse, ur
 }
 
 async function handleNewsletterEndpoint(req: IncomingMessage, res: ServerResponse, urlObj: URL) {
-    // Get days parameter, default to 1 (last 24 hours) if not specified
-    const days = parseInt(urlObj.searchParams.get("days") || "1", 10);
+    // Get days parameter with validation (default to 1, max 365)
+    const days = validateDays(urlObj.searchParams.get("days"), 1);
     const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
 
     console.log(`📅 Newsletter request: days=${days}, since=${since}`);
@@ -434,8 +534,19 @@ async function handleSendNewsletterEndpoint(req: IncomingMessage, res: ServerRes
     req.on("end", async () => {
         try {
             const payload = JSON.parse(body || "{}");
-            const recipients = Array.isArray(payload.recipients) ? payload.recipients.filter((r: string) => r.trim()) : [];
-            const days = parseInt(payload.days || "1", 10);
+            // Validate recipients - sanitize email addresses
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const recipients = Array.isArray(payload.recipients)
+                ? payload.recipients.filter((r: string) => typeof r === 'string' && emailRegex.test(r.trim())).slice(0, 100) // Max 100 recipients
+                : [];
+
+            if (recipients.length === 0) {
+                res.writeHead(400, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ error: "At least one valid email recipient is required" }));
+                return;
+            }
+
+            const days = validateDays(String(payload.days), 1);
             const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
 
             const items = getItemsFiltered({
