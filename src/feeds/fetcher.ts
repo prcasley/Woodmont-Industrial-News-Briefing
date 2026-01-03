@@ -211,7 +211,7 @@ async function validateLink(link: string): Promise<{ ok: boolean; status: number
     }
 }
 
-function isAllowedLink(link: string): boolean {
+export function isAllowedLink(link: string): boolean {
     try {
         const u = new URL(link);
         return allowedDomains.some(d => u.hostname === d || u.hostname.endsWith(`.${d}`));
@@ -288,7 +288,7 @@ const MANDATORY_SOURCE_PATTERNS = [
     'njbiz'
 ];
 
-function isFromMandatorySource(item: NormalizedItem): boolean {
+export function isFromMandatorySource(item: NormalizedItem): boolean {
     const source = (item.source || '').toLowerCase();
     const link = (item.link || '').toLowerCase();
 
@@ -325,7 +325,7 @@ function shouldIncludeArticle(item: NormalizedItem): boolean {
 }
 
 // Enhanced URL filtering for tracking parameters and redirects
-function shouldRejectUrl(url: string): boolean {
+export function shouldRejectUrl(url: string): boolean {
     const rejectPatterns = [
         /utm_/i,
         /redirect/i,
