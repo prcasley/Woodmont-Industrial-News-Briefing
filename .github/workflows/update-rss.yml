@@ -66,6 +66,7 @@ jobs:
           echo "📋 No changes to commit"
         else
           git commit -m "🔄 Update RSS feed [$(date -u +'%Y-%m-%d %H:%M UTC')]"
+                      git pull --rebase origin main
           git push
           echo "✅ Changes pushed"
         fi
