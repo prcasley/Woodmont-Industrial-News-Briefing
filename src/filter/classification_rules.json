@@ -1,0 +1,42 @@
+{
+    "categories": {
+          "relevant": {
+                  "displayName": "Relevant Articles",
+                  "description": "Macro trends and major industrial real estate news",
+                  "icon": "📰"
+          },
+          "transactions": {
+                  "displayName": "Transactions",
+                  "description": "Sales or leases with significant deal signals",
+                  "icon": "💰"
+          },
+          "availabilities": {
+                  "displayName": "Availabilities",
+                  "description": "Properties for sale or lease",
+                  "icon": "📍"
+          },
+          "people": {
+                  "displayName": "People News",
+                  "description": "Personnel moves and executive announcements",
+                  "icon": "👥"
+          }
+    },
+
+  "approvedSources": [
+        "re-nj.com", "commercialsearch.com", "wsj.com", "bisnow.com", "globest.com",
+        "naiop.org", "cpexecutive.com", "bizjournals.com", "loopnet.com", "costar.com",
+        "lvb.com", "dailyrecord.com", "njbiz.com", "connectcre.com", "credaily.com",
+        "therealdeal.com", "freightwaves.com", "supplychaindive.com", "bloomberg.com",
+        "reuters.com", "apnews.com", "cbre.com", "jll.com", "cushwake.com", "colliers.com", "traded.co"
+  ],
+
+    "keywords": {
+          "industrial": ["industrial", "warehouse", "distribution", "logistics", "fulfillment"],
+          "creIntent": ["real estate", "lease", "leasing", "cre", "acquisition", "development"]
+    },
+
+    "sourceOverrides": {
+          "github.com": {"category": "github", "alwaysApply": true},
+          "github.io": {"category": "github", "alwaysApply": true}
+    }
+}
