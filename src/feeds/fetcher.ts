@@ -6,8 +6,114 @@ import { classifyArticle } from '../filter/classifier.js';
 import { itemStore, feedStats, fetchCache, manualArticles, pruneItemStore, archiveOldArticles } from '../store/storage.js';
 import { FetchResult, FeedConfig, NormalizedItem, FeedStat, RawRSSItem, RSSLink, RSSEnclosure, RSSMediaContent } from '../types/index.js';
 
-const circuitBreaker = new Map<string, { failureCount: number, blockedUntil: number }>();
+// ============================================
+// BLOCKED FEED TRACKING (24-hour cooldown)
+// ============================================
+interface CircuitBreakerState {
+    failureCount: number;
+    blockedUntil: number;
+    lastError?: string;
+    last403Preview?: string; // Store 403 response preview for debugging
+}
+
+const circuitBreaker = new Map<string, CircuitBreakerState>();
 const FETCH_CACHE_TTL_MS = 20 * 60 * 1000; // 20 minutes
+const BLOCKED_COOLDOWN_MS = 24 * 60 * 60 * 1000; // 24 hours for blocked feeds
+const MAX_FAILURES_BEFORE_BLOCK = 3;
+
+// ============================================
+// ENHANCED BROWSER HEADERS FOR BLOCKED FEEDS
+// ============================================
+const STEALTH_BROWSER_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Accept": "application/rss+xml, application/xml;q=0.9, text/xml;q=0.8, */*;q=0.5",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache",
+    "Connection": "keep-alive",
+    "Upgrade-Insecure-Requests": "1",
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "none",
+    "Sec-Fetch-User": "?1"
+};
+
+// Domains that commonly block automated requests
+const BLOCKED_FEED_DOMAINS = [
+    'connectcre.com',
+    'bizjournals.com',
+    'therealdeal.com',
+    'freightwaves.com'
+];
+
+function needsStealthHeaders(url: string): boolean {
+    return BLOCKED_FEED_DOMAINS.some(domain => url.includes(domain));
+}
+
+function getHeadersForFeed(feed: FeedConfig): Record<string, string> {
+    // Priority: feed-specific headers > stealth headers for blocked domains > basic browser headers
+    if (feed.headers) {
+        return { ...STEALTH_BROWSER_HEADERS, ...feed.headers };
+    }
+    if (needsStealthHeaders(feed.url)) {
+        // Add Referer for blocked domains
+        return {
+            ...STEALTH_BROWSER_HEADERS,
+            "Referer": new URL(feed.url).origin + "/"
+        };
+    }
+    return BROWSER_HEADERS;
+}
+
+// Check if a 403 response is a Cloudflare/WAF challenge
+function isCloudflareChallenge(body: string): boolean {
+    const indicators = [
+        'cloudflare',
+        'attention required',
+        'checking your browser',
+        'enable javascript',
+        'bot detection',
+        'captcha',
+        'ray id',
+        'cf-browser-verification',
+        'challenge-platform'
+    ];
+    const lower = body.toLowerCase();
+    return indicators.some(indicator => lower.includes(indicator));
+}
+
+// Mark a feed as blocked with extended cooldown
+function markFeedBlocked(feedUrl: string, reason: string, preview?: string): void {
+    const cb = circuitBreaker.get(feedUrl) || { failureCount: 0, blockedUntil: 0 };
+    cb.failureCount = MAX_FAILURES_BEFORE_BLOCK;
+    cb.blockedUntil = Date.now() + BLOCKED_COOLDOWN_MS;
+    cb.lastError = reason;
+    if (preview) {
+        cb.last403Preview = preview.slice(0, 500);
+    }
+    circuitBreaker.set(feedUrl, cb);
+    console.log(`🚫 [${feedUrl}] Blocked for 24 hours: ${reason}`);
+}
+
+// Get blocked feed status for health endpoint
+export function getBlockedFeeds(): { url: string; reason: string; blockedUntil: string; preview?: string }[] {
+    const blocked: { url: string; reason: string; blockedUntil: string; preview?: string }[] = [];
+    const now = Date.now();
+    
+    circuitBreaker.forEach((state, url) => {
+        if (state.blockedUntil > now) {
+            blocked.push({
+                url,
+                reason: state.lastError || 'Unknown',
+                blockedUntil: new Date(state.blockedUntil).toISOString(),
+                preview: state.last403Preview
+            });
+        }
+    });
+    
+    return blocked;
+}
 
 // Track last fetch information
 export let lastFetchInfo = {
@@ -354,17 +460,21 @@ export function shouldRejectUrl(url: string): boolean {
     return rejectPatterns.some(pattern => pattern.test(url));
 }
 
-// Improved fetch function using rss-parser
+// Improved fetch function using axios + rss-parser (for header support)
 async function fetchRSSFeedImproved(feed: FeedConfig): Promise<FetchResult> {
     const start = Date.now();
     const cb = circuitBreaker.get(feed.url) || { failureCount: 0, blockedUntil: 0 };
 
+    // Check if feed is blocked (24-hour cooldown)
     if (cb.blockedUntil > Date.now()) {
+        const remainingMs = cb.blockedUntil - Date.now();
+        const remainingHrs = Math.round(remainingMs / (60 * 60 * 1000) * 10) / 10;
+        console.log(`⏸️ [${feed.name}] Skipping - blocked for ${remainingHrs} more hours (${cb.lastError || 'previous failures'})`);
         const oldArticles = Array.from(itemStore.values()).filter(i => i.source === feed.name);
         return {
             status: 'error',
             articles: oldArticles,
-            error: { type: 'circuit_breaker', message: 'Feed blocked due to repeated failures', httpStatus: 0 },
+            error: { type: 'circuit_breaker', message: `Feed blocked for ${remainingHrs}h: ${cb.lastError || 'repeated failures'}`, httpStatus: 0 },
             meta: { feed: feed.name, fetchedRaw: 0, kept: oldArticles.length, filteredOut: 0, durationMs: Date.now() - start }
         };
     }
@@ -372,8 +482,90 @@ async function fetchRSSFeedImproved(feed: FeedConfig): Promise<FetchResult> {
     try {
         pruneItemStore();
 
-        // First try with rss-parser
-        const parsed = await rssParser.parseURL(feed.url);
+        // ============================================
+        // STEP 1: Fetch XML with axios (custom headers)
+        // ============================================
+        const headers = getHeadersForFeed(feed);
+        const timeout = feed.timeout || 15000;
+        
+        let xmlContent: string;
+        try {
+            const response = await axios.get(feed.url, {
+                timeout,
+                headers,
+                maxRedirects: 5,
+                validateStatus: () => true, // Don't throw on any status
+                responseType: 'text'
+            });
+            
+            // Handle HTTP errors
+            if (response.status === 403) {
+                const bodyPreview = String(response.data).slice(0, 500);
+                console.log(`🔒 [${feed.name}] 403 Forbidden - Body preview: ${bodyPreview.slice(0, 250)}`);
+                
+                // Check if it's Cloudflare
+                if (isCloudflareChallenge(bodyPreview)) {
+                    markFeedBlocked(feed.url, 'Cloudflare/WAF challenge detected - use email ingestion instead', bodyPreview);
+                } else {
+                    markFeedBlocked(feed.url, '403 Forbidden - feed likely blocks automated access', bodyPreview);
+                }
+                
+                const oldArticles = Array.from(itemStore.values()).filter(i => i.source === feed.name);
+                return {
+                    status: 'error',
+                    articles: oldArticles,
+                    error: { type: 'blocked', message: '403 Forbidden', httpStatus: 403 },
+                    meta: { feed: feed.name, fetchedRaw: 0, kept: oldArticles.length, filteredOut: 0, durationMs: Date.now() - start }
+                };
+            }
+            
+            if (response.status === 404) {
+                markFeedBlocked(feed.url, '404 Not Found - feed URL may have changed');
+                const oldArticles = Array.from(itemStore.values()).filter(i => i.source === feed.name);
+                return {
+                    status: 'error',
+                    articles: oldArticles,
+                    error: { type: 'not_found', message: '404 Not Found', httpStatus: 404 },
+                    meta: { feed: feed.name, fetchedRaw: 0, kept: oldArticles.length, filteredOut: 0, durationMs: Date.now() - start }
+                };
+            }
+            
+            if (response.status >= 400) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            
+            // Check if response is HTML (common when blocked)
+            const contentType = response.headers['content-type'] || '';
+            const bodyStart = String(response.data).trim().slice(0, 100).toLowerCase();
+            
+            if ((contentType.includes('text/html') && !contentType.includes('xml')) || 
+                bodyStart.startsWith('<!doctype') || 
+                bodyStart.startsWith('<html')) {
+                console.log(`⚠️ [${feed.name}] Received HTML instead of RSS/XML - may be blocked`);
+                markFeedBlocked(feed.url, 'HTML response instead of RSS - likely blocked or feed URL changed');
+                const oldArticles = Array.from(itemStore.values()).filter(i => i.source === feed.name);
+                return {
+                    status: 'error',
+                    articles: oldArticles,
+                    error: { type: 'blocked', message: 'HTML response instead of RSS', httpStatus: response.status },
+                    meta: { feed: feed.name, fetchedRaw: 0, kept: oldArticles.length, filteredOut: 0, durationMs: Date.now() - start }
+                };
+            }
+            
+            xmlContent = response.data;
+            
+        } catch (axiosError) {
+            const err = axiosError as AxiosError;
+            if (err.code === 'ECONNABORTED' || err.message.includes('timeout')) {
+                throw new Error(`Request timed out after ${timeout}ms`);
+            }
+            throw err;
+        }
+        
+        // ============================================
+        // STEP 2: Parse XML with rss-parser
+        // ============================================
+        const parsed = await rssParser.parseString(xmlContent);
         const items: NormalizedItem[] = [];
 
         for (const item of parsed.items) {
@@ -487,10 +679,19 @@ async function fetchRSSFeedImproved(feed: FeedConfig): Promise<FetchResult> {
         const err = error as Error;
         console.error(`[${feed.name}] ERROR:`, err.message);
 
-        // Update circuit breaker on error
+        // Update circuit breaker on error with escalating cooldown
         cb.failureCount++;
-        if (cb.failureCount >= 3) {
-            cb.blockedUntil = Date.now() + (30 * 60 * 1000); // Block for 30 minutes
+        cb.lastError = err.message;
+        
+        if (cb.failureCount >= MAX_FAILURES_BEFORE_BLOCK) {
+            // After 3 failures, block for 24 hours
+            cb.blockedUntil = Date.now() + BLOCKED_COOLDOWN_MS;
+            console.log(`🚫 [${feed.name}] Blocked for 24 hours after ${cb.failureCount} failures: ${err.message}`);
+        } else {
+            // Shorter cooldown for first few failures (30 min, 1 hour)
+            const cooldownMs = 30 * 60 * 1000 * cb.failureCount;
+            cb.blockedUntil = Date.now() + cooldownMs;
+            console.log(`⏸️ [${feed.name}] Temporary cooldown for ${cooldownMs / 60000} minutes (failure ${cb.failureCount}/${MAX_FAILURES_BEFORE_BLOCK})`);
         }
         circuitBreaker.set(feed.url, cb);
 

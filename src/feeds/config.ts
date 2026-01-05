@@ -157,14 +157,16 @@ export const RSS_FEEDS: FeedConfig[] = [
   // ADDITIONAL QUALITY SOURCES
   // ============================================
 
-  // ConnectCRE (Industrial focused) ✅ - Working
+  // ConnectCRE (Industrial focused) - Often blocks automated requests
+  // Using enhanced headers to bypass; if still failing, use email ingestion
   {
     url: "https://www.connectcre.com/feed?story-sector=industrial",
     name: "ConnectCRE Industrial",
     region: "US",
     source: "ConnectCRE",
     type: FEED_TYPES.INDUSTRIAL_NEWS,
-    timeout: 30000
+    timeout: 30000,
+    headers: BROWSER_HEADERS
   },
   {
     url: "https://www.connectcre.com/feed?story-market=new-jersey",
@@ -172,7 +174,8 @@ export const RSS_FEEDS: FeedConfig[] = [
     region: "NJ",
     source: "ConnectCRE",
     type: FEED_TYPES.INDUSTRIAL_NEWS,
-    timeout: 30000
+    timeout: 30000,
+    headers: BROWSER_HEADERS
   },
   {
     url: "https://www.connectcre.com/feed?story-market=texas",
@@ -180,7 +183,8 @@ export const RSS_FEEDS: FeedConfig[] = [
     region: "TX",
     source: "ConnectCRE",
     type: FEED_TYPES.INDUSTRIAL_NEWS,
-    timeout: 30000
+    timeout: 30000,
+    headers: BROWSER_HEADERS
   },
   {
     url: "https://www.connectcre.com/feed?story-market=pennsylvania",
@@ -188,7 +192,8 @@ export const RSS_FEEDS: FeedConfig[] = [
     region: "PA",
     source: "ConnectCRE",
     type: FEED_TYPES.INDUSTRIAL_NEWS,
-    timeout: 30000
+    timeout: 30000,
+    headers: BROWSER_HEADERS
   },
 
   // Supply Chain & Logistics
@@ -206,7 +211,8 @@ export const RSS_FEEDS: FeedConfig[] = [
     region: "US",
     source: "FreightWaves",
     type: FEED_TYPES.INDUSTRIAL_NEWS,
-    timeout: 30000
+    timeout: 30000,
+    headers: BROWSER_HEADERS
   },
 
   // CRE News
@@ -224,7 +230,8 @@ export const RSS_FEEDS: FeedConfig[] = [
     region: "NY",
     source: "The Real Deal",
     type: FEED_TYPES.INDUSTRIAL_NEWS,
-    timeout: 30000
+    timeout: 30000,
+    headers: BROWSER_HEADERS
   },
   {
     url: "https://www.therealdeal.com/miami/feed/",
@@ -232,7 +239,8 @@ export const RSS_FEEDS: FeedConfig[] = [
     region: "FL",
     source: "The Real Deal",
     type: FEED_TYPES.INDUSTRIAL_NEWS,
-    timeout: 30000
+    timeout: 30000,
+    headers: BROWSER_HEADERS
   },
 
   // REBusinessOnline (Good industrial coverage)
