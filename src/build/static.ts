@@ -59,8 +59,18 @@ export async function buildStaticRSS(): Promise<void> {
         if (fs.existsSync(feedJsonPath)) {
             try {
                 const feedData = JSON.parse(fs.readFileSync(feedJsonPath, 'utf-8'));
-                existingArticles = feedData.items || [];
-                log('info', `Loaded ${existingArticles.length} existing articles from feed.json`);
+                const rawArticles = feedData.items || [];
+                // Filter out corrupted articles (those with empty URLs or invalid data)
+                existingArticles = rawArticles.filter((a: any) => {
+                    const hasValidUrl = a.url && a.url.startsWith('http');
+                    const hasTitle = a.title && a.title.trim();
+                    return hasValidUrl && hasTitle;
+                });
+                const corruptedCount = rawArticles.length - existingArticles.length;
+                if (corruptedCount > 0) {
+                    log('info', `Filtered out ${corruptedCount} corrupted articles from existing feed`);
+                }
+                log('info', `Loaded ${existingArticles.length} valid existing articles from feed.json`);
             } catch (e) {
                 log('warn', 'Could not parse existing feed.json, starting fresh');
             }
@@ -311,18 +321,22 @@ function generateJSONFeed(items: NormalizedItem[]): object {
             name: "Woodmont Industrial Partners",
             url: "https://prcasley.github.io/Woodmont-Industrial-News-Briefing/"
         },
-        items: items.map(item => {
+        items: items.filter(item => {
+            // Only include items with valid links
+            return item.link && item.link.startsWith('http') && item.title;
+        }).map(item => {
             const category = item.category || 'relevant';
             
-            // Get image with fallback
+            // Generate unique hash from title for consistent fallback images
+            const titleHash = (item.title || '').split('').reduce((hash, char) => {
+                return ((hash << 5) - hash) + char.charCodeAt(0) | 0;
+            }, 0);
+            const uniqueSeed = Math.abs(titleHash).toString(36);
+            
+            // Get image with fallback based on title hash
             let imageUrl = item.image || item.thumbnailUrl || null;
-            if (!imageUrl && item.link) {
-                let hash = 0;
-                for (let i = 0; i < item.link.length; i++) {
-                    hash = ((hash << 5) - hash) + item.link.charCodeAt(i);
-                    hash = hash & hash;
-                }
-                imageUrl = `https://picsum.photos/seed/${Math.abs(hash).toString(36)}/640/360`;
+            if (!imageUrl) {
+                imageUrl = `https://picsum.photos/seed/${uniqueSeed}/640/360`;
             }
 
             // Extract author
@@ -332,24 +346,19 @@ function generateJSONFeed(items: NormalizedItem[]): object {
                             (typeof item.author === 'object' && (item.author as any).name) ? (item.author as any).name : '';
             }
 
-            // Get website domain
+            // Get website domain from link
             let websiteDomain = item.publisher || item.source || 'Unknown';
             try {
-                if (item.link) {
-                    const urlObj = new URL(item.link);
-                    websiteDomain = urlObj.hostname.replace(/^www\./, '');
-                }
+                const urlObj = new URL(item.link);
+                websiteDomain = urlObj.hostname.replace(/^www\./, '');
             } catch { /* keep original */ }
 
             const description = item.description || '';
             const summary = description ? (description.substring(0, 200) + (description.length > 200 ? '...' : '')) : '';
 
-            // Validate link
-            const validLink = item.link && item.link.startsWith('http') ? item.link : '';
-
             return {
-                id: item.id,
-                url: validLink,
+                id: item.id || uniqueSeed,
+                url: item.link,
                 title: item.title || 'Untitled',
                 content_html: description,
                 content_text: description,
@@ -357,12 +366,14 @@ function generateJSONFeed(items: NormalizedItem[]): object {
                 date_published: item.pubDate || new Date().toISOString(),
                 date_modified: item.fetchedAt || new Date().toISOString(),
                 image: imageUrl,
-                author: { name: authorName || websiteDomain },
+                author: { name: authorName || item.source || websiteDomain },
                 _source: {
                     name: item.source || 'Unknown',
                     website: websiteDomain,
-                    url: validLink
+                    url: item.link,
+                    feedName: item.source
                 },
+                category: category,
                 tags: [categoryLabels[category] || category, websiteDomain, ...(item.regions || [])]
             };
         })

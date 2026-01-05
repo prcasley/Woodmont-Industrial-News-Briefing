@@ -495,33 +495,48 @@
                 if (!response.ok) throw new Error('Failed to load feed.json');
                 
                 const data = await response.json();
-                allArticles = (data.items || []).map(item => {
-                    // Handle author
+                allArticles = (data.items || [])
+                    .filter(item => item.url && item.url.startsWith('http') && item.title) // Filter valid items
+                    .map(item => {
+                    // Handle author - prioritize author.name, then _source.feedName
                     let authorName = '';
                     if (item.author) {
                         authorName = typeof item.author === 'string' ? item.author : (item.author.name || '');
                     }
                     
-                    // Handle source
-                    let source = item._source?.website || item._source?.name || authorName || 'Unknown';
+                    // Handle source - use website domain from _source
+                    let source = item._source?.website || item._source?.name || 'Unknown';
+                    let feedName = item._source?.feedName || item._source?.name || source;
                     
-                    // Determine category from tags
-                    const firstTag = (item.tags && item.tags[0]) || '';
-                    const tagLower = firstTag.toLowerCase();
-                    let category = 'relevant';
-                    if (tagLower.includes('transaction')) category = 'transaction';
-                    else if (tagLower.includes('availab')) category = 'availabilities';
-                    else if (tagLower.includes('people')) category = 'people';
+                    // Use category directly if available, otherwise determine from tags
+                    let category = item.category || 'relevant';
+                    if (!item.category) {
+                        const firstTag = (item.tags && item.tags[0]) || '';
+                        const tagLower = firstTag.toLowerCase();
+                        if (tagLower.includes('transaction')) category = 'transaction';
+                        else if (tagLower.includes('availab')) category = 'availabilities';
+                        else if (tagLower.includes('people')) category = 'people';
+                    }
+                    
+                    // Generate unique image based on title hash if no image
+                    let imageUrl = item.image;
+                    if (!imageUrl) {
+                        const titleHash = (item.title || '').split('').reduce((hash, char) => {
+                            return ((hash << 5) - hash) + char.charCodeAt(0) | 0;
+                        }, 0);
+                        imageUrl = `https://picsum.photos/seed/${Math.abs(titleHash).toString(36)}/400/200`;
+                    }
                     
                     return {
                         title: item.title || 'Untitled',
-                        link: item.url || item.link || '#',
+                        link: item.url || '#',
                         description: item.content_text || item.content_html || item.summary || '',
                         source: source,
-                        author: authorName,
+                        feedName: feedName,
+                        author: authorName !== source ? authorName : '', // Don't show author if same as source
                         category: category,
-                        pubDate: item.date_published || item.pubDate || new Date().toISOString(),
-                        image: item.image || null
+                        pubDate: item.date_published || new Date().toISOString(),
+                        image: imageUrl
                     };
                 });
                 
@@ -592,21 +607,32 @@
                 });
                 
                 const categoryLabels = {
-                    'relevant': 'Relevant',
+                    'relevant': 'Macro/Industrial',
                     'transaction': 'Transaction',
                     'availabilities': 'Availability',
                     'people': 'People News'
+                };
+                
+                const categoryColors = {
+                    'relevant': 'background: #e0e7ff; color: #3730a3;',
+                    'transaction': 'background: #fef3c7; color: #92400e;',
+                    'availabilities': 'background: #d1fae5; color: #065f46;',
+                    'people': 'background: #f3e8ff; color: #6b21a8;'
                 };
                 
                 const description = article.description.length > 150 
                     ? article.description.substring(0, 150) + '...' 
                     : article.description;
                 
-                const imageUrl = article.image || `https://picsum.photos/seed/${encodeURIComponent(article.link)}/400/200`;
+                // Use the pre-computed image URL
+                const imageUrl = article.image;
+                
+                // Generate fallback seed from title for onerror
+                const fallbackSeed = Math.abs(article.title.split('').reduce((h, c) => ((h << 5) - h) + c.charCodeAt(0) | 0, 0)).toString(36);
                 
                 return `
                     <div class="article-card">
-                        <img src="${imageUrl}" alt="" class="article-image" onerror="this.src='https://picsum.photos/seed/${Math.random()}/400/200'">
+                        <img src="${imageUrl}" alt="" class="article-image" onerror="this.src='https://picsum.photos/seed/${fallbackSeed}x/400/200'">
                         <div class="article-content">
                             <div class="article-meta">
                                 <span class="badge badge-source">${article.source}</span>
@@ -618,7 +644,7 @@
                             <p class="article-description">${description}</p>
                             <div class="article-footer">
                                 <span>${dateStr}</span> · 
-                                <span class="badge badge-category">${categoryLabels[article.category] || 'Relevant'}</span>
+                                <span class="badge badge-category" style="${categoryColors[article.category] || ''}">${categoryLabels[article.category] || 'Relevant'}</span>
                                 <a href="${article.link}" target="_blank" rel="noopener" class="read-more" style="float: right;">Read more →</a>
                             </div>
                         </div>
