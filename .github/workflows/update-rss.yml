@@ -2,7 +2,6 @@ name: Update RSS Feed
 
 on:
   schedule:
-      # Run every 30 minutes during business hours (8 AM - 6 PM EST, Mon-Fri)
           - cron: '*/30 13-23 * * 1-5'
               - cron: '*/30 0-1 * * 2-6'
                 workflow_dispatch:
