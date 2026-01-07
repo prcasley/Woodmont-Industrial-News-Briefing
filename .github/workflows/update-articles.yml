@@ -31,7 +31,7 @@ jobs:
     - name: Build RSS feeds
       run: |
         echo "📰 Starting RSS feed build..."
-        npm run build-static || echo "⚠️ Build had some errors but continuing..."
+        npm run build-static
         echo "✅ Build step completed"
       env:
         NODE_ENV: production
