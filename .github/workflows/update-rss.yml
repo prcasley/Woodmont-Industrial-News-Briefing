@@ -1,5 +1,4 @@
 name: Update RSS Feed
-
 on:
   schedule:
       - cron: '*/30 13-23 * * 1-5'
@@ -31,19 +30,13 @@ on:
                                                                                                                 - name: Build RSS feed
                                                                                                                         run: npm run build-static
                                                                                                                         
-                                                                                                                              - name: Verify output
-                                                                                                                                      run: ls -la dist/
-                                                                                                                                      
-                                                                                                                                            - name: Configure git
-                                                                                                                                                    run: |
-                                                                                                                                                              git config --local user.email "action@github.com"
-                                                                                                                                                                        git config --local user.name "GitHub Action"
-                                                                                                                                                                        
-                                                                                                                                                                              - name: Commit and push changes
-                                                                                                                                                                                      run: |
-                                                                                                                                                                                                git add dist/
-                                                                                                                                                                                                          git commit -m "Update RSS feed content" || true
-                                                                                                                                                                                                                    git push
-                                                                                                                                                                                                                    
-                                                                                                                                                                                                                          - name: Report success
-                                                                                                                                                                                                                                  run: echo "RSS feed updated successfully"
+                                                                                                                              - name: Configure git
+                                                                                                                                      run: |
+                                                                                                                                                git config --local user.email "action@github.com"
+                                                                                                                                                          git config --local user.name "GitHub Action"
+                                                                                                                                                          
+                                                                                                                                                                - name: Commit and push changes
+                                                                                                                                                                        run: |
+                                                                                                                                                                                  git add dist/
+                                                                                                                                                                                            git commit -m "Update RSS feed content" || true
+                                                                                                                                                                                                      git push
