@@ -77,8 +77,9 @@ export async function buildStaticRSS(): Promise<void> {
         }
 
         // Create sets for deduplication - by ID AND by canonical URL
+        // Note: feed.json uses 'url', NormalizedItem uses 'link' - check both
         const existingGuids = new Set(existingArticles.map(a => a.id));
-        const existingUrls = new Set(existingArticles.map(a => normalizeUrlForDedupe(a.link || a.canonicalUrl || '')));
+        const existingUrls = new Set(existingArticles.map(a => normalizeUrlForDedupe(a.link || a.url || a.canonicalUrl || '')));
         log('info', `Loaded ${existingGuids.size} existing GUIDs and ${existingUrls.size} URLs for deduplication`);
 
         // === STEP 2: Fetch fresh articles ===
@@ -155,8 +156,9 @@ export async function buildStaticRSS(): Promise<void> {
         
         for (const article of existingArticles) {
             const normTitle = normalizeTitle(article.title || '');
-            const normUrl = normalizeUrlForDedupe(article.link || '');
-            
+            // feed.json uses 'url', NormalizedItem uses 'link' - check both
+            const normUrl = normalizeUrlForDedupe(article.link || article.url || '');
+
             if (!existingSeenTitles.has(normTitle) && !existingSeenUrls.has(normUrl)) {
                 existingSeenTitles.add(normTitle);
                 existingSeenUrls.add(normUrl);
