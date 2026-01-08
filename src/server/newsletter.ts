@@ -21,6 +21,12 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
             const title = it.title || 'Untitled';
 
             // Get source from multiple possible fields - NEVER show "Unknown"
+            const sourceData = (it as any)._source || {};
+            const sourceWebsite = sourceData.website || '';
+            const sourceName = sourceData.name && sourceData.name !== 'Unknown' ? sourceData.name : '';
+            const sourceFeedName = sourceData.feedName || '';
+
+            // Extract domain from URL as fallback
             const sourceUrl = it.link || '';
             let extractedDomain = '';
             try {
@@ -30,13 +36,19 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
             } catch (e) {
                 extractedDomain = '';
             }
-            const publisher = it.publisher || it.source || (it as any)._source?.name || (it as any)._source?.feedName || extractedDomain || 'Industry News';
+
+            // Priority: website domain > feedName > sourceName > extracted domain
+            const publisher = sourceWebsite || sourceFeedName || sourceName || it.publisher || it.source || extractedDomain || 'Industry News';
 
             const link = it.link || '#';
 
             // Get description from multiple possible fields - NEVER show "No description available"
-            const rawDescription = it.description || it.summary || (it as any).content_text || (it as any).content_html?.replace(/<[^>]*>/g, '') || '';
-            const description = rawDescription.trim() || `Read the full article about: ${title}`;
+            const rawDescription = (it.description && it.description.trim()) ||
+                                   (it.summary && it.summary.trim()) ||
+                                   ((it as any).content_text && (it as any).content_text.trim()) ||
+                                   ((it as any).content_html && (it as any).content_html.replace(/<[^>]*>/g, '').trim()) ||
+                                   '';
+            const description = rawDescription || `Click to read the full story: "${title}"`;
 
             // Create fuller description (250 characters for better context)
             const fullSummary = description.length > 250
@@ -203,14 +215,17 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
         }
 
         .article-title-header {
-            margin-bottom: 12px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            margin: -20px -20px 15px -20px;
+            padding: 15px 20px;
+            border-radius: 8px 8px 0 0;
         }
 
         .article-title {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 600;
-            color: #000000;
-            margin: 0 0 12px 0;
+            color: #ffffff;
+            margin: 0;
             line-height: 1.4;
         }
 
