@@ -19,13 +19,13 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
         if (!items || !items.length) return '<div class="empty-section">No updated information provided for this section.</div>';
         const safe = items.slice(0, 6).map((it: NormalizedItem) => {
             const title = it.title || 'Untitled';
-            const publisher = it.publisher || 'Unknown';
+            const publisher = it.publisher || it.source || 'Unknown';
             const link = it.link || '#';
             const description = it.description || 'No description available.';
 
-            // Create brief summary (first 150 characters)
-            const briefSummary = description.length > 150
-                ? description.substring(0, 150).replace(/\s+\S*$/, '') + '...'
+            // Create fuller description (250 characters for better context)
+            const fullSummary = description.length > 250
+                ? description.substring(0, 250).replace(/\s+\S*$/, '') + '...'
                 : description;
 
             // Get state/region from regions array
@@ -34,18 +34,28 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
             // Get category from category field (set by classification)
             const category = it.category || 'relevant';
 
+            // Generate "Why This Matters" context based on category
+            const relevanceContext: Record<string, string> = {
+                transactions: '💡 <strong>Impact:</strong> This transaction signals market activity and pricing trends in the industrial sector.',
+                availabilities: '💡 <strong>Impact:</strong> New availability in the market - potential opportunity for expansion or investment.',
+                people: '💡 <strong>Impact:</strong> Personnel moves can indicate market shifts and new business opportunities.',
+                relevant: '💡 <strong>Impact:</strong> Macro trend affecting industrial real estate fundamentals and investment decisions.'
+            };
+
+            const whyItMatters = relevanceContext[category] || relevanceContext['relevant'];
+
             // Clean up category names for display
             const categoryLabels: Record<string, string> = {
-                relevant: 'RELEVANT ARTICLES',
-                transaction: 'TRANSACTIONS',
-                availabilities: 'AVAILABILITIES',
+                relevant: 'MACRO TRENDS',
+                transactions: 'TRANSACTION',
+                availabilities: 'AVAILABILITY',
                 people: 'PEOPLE NEWS',
                 corporate: 'Corporate'
             };
 
-            const categoryDisplay = categoryLabels[category] || 'RELEVANT ARTICLES';
+            const categoryDisplay = categoryLabels[category] || 'RELEVANT';
 
-            // Create exactly 3 tags: state, category, source
+            // Create tags: state, category, source
             const tags = [
                 `<span class="badge badge-location">${state}</span>`,
                 `<span class="badge badge-category">${categoryDisplay}</span>`,
@@ -53,16 +63,24 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
             ].join(' ');
 
             return `<div class="article-card">
+                <div class="article-title-header">
+                    <h3 class="article-title">${title}</h3>
+                </div>
                 <div class="article-header">
                     ${tags}
                 </div>
-                <div class="article-content">${briefSummary}</div>
+                <div class="article-description">
+                    <p>${fullSummary}</p>
+                </div>
+                <div class="article-context">
+                    ${whyItMatters}
+                </div>
                 <div class="article-source">
-                    <a href="${link}" class="source-link" target="_blank">📖 Read Full Article – ${publisher}</a>
-                    <div class="action-buttons">
-                        <a href="#" class="action-btn">Track</a>
-                        <a href="#" class="action-btn">Share</a>
+                    <div class="source-info">
+                        <span class="source-label">📰 Source:</span>
+                        <span class="source-name">${publisher}</span>
                     </div>
+                    <a href="${link}" class="read-more-btn" target="_blank">Read Full Article →</a>
                 </div>
             </div>`;
         });
@@ -159,7 +177,7 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
             background: #f8f9fa;
             border-left: 4px solid #667eea;
             padding: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border-radius: 8px;
             transition: transform 0.2s, box-shadow 0.2s;
         }
@@ -169,11 +187,44 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
         }
 
+        .article-title-header {
+            margin-bottom: 12px;
+        }
+
+        .article-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e3c72;
+            margin: 0 0 12px 0;
+            line-height: 1.4;
+        }
+
         .article-header {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
+        }
+
+        .article-description {
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            font-size: 15px;
+        }
+
+        .article-description p {
+            margin: 0;
+        }
+
+        .article-context {
+            background: #fff8e1;
+            border-left: 3px solid #ffa726;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #555;
         }
 
         .badge {
@@ -205,51 +256,50 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
             color: #388e3c;
         }
 
-        .article-content {
-            color: #333;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
         .article-source {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #dee2e6;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 2px solid #e0e0e0;
         }
 
-        .source-link {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        .source-link:hover {
-            text-decoration: underline;
-        }
-
-        .action-buttons {
+        .source-info {
             display: flex;
+            align-items: center;
             gap: 8px;
         }
 
-        .action-btn {
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 11px;
-            text-decoration: none;
-            border: 1px solid #dee2e6;
+        .source-label {
+            font-size: 13px;
             color: #666;
-            transition: all 0.2s;
+            font-weight: 500;
         }
 
-        .action-btn:hover {
-            background: #667eea;
+        .source-name {
+            font-size: 14px;
+            color: #1e3c72;
+            font-weight: 600;
+        }
+
+        .read-more-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-color: #667eea;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 13px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-block;
+        }
+
+        .read-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            text-decoration: none;
+            color: white;
         }
 
         .highlight-box {
