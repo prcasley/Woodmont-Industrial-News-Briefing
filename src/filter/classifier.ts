@@ -266,22 +266,28 @@ function classifyArticleOriginal330(description: string, link: string, source?: 
         return { isRelevant: true, category: "relevant", score: 10, tier: 'A' };
     }
 
-    // SECTION 2: TRANSACTIONS - Sales or leases (including money-related terms)
+    // SECTION 2: TRANSACTIONS - Sales or leases (TIGHTENED to reduce false positives)
     const transactionKeywords = ["sells", "sold", "acquires", "acquired", "buys", "bought",
                                 "purchases", "purchased", "trades", "traded", "sale", "transaction",
-                                "lease", "leased", "rental", "rented", "financing", "funded",
-                                "loan", "investment", "capital", "equity", "debt", "mortgage",
-                                "closes on", "closed deal", "deal closed", "agreement", "contract"];
+                                "lease", "leased", "rental", "rented", "closes on", "closed deal",
+                                "deal closed"];
 
     const hasTransaction = containsAny(t, transactionKeywords);
 
-    // Check for money amounts - MORE LENIENT
-    const hasMoneyAmount = /\$[\d.,]+(?:million|m|billion|b|k|thousand)/i.test(t) ||
-                           /\d+(?:\s*million|\s*billion|\s*thousand|\s*k)/i.test(t) ||
-                           /price:\s*\$[\d.,]+/i.test(t) ||
-                           /sold for\s*\$[\d.,]+/i.test(t) || hasPriceSignals(t);
+    // Exclude non-real estate transactions (software, stocks, retail sales, etc.)
+    const nonRealEstateSignals = [
+        "stock", "shares", "equity stake", "software", "technology", "platform",
+        "retail sales", "consumer spending", "e-commerce sales", "holiday sales",
+        "revenue", "earnings", "profit", "valuation", "ipo", "merger"
+    ];
+    const isNonRealEstate = containsAny(t, nonRealEstateSignals);
 
-    if (hasTransaction && industrialFocus && (hasMoneyAmount || containsAny(t, CRE_INTENT_KEYWORDS))) {
+    // Check for money amounts
+    const hasMoneyAmount = /\$[\d.,]+(?:million|m|billion|b)\b/i.test(t) || hasPriceSignals(t);
+
+    // STRICTER: Must have transaction keyword + industrial focus + CRE intent + money/size + NOT non-real estate
+    if (hasTransaction && industrialFocus && containsAny(t, CRE_INTENT_KEYWORDS) &&
+        (hasMoneyAmount || hasSizeSignals(t)) && !isNonRealEstate) {
         // Check if meets size/price threshold (≥100K SF or ≥$25M)
         const size = extractSize(t);
         const price = extractPrice(t);
@@ -289,7 +295,7 @@ function classifyArticleOriginal330(description: string, link: string, source?: 
 
         return {
             isRelevant: true,
-            category: "transaction",
+            category: "transactions",
             score: meetsThreshold ? 9 : 6,
             tier: meetsThreshold ? 'A' : 'B'
         };

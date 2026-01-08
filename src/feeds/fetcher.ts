@@ -617,7 +617,9 @@ async function fetchRSSFeedImproved(feed: FeedConfig): Promise<FetchResult> {
                     status: 200,
                     fetchedAt: new Date().toISOString(),
                     topics: item.categories || [],
-                    category: item.categories?.join(', ') || '',
+                    category: Array.isArray(item.categories)
+                        ? item.categories.map(c => typeof c === 'string' ? c : c?._ || c?.name || '').filter(Boolean).join(', ')
+                        : '',
                     tier: 'C',
                     score: 0
                 };

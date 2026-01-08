@@ -307,5 +307,102 @@ export const RSS_FEEDS: FeedConfig[] = [
             type: FEED_TYPES.INDUSTRIAL_NEWS,
             timeout: 30000,
             headers: BROWSER_HEADERS
+},
+
+    // ============================================
+    // BROKERAGE RESEARCH & PREMIUM SOURCES
+    // ============================================
+
+    // CBRE - Investor Relations Press Releases (Direct)
+{
+      url: "https://ir.cbre.com/press-releases/rss",
+            name: "CBRE Press Releases",
+            region: "US",
+            source: "CBRE",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000,
+            headers: BROWSER_HEADERS
+},
+
+    // Bloomberg - Markets (Paywalled but RSS available)
+{
+      url: "https://feeds.bloomberg.com/markets/news.rss",
+            name: "Bloomberg Markets",
+            region: "US",
+            source: "Bloomberg",
+            type: FEED_TYPES.MACRO,
+            timeout: 30000,
+            headers: BROWSER_HEADERS
+},
+
+    // ============================================
+    // SITE SELECTION & INDUSTRIAL DEVELOPMENT
+    // ============================================
+
+    // Area Development - Master Feed (Site Selection, Economic Development)
+{
+      url: "https://www.areadevelopment.com/rss/rss.xml?t=5",
+            name: "Area Development Master",
+            region: "US",
+            source: "Area Development",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000,
+            headers: BROWSER_HEADERS
+},
+
+    // Area Development - News Items (Breaking CRE news)
+{
+      url: "https://www.areadevelopment.com/rss/NewsItems.xml?t=2",
+            name: "Area Development News",
+            region: "US",
+            source: "Area Development",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000,
+            headers: BROWSER_HEADERS
+},
+
+    // Inbound Logistics - Warehouse & Distribution Coverage
+{
+      url: "https://www.inboundlogistics.com/feed/",
+            name: "Inbound Logistics",
+            region: "US",
+            source: "Inbound Logistics",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000,
+            headers: BROWSER_HEADERS
+},
+
+    // ============================================
+    // REGIONAL BROKERAGE FIRMS
+    // ============================================
+
+    // NAI Keystone - PA Regional Brokerage
+{
+      url: "https://naikeystone.com/feed/",
+            name: "NAI Keystone",
+            region: "PA",
+            source: "NAI Keystone",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000,
+            headers: BROWSER_HEADERS
+},
+
+    // NAI Platform - National Brokerage Network
+{
+      url: "https://naiplatform.com/feed/",
+            name: "NAI Platform",
+            region: "US",
+            source: "NAI Platform",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000,
+            headers: BROWSER_HEADERS
 }
+
+    // NOTE: JLL, Cushman & Wakefield, Colliers brokerage feeds
+    // - No public RSS feeds available from IR sites (403/404 errors)
+    // - ConnectCRE company feeds blocked by Cloudflare in automated mode
+    // - Alternative: Email ingestion or manual monitoring of:
+    //   * ir.jll.com/news-releases
+    //   * ir.cushmanwakefield.com/news
+    //   * corporate.colliers.com/news
 ];

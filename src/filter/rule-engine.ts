@@ -140,13 +140,18 @@ export async function classifyArticleWithRules(
               }
       }
 
-      // TRANSACTIONS (Deals, Sales, Leases)
+      // TRANSACTIONS (Deals, Sales, Leases) - TIGHTENED to reduce false positives
       const transactionScore = scoreKeywords(
               text,
-              ['sells', 'sold', 'acquires', 'acquired', 'lease', 'leased', 'sale', 'transaction'],
+              ['sells', 'sold', 'acquires', 'acquired', 'lease', 'leased', 'sale', 'transaction', 'closes on', 'closed deal'],
               1
             );
-          if (transactionScore > 0 && (hasPriceSignals(text) || hasSizeSignals(text))) {
+
+      // Exclude non-real estate transactions
+      const nonRealEstateSignals = ['stock', 'shares', 'software', 'technology', 'retail sales', 'consumer spending', 'revenue', 'earnings'];
+      const hasNonRealEstate = nonRealEstateSignals.some(signal => text.includes(signal));
+
+      if (transactionScore > 0 && !hasNonRealEstate && industrialScore > 0 && creScore > 0 && (hasPriceSignals(text) || hasSizeSignals(text))) {
                   const txScore = transactionScore + (hasPriceSignals(text) ? 2 : 0) + (hasSizeSignals(text) ? 2 : 0);
                   if (txScore > bestMatch.score) {
                             bestMatch = {
