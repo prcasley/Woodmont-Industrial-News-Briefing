@@ -19,9 +19,24 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
         if (!items || !items.length) return '<div class="empty-section">No updated information provided for this section.</div>';
         const safe = items.slice(0, 6).map((it: NormalizedItem) => {
             const title = it.title || 'Untitled';
-            const publisher = it.publisher || it.source || 'Unknown';
+
+            // Get source from multiple possible fields - NEVER show "Unknown"
+            const sourceUrl = it.link || '';
+            let extractedDomain = '';
+            try {
+                if (sourceUrl) {
+                    extractedDomain = new URL(sourceUrl).hostname.replace('www.', '');
+                }
+            } catch (e) {
+                extractedDomain = '';
+            }
+            const publisher = it.publisher || it.source || (it as any)._source?.name || (it as any)._source?.feedName || extractedDomain || 'Industry News';
+
             const link = it.link || '#';
-            const description = it.description || 'No description available.';
+
+            // Get description from multiple possible fields - NEVER show "No description available"
+            const rawDescription = it.description || it.summary || (it as any).content_text || (it as any).content_html?.replace(/<[^>]*>/g, '') || '';
+            const description = rawDescription.trim() || `Read the full article about: ${title}`;
 
             // Create fuller description (250 characters for better context)
             const fullSummary = description.length > 250
@@ -194,7 +209,7 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
         .article-title {
             font-size: 18px;
             font-weight: 600;
-            color: #1e3c72;
+            color: #000000;
             margin: 0 0 12px 0;
             line-height: 1.4;
         }
