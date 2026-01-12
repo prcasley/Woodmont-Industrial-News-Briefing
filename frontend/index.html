@@ -115,7 +115,10 @@
       const period = (() => {
         const days = parseInt(timeframe, 10);
         if (days === 1) return "Last 24 Hours";
+        if (days === 2) return "Last 48 Hours";
+        if (days === 3) return "Last 3 Days";
         if (days === 7) return "Last 7 Days";
+        if (days === 14) return "Last 14 Days";
         if (days === 30) return "Last 30 Days";
         if (days === 90) return "Last 90 Days";
         if (days === 180) return "Last 6 Months";
@@ -196,6 +199,7 @@
               onChange={(e) => setTimeframe(e.target.value)}
             >
               <option value="1">Last 24 hours</option>
+              <option value="2">Last 48 hours</option>
               <option value="3">Last 3 days</option>
               <option value="7">Last 7 days</option>
               <option value="14">Last 14 days</option>
@@ -838,6 +842,7 @@
                     onChange={(e) => setTimeframe(e.target.value)}
                   >
                     <option value="1">Last 24 hours</option>
+                    <option value="2">Last 48 hours</option>
                     <option value="3">Last 3 days</option>
                     <option value="7">Last 7 days</option>
                     <option value="14">Last 14 days</option>
@@ -933,7 +938,7 @@
       const [theme, setTheme] = useState("light");
       const [newsletterHTML, setNewsletterHTML] = useState("");
       const [newsletterGenerated, setNewsletterGenerated] = useState(false);
-      const [newsletterTimeframe, setNewsletterTimeframe] = useState("7");
+      const [newsletterTimeframe, setNewsletterTimeframe] = useState("1");
       const [newsletterRecipients, setNewsletterRecipients] = useState("");
       const [refreshLoading, setRefreshLoading] = useState(false);
       const [lastFetchInfo, setLastFetchInfo] = useState(null);
@@ -1045,30 +1050,55 @@
         const now = new Date();
         const startDate = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
         const dateRange = `${startDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} – ${now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })} (ET)`;
-        
+
         const relevant = articles.filter(a => a.category === 'relevant').slice(0, 6);
         const transactions = articles.filter(a => a.category === 'transaction').slice(0, 5);
         const availabilities = articles.filter(a => a.category === 'availabilities').slice(0, 5);
         const people = articles.filter(a => a.category === 'people').slice(0, 5);
-        
-        const renderArticle = (item) => {
+
+        // Industrial relevance context based on category
+        const relevanceContext = {
+          transaction: 'This transaction signals market activity and pricing trends in the industrial sector.',
+          availabilities: 'New availability in the market - potential opportunity for expansion or investment.',
+          people: 'Personnel moves can indicate market shifts and new business opportunities.',
+          relevant: 'Macro trend affecting industrial real estate fundamentals and investment decisions.'
+        };
+
+        const renderArticle = (item, category) => {
           const region = item.regions?.[0] || 'US';
-          const desc = (item.description || '').substring(0, 150) + '...';
+          const title = item.title || 'Untitled';
+          const desc = (item.description || '').substring(0, 200) + (item.description?.length > 200 ? '...' : '');
+          const whyItMatters = relevanceContext[category] || relevanceContext.relevant;
+          const source = item.source || 'Industry News';
+
           return `<div class="article-card">
+            <div class="article-title-header">
+              <h3 class="article-title">${title}</h3>
+            </div>
             <div class="article-header">
               <span class="badge badge-location">${region}</span>
-              <span class="badge badge-source">${item.source || 'Unknown'}</span>
+              <span class="badge badge-category">${category.toUpperCase()}</span>
+              <span class="badge badge-source">${source}</span>
             </div>
-            <div class="article-content">${desc}</div>
+            <div class="article-description">
+              <p>${desc}</p>
+            </div>
+            <div class="article-context">
+              <strong>Why This Relates to Industrial News:</strong> ${whyItMatters}
+            </div>
             <div class="article-source">
-              <a href="${item.link}" class="source-link" target="_blank">📖 Read Full Article – ${item.source || 'Source'}</a>
+              <div class="source-info">
+                <span class="source-label">Source:</span>
+                <span class="source-name">${source}</span>
+              </div>
+              <a href="${item.link}" class="read-more-btn" target="_blank">Read Full Article →</a>
             </div>
           </div>`;
         };
         
-        const renderSection = (title, icon, items) => {
-          const content = items.length > 0 
-            ? items.map(renderArticle).join('') 
+        const renderSection = (title, icon, items, category) => {
+          const content = items.length > 0
+            ? items.map(item => renderArticle(item, category)).join('')
             : '<div class="empty-section">No articles available for this section.</div>';
           return `<div class="section">
             <div class="section-header">
@@ -1091,12 +1121,21 @@
           .section-icon{width:40px;height:40px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-right:15px;font-size:20px}
           .section-title{font-size:20px;color:#1e3c72;font-weight:600}
           .article-card{background:#f8f9fa;border-left:4px solid #667eea;padding:20px;margin-bottom:15px;border-radius:8px}
+          .article-title-header{background:linear-gradient(135deg,#1e3c72,#2a5298);margin:-20px -20px 15px -20px;padding:15px 20px;border-radius:8px 8px 0 0}
+          .article-title{font-size:16px;font-weight:600;color:#fff;margin:0;line-height:1.4}
           .article-header{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-          .badge{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;text-transform:uppercase}
-          .badge-location{background:#e3f2fd;color:#1976d2}.badge-source{background:#e8f5e9;color:#388e3c}
-          .article-content{color:#333;line-height:1.6;margin-bottom:10px}
-          .article-source{margin-top:12px;padding-top:12px;border-top:1px solid #dee2e6}
-          .source-link{color:#667eea;text-decoration:none;font-weight:500;font-size:14px}
+          .badge{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase}
+          .badge-location{background:#e3f2fd;color:#1976d2}
+          .badge-category{background:#f3e5f5;color:#7b1fa2}
+          .badge-source{background:#e8f5e9;color:#388e3c}
+          .article-description{color:#333;line-height:1.6;margin-bottom:12px;font-size:14px}
+          .article-description p{margin:0}
+          .article-context{background:#fff8e1;border-left:3px solid #ffa726;padding:10px 14px;margin-bottom:12px;border-radius:4px;font-size:13px;color:#555}
+          .article-source{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid #dee2e6}
+          .source-info{display:flex;align-items:center;gap:6px}
+          .source-label{font-size:12px;color:#666}
+          .source-name{font-size:13px;color:#1e3c72;font-weight:600}
+          .read-more-btn{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:500;font-size:13px}
           .empty-section{background:#f8f9fa;padding:20px;border-radius:8px;text-align:center;color:#666;font-style:italic}
           .footer{background:#f8f9fa;padding:25px 30px;text-align:center;color:#666;font-size:14px;border-top:1px solid #dee2e6}
         </style></head><body><div class="container">
@@ -1107,10 +1146,10 @@
             <div class="date-range">Focus Markets: NJ, PA, FL, TX</div>
           </div>
           <div class="content">
-            ${renderSection('RELEVANT ARTICLES — Macro Trends & Industrial Real Estate News', '📰', relevant)}
-            ${renderSection('TRANSACTIONS — Notable Sales/Leases (≥100K SF or ≥$25M)', '💼', transactions)}
-            ${renderSection('AVAILABILITIES — New Industrial Properties for Sale/Lease', '🏢', availabilities)}
-            ${renderSection('PEOPLE NEWS — Personnel Moves in Industrial Brokerage/Development', '👥', people)}
+            ${renderSection('RELEVANT ARTICLES — Macro Trends & Industrial Real Estate News', '📰', relevant, 'relevant')}
+            ${renderSection('TRANSACTIONS — Notable Sales/Leases (≥100K SF or ≥$25M)', '💼', transactions, 'transaction')}
+            ${renderSection('AVAILABILITIES — New Industrial Properties for Sale/Lease', '🏢', availabilities, 'availabilities')}
+            ${renderSection('PEOPLE NEWS — Personnel Moves in Industrial Brokerage/Development', '👥', people, 'people')}
           </div>
           <div class="footer">
             <strong>Woodmont Industrial Partners</strong><br>
