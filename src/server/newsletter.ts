@@ -4,8 +4,17 @@ import { NormalizedItem } from '../types/index.js';
 export function buildBriefing({ relevant = [], transactions = [], availabilities = [], people = [] }: { relevant?: NormalizedItem[]; transactions?: NormalizedItem[]; availabilities?: NormalizedItem[]; people?: NormalizedItem[] }, period: string = "Current Period") {
     // Calculate date range for the header
     const now = new Date();
-    const daysAgo = period.includes('day') ? parseInt(period.split(' ')[0]) : 7;
-    const startDate = new Date(now.getTime() - daysAgo * 24 * 60 * 60 * 1000);
+
+    // Parse period - supports "48 hours", "7 days", etc.
+    let hoursBack = 48; // default 48 hours
+    const periodNum = parseInt(period.split(' ')[0]) || 48;
+    if (period.includes('day')) {
+        hoursBack = periodNum * 24;
+    } else if (period.includes('hour')) {
+        hoursBack = periodNum;
+    }
+
+    const startDate = new Date(now.getTime() - hoursBack * 60 * 60 * 1000);
     const dateRange = `${startDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} – ${now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })} (ET)`;
 
     const sections = [
