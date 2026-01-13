@@ -152,27 +152,29 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
         }
 
         .header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
+            background-color: #1e3c72;
+            color: #1e3c72;
             padding: 40px 30px;
             text-align: center;
+            border-bottom: 4px solid #667eea;
         }
 
         .header h1 {
             font-size: 28px;
             margin-bottom: 10px;
+            color: #1e3c72;
         }
 
         .header .subtitle {
             font-size: 16px;
-            opacity: 0.9;
             margin-bottom: 8px;
+            color: #2a5298;
         }
 
         .header .date-range {
             font-size: 14px;
-            opacity: 0.8;
             font-style: italic;
+            color: #4a6fa5;
         }
 
         .content {
@@ -224,16 +226,17 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
         }
 
         .article-title-header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background-color: #e8eef7;
             margin: -20px -20px 15px -20px;
             padding: 15px 20px;
             border-radius: 8px 8px 0 0;
+            border-bottom: 2px solid #667eea;
         }
 
         .article-title {
             font-size: 17px;
             font-weight: 600;
-            color: #ffffff;
+            color: #1e3c72;
             margin: 0;
             line-height: 1.4;
         }
