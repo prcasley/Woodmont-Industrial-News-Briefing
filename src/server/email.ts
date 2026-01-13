@@ -48,6 +48,8 @@ export async function sendEmail(to: string[], subject: string, html: string): Pr
 
 /**
  * Send daily newsletter with categorized articles
+ * - Monday-Thursday: 48 hours coverage
+ * - Friday: 7 days (weekly recap)
  */
 export async function sendDailyNewsletter(): Promise<boolean> {
     try {
@@ -71,14 +73,25 @@ export async function sendDailyNewsletter(): Promise<boolean> {
 
         console.log(`📊 Total articles loaded: ${allArticles.length}`);
 
-        // Filter for recent articles (last 24 hours)
-        const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+        // Determine coverage period based on day of week
+        // Friday (day 5) = 7 days weekly recap, otherwise 48 hours
+        const today = new Date();
+        const dayOfWeek = today.getDay();
+        const isFriday = dayOfWeek === 5;
+
+        const hoursBack = isFriday ? 7 * 24 : 48; // 7 days on Friday, 48 hours otherwise
+        const periodLabel = isFriday ? '7 days' : '48 hours';
+
+        console.log(`📅 Today is ${['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][dayOfWeek]}, using ${periodLabel} coverage`);
+
+        // Filter for recent articles based on coverage period
+        const cutoffDate = new Date(Date.now() - hoursBack * 60 * 60 * 1000);
         const recentArticles = allArticles.filter(article => {
             const pubDate = new Date(article.pubDate || article.date_published || 0);
-            return pubDate >= oneDayAgo;
+            return pubDate >= cutoffDate;
         });
 
-        console.log(`📅 Articles from last 24 hours: ${recentArticles.length}`);
+        console.log(`📅 Articles from last ${periodLabel}: ${recentArticles.length}`);
 
         // Categorize articles
         const transactions = recentArticles.filter(a => a.category === 'transactions');
@@ -98,7 +111,7 @@ export async function sendDailyNewsletter(): Promise<boolean> {
             availabilities,
             relevant,
             people
-        }, '24 hours');
+        }, periodLabel);
 
         // Get recipient email addresses
         const emailTo = process.env.EMAIL_TO || '';
