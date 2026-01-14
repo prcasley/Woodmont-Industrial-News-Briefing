@@ -73,18 +73,33 @@ export async function sendDailyNewsletter(): Promise<boolean> {
 
         console.log(`📊 Total articles loaded: ${allArticles.length}`);
 
-        // Determine coverage period based on day of week
-        // Friday (day 5) = 7 days weekly recap, otherwise 48 hours
         const today = new Date();
         const dayOfWeek = today.getDay();
-        const isFriday = dayOfWeek === 5;
+        console.log(`📅 Today is ${['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][dayOfWeek]}`);
 
-        const hoursBack = isFriday ? 7 * 24 : 48; // 7 days on Friday, 48 hours otherwise
-        const periodLabel = isFriday ? '7 days' : '48 hours';
+        // First, try 24 hours coverage
+        const cutoff24h = new Date(Date.now() - 24 * 60 * 60 * 1000);
+        const articles24h = allArticles.filter(article => {
+            const pubDate = new Date(article.pubDate || article.date_published || 0);
+            return pubDate >= cutoff24h;
+        });
 
-        console.log(`📅 Today is ${['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][dayOfWeek]}, using ${periodLabel} coverage`);
+        // Count relevant articles in last 24 hours
+        const relevant24h = articles24h.filter(a => a.category === 'relevant');
+        console.log(`📊 Relevant articles in last 24 hours: ${relevant24h.length}`);
 
-        // Filter for recent articles based on coverage period
+        // If 3 or fewer relevant articles, expand to 48 hours
+        const needsMoreContent = relevant24h.length <= 3;
+        const hoursBack = needsMoreContent ? 48 : 24;
+        const periodLabel = needsMoreContent ? '48 hours' : '24 hours';
+
+        if (needsMoreContent) {
+            console.log(`📈 Only ${relevant24h.length} relevant articles in 24h - expanding to 48 hours`);
+        } else {
+            console.log(`✅ ${relevant24h.length} relevant articles in 24h - using 24 hour coverage`);
+        }
+
+        // Filter for recent articles based on determined coverage period
         const cutoffDate = new Date(Date.now() - hoursBack * 60 * 60 * 1000);
         const recentArticles = allArticles.filter(article => {
             const pubDate = new Date(article.pubDate || article.date_published || 0);
