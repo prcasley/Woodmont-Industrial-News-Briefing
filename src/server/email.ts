@@ -111,8 +111,39 @@ export async function sendDailyNewsletter(): Promise<boolean> {
         // Categorize articles
         const transactions = recentArticles.filter(a => a.category === 'transactions');
         const availabilities = recentArticles.filter(a => a.category === 'availabilities');
-        const relevant = recentArticles.filter(a => a.category === 'relevant');
+        let relevant = recentArticles.filter(a => a.category === 'relevant');
         const people = recentArticles.filter(a => a.category === 'people');
+
+        // Target regions for strict filtering
+        const targetRegions = ['NJ', 'NY', 'PA', 'TX', 'FL', 'New Jersey', 'New York', 'Pennsylvania', 'Texas', 'Florida'];
+
+        // Helper to check if article is in target regions
+        const isTargetRegion = (article: NormalizedItem): boolean => {
+            // Check regions array
+            if (article.regions && article.regions.length > 0) {
+                return article.regions.some(r =>
+                    targetRegions.some(tr => r.toUpperCase().includes(tr.toUpperCase()))
+                );
+            }
+            // Check title and description for region mentions
+            const text = `${article.title || ''} ${article.description || ''} ${article.summary || ''}`.toUpperCase();
+            return targetRegions.some(r => text.includes(r.toUpperCase()));
+        };
+
+        // If 5+ relevant articles, apply strict regional filter for industrial news
+        if (relevant.length >= 5) {
+            const filteredRelevant = relevant.filter(isTargetRegion);
+            console.log(`🎯 5+ relevant articles (${relevant.length}) - applying regional filter (NJ, NY, PA, TX, FL)`);
+            console.log(`   Filtered from ${relevant.length} to ${filteredRelevant.length} regional articles`);
+            // Only apply filter if we still have at least 3 articles after filtering
+            if (filteredRelevant.length >= 3) {
+                relevant = filteredRelevant;
+            } else {
+                console.log(`   ⚠️ Too few regional articles (${filteredRelevant.length}), keeping all ${relevant.length}`);
+            }
+        } else {
+            console.log(`📰 Fewer than 5 relevant articles (${relevant.length}) - keeping all without regional filter`);
+        }
 
         console.log('📋 Article breakdown:');
         console.log(`  - Transactions: ${transactions.length}`);
