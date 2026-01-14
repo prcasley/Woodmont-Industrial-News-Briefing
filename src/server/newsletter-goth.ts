@@ -37,7 +37,7 @@ export function buildGothBriefing(
     const startDate = new Date(now.getTime() - hoursBack * 60 * 60 * 1000);
     const dateRange = `${startDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} – ${now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`;
 
-    // Helper to format a single bullet item - ultra clean (Option A/B/C combined)
+    // Helper to format a single bullet item - executive dark theme with full details
     const formatBullet = (item: NormalizedItem): string => {
         const title = item.title || 'Untitled';
         const url = (item as any).url || item.link || '#';
@@ -46,14 +46,23 @@ export function buildGothBriefing(
         const sourceData = (item as any)._source || {};
         const source = sourceData.website || sourceData.name || '';
 
-        // Truncate title to ~100 chars
-        const shortTitle = title.length > 100 ? title.substring(0, 97).replace(/\s+\S*$/, '') + '...' : title;
+        // Get description - full context for executive summary
+        const rawDescription = (item.description && item.description.trim()) ||
+                               (item.summary && item.summary.trim()) ||
+                               ((item as any).content_text && (item as any).content_text.trim()) || '';
 
-        return `<li style="margin-bottom: 10px; line-height: 1.6; color: #333;">
-            <strong>${shortTitle}</strong>
-            <br>
-            <span style="font-size: 13px;">→ <a href="${url}" style="color: #1e3c72; text-decoration: none;">Read at ${source || 'source'}</a></span>
-            <span style="font-size: 11px; color: #999; margin-left: 10px;">[Track] [Share] [Ignore]</span>
+        // Show up to 180 chars of description for executive context
+        const description = rawDescription.length > 180
+            ? rawDescription.substring(0, 177).replace(/\s+\S*$/, '') + '...'
+            : rawDescription;
+
+        return `<li style="margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid #3a3a3a; list-style: none;">
+            <a href="${url}" style="color: #ffffff; text-decoration: none; font-weight: 600; font-size: 15px; line-height: 1.4; display: block;">${title}</a>
+            ${description ? `<p style="margin: 8px 0 0 0; color: #b0b0b0; font-size: 13px; line-height: 1.5;">${description}</p>` : ''}
+            <div style="margin-top: 8px;">
+                <a href="${url}" style="color: #4a9eff; text-decoration: none; font-size: 12px;">Read at ${source || 'source'} →</a>
+                <span style="font-size: 11px; color: #666; margin-left: 12px;">[Track] [Share] [Ignore]</span>
+            </div>
         </li>`;
     };
 
@@ -66,23 +75,23 @@ export function buildGothBriefing(
         return `<ul style="margin: 0; padding-left: 20px; list-style-type: disc;">${bullets.join('')}</ul>`;
     };
 
-    // Week-in-Review for Fridays (top 5 across all categories)
+    // Week-in-Review for Fridays (top 5 across all categories) - Dark theme
     const weekInReview = isFriday ? (() => {
         const allItems = [...relevant, ...transactions, ...availabilities, ...people];
         const top5 = allItems.slice(0, 5);
         if (top5.length === 0) return '';
 
         return `
-        <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #1e3c72;">
-            <h2 style="color: #1e3c72; font-size: 18px; margin-bottom: 15px; font-weight: 600;">
-                📊 WEEK-IN-REVIEW — Top 5 Developments
+        <div style="margin-top: 30px; padding-top: 25px; border-top: 2px solid #4a9eff;">
+            <h2 style="color: #4a9eff; font-size: 12px; margin: 0 0 15px 0; font-weight: 600; letter-spacing: 1px;">
+                WEEK-IN-REVIEW — TOP 5 DEVELOPMENTS
             </h2>
-            <ol style="margin: 0; padding-left: 20px;">
+            <ol style="margin: 0; padding-left: 20px; color: #888;">
                 ${top5.map((item, i) => {
                     const title = item.title || 'Untitled';
                     const url = (item as any).url || item.link || '#';
-                    return `<li style="margin-bottom: 10px; line-height: 1.5;">
-                        <a href="${url}" style="color: #1e3c72; text-decoration: none;">${title.length > 100 ? title.substring(0, 97) + '...' : title}</a>
+                    return `<li style="margin-bottom: 12px; line-height: 1.5;">
+                        <a href="${url}" style="color: #ffffff; text-decoration: none; font-weight: 500;">${title}</a>
                     </li>`;
                 }).join('')}
             </ol>
@@ -96,55 +105,65 @@ export function buildGothBriefing(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Woodmont Industrial Daily Briefing</title>
 </head>
-<body style="font-family: Arial, Helvetica, sans-serif; background-color: #ffffff; margin: 0; padding: 20px; color: #333;">
-    <div style="max-width: 600px; margin: 0 auto;">
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #1a1a1a; margin: 0; padding: 30px 20px; color: #e0e0e0;">
+    <div style="max-width: 640px; margin: 0 auto; background-color: #242424; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
 
-        <!-- Header - Simple text -->
-        <div style="border-bottom: 2px solid #1e3c72; padding-bottom: 15px; margin-bottom: 20px;">
-            <h1 style="margin: 0; font-size: 20px; color: #1e3c72; font-weight: 700;">WOODMONT INDUSTRIAL PARTNERS</h1>
-            <p style="margin: 5px 0 0 0; font-size: 14px; color: #666;">Daily Briefing | ${dateRange}</p>
-            <p style="margin: 3px 0 0 0; font-size: 12px; color: #888;">Focus Markets: NJ, PA, TX, FL</p>
+        <!-- Header - Dark Executive -->
+        <div style="background-color: #1a1a1a; padding: 30px; border-bottom: 1px solid #333;">
+            <h1 style="margin: 0; font-size: 22px; color: #ffffff; font-weight: 300; letter-spacing: 2px;">WOODMONT INDUSTRIAL</h1>
+            <p style="margin: 8px 0 0 0; font-size: 13px; color: #4a9eff; font-weight: 500; letter-spacing: 1px;">EXECUTIVE DAILY BRIEFING</p>
+            <p style="margin: 12px 0 0 0; font-size: 12px; color: #888;">${dateRange}</p>
+            <p style="margin: 4px 0 0 0; font-size: 11px; color: #666;">Focus: NJ • PA • TX • FL</p>
         </div>
 
-        <!-- Section 1: Relevant Articles -->
-        <div style="margin-bottom: 20px;">
-            <h2 style="color: #1e3c72; font-size: 14px; margin: 0 0 10px 0; font-weight: 700; text-transform: uppercase;">
-                Relevant Articles — Macro Trends & Industrial News
-            </h2>
-            ${renderSection(relevant, 6)}
+        <!-- Content -->
+        <div style="padding: 25px 30px;">
+
+            <!-- Section 1: Relevant Articles -->
+            <div style="margin-bottom: 30px;">
+                <h2 style="color: #4a9eff; font-size: 12px; margin: 0 0 15px 0; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 8px;">
+                    RELEVANT ARTICLES
+                </h2>
+                <p style="margin: 0 0 12px 0; font-size: 11px; color: #666;">Macro Trends & Industrial News</p>
+                <ul style="margin: 0; padding: 0;">${renderSection(relevant, 6)}</ul>
+            </div>
+
+            <!-- Section 2: Transactions -->
+            <div style="margin-bottom: 30px;">
+                <h2 style="color: #4a9eff; font-size: 12px; margin: 0 0 15px 0; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 8px;">
+                    TRANSACTIONS
+                </h2>
+                <p style="margin: 0 0 12px 0; font-size: 11px; color: #666;">Sales & Leases ≥100K SF / ≥$25M</p>
+                <ul style="margin: 0; padding: 0;">${renderSection(transactions, 6)}</ul>
+            </div>
+
+            <!-- Section 3: Availabilities -->
+            <div style="margin-bottom: 30px;">
+                <h2 style="color: #4a9eff; font-size: 12px; margin: 0 0 15px 0; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 8px;">
+                    AVAILABILITIES
+                </h2>
+                <p style="margin: 0 0 12px 0; font-size: 11px; color: #666;">Industrial Properties for Sale/Lease</p>
+                <ul style="margin: 0; padding: 0;">${renderSection(availabilities, 6)}</ul>
+            </div>
+
+            <!-- Section 4: People News -->
+            <div style="margin-bottom: 20px;">
+                <h2 style="color: #4a9eff; font-size: 12px; margin: 0 0 15px 0; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 8px;">
+                    PEOPLE NEWS
+                </h2>
+                <p style="margin: 0 0 12px 0; font-size: 11px; color: #666;">Personnel Moves in Industrial</p>
+                <ul style="margin: 0; padding: 0;">${renderSection(people, 6)}</ul>
+            </div>
+
+            ${weekInReview}
+
         </div>
 
-        <!-- Section 2: Transactions -->
-        <div style="margin-bottom: 20px;">
-            <h2 style="color: #1e3c72; font-size: 14px; margin: 0 0 10px 0; font-weight: 700; text-transform: uppercase;">
-                Transactions — Sales & Leases (≥100K SF / ≥$25M)
-            </h2>
-            ${renderSection(transactions, 6)}
-        </div>
-
-        <!-- Section 3: Availabilities -->
-        <div style="margin-bottom: 20px;">
-            <h2 style="color: #1e3c72; font-size: 14px; margin: 0 0 10px 0; font-weight: 700; text-transform: uppercase;">
-                Availabilities — Properties for Sale/Lease
-            </h2>
-            ${renderSection(availabilities, 6)}
-        </div>
-
-        <!-- Section 4: People News -->
-        <div style="margin-bottom: 20px;">
-            <h2 style="color: #1e3c72; font-size: 14px; margin: 0 0 10px 0; font-weight: 700; text-transform: uppercase;">
-                People News — Personnel Moves
-            </h2>
-            ${renderSection(people, 6)}
-        </div>
-
-        ${weekInReview}
-
-        <!-- Footer - Simple -->
-        <div style="border-top: 1px solid #ddd; padding-top: 15px; margin-top: 20px; text-align: center;">
-            <p style="margin: 0; font-size: 11px; color: #888;">
-                Woodmont Industrial Partners | Confidential<br>
-                © ${now.getFullYear()}
+        <!-- Footer - Minimal Dark -->
+        <div style="background-color: #1a1a1a; padding: 20px 30px; text-align: center; border-top: 1px solid #333;">
+            <p style="margin: 0; font-size: 10px; color: #555; letter-spacing: 1px;">
+                WOODMONT INDUSTRIAL PARTNERS<br>
+                <span style="color: #444;">Confidential & Proprietary © ${now.getFullYear()}</span>
             </p>
         </div>
 
