@@ -3,6 +3,7 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { NormalizedItem } from '../types/index.js';
 import { buildBriefing } from './newsletter.js';
+import { buildGothBriefing } from './newsletter-goth.js';
 
 // Send email using NodeMailer
 export async function sendEmail(to: string[], subject: string, html: string): Promise<boolean> {
@@ -287,6 +288,129 @@ export async function sendWeeklyNewsletter(): Promise<boolean> {
         return success;
     } catch (error) {
         console.error('❌ Error in sendWeeklyNewsletter:', error);
+        return false;
+    }
+}
+
+/**
+ * Send "Goth" daily newsletter - stripped down, boss-approved format
+ * Clean, scannable, bullet-point focused
+ */
+export async function sendDailyNewsletterGoth(): Promise<boolean> {
+    try {
+        console.log('📧 Preparing Goth daily briefing (stripped-down format)...');
+
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = path.dirname(__filename);
+
+        const feedPath = path.join(__dirname, '../../docs/feed.json');
+        console.log('📂 Loading articles from:', feedPath);
+
+        if (!fs.existsSync(feedPath)) {
+            console.error('❌ Feed file not found:', feedPath);
+            return false;
+        }
+
+        const feedData = JSON.parse(fs.readFileSync(feedPath, 'utf-8'));
+        const allArticles: NormalizedItem[] = feedData.items || [];
+
+        console.log(`📊 Total articles loaded: ${allArticles.length}`);
+
+        const today = new Date();
+        const dayOfWeek = today.getDay();
+        const isFriday = dayOfWeek === 5;
+
+        console.log(`📅 Today is ${['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][dayOfWeek]}`);
+
+        // Target regions - strict focus on NJ, PA, TX, FL
+        const targetRegions = ['NJ', 'NY', 'PA', 'TX', 'FL', 'New Jersey', 'New York', 'Pennsylvania', 'Texas', 'Florida'];
+
+        const isTargetRegion = (article: NormalizedItem): boolean => {
+            if (article.regions && article.regions.length > 0) {
+                return article.regions.some(r =>
+                    targetRegions.some(tr => r.toUpperCase().includes(tr.toUpperCase()))
+                );
+            }
+            const text = `${article.title || ''} ${article.description || ''} ${article.summary || ''}`.toUpperCase();
+            return targetRegions.some(r => text.includes(r.toUpperCase()));
+        };
+
+        // Use 24 hours for Goth version, expand to 48 if needed
+        const cutoff24h = new Date(Date.now() - 24 * 60 * 60 * 1000);
+        let recentArticles = allArticles.filter(article => {
+            const pubDate = new Date(article.pubDate || article.date_published || 0);
+            return pubDate >= cutoff24h;
+        });
+
+        // Filter to target regions
+        let filteredArticles = recentArticles.filter(isTargetRegion);
+
+        // If not enough regional articles, expand to 48 hours
+        let periodLabel = '24 hours';
+        if (filteredArticles.length < 8) {
+            console.log(`📈 Only ${filteredArticles.length} regional articles in 24h - expanding to 48 hours`);
+            const cutoff48h = new Date(Date.now() - 48 * 60 * 60 * 1000);
+            recentArticles = allArticles.filter(article => {
+                const pubDate = new Date(article.pubDate || article.date_published || 0);
+                return pubDate >= cutoff48h;
+            });
+            filteredArticles = recentArticles.filter(isTargetRegion);
+            periodLabel = '48 hours';
+        }
+
+        console.log(`📅 Regional articles from last ${periodLabel}: ${filteredArticles.length}`);
+
+        // Categorize articles
+        const transactions = filteredArticles.filter(a => a.category === 'transactions');
+        const availabilities = filteredArticles.filter(a => a.category === 'availabilities');
+        const relevant = filteredArticles.filter(a => a.category === 'relevant');
+        const people = filteredArticles.filter(a => a.category === 'people');
+
+        console.log('📋 Article breakdown (regional focus):');
+        console.log(`  - Relevant: ${relevant.length}`);
+        console.log(`  - Transactions: ${transactions.length}`);
+        console.log(`  - Availabilities: ${availabilities.length}`);
+        console.log(`  - People: ${people.length}`);
+
+        // Generate Goth HTML newsletter
+        const html = buildGothBriefing({
+            transactions,
+            availabilities,
+            relevant,
+            people
+        }, periodLabel, isFriday);
+
+        const emailTo = process.env.EMAIL_TO || '';
+        if (!emailTo) {
+            console.error('❌ No EMAIL_TO configured in environment');
+            return false;
+        }
+
+        const recipients = emailTo.split(',').map(e => e.trim());
+        console.log(`📬 Sending to ${recipients.length} recipient(s):`, recipients);
+
+        const todayFormatted = today.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        const subject = isFriday
+            ? `📊 Woodmont Weekly Briefing - ${todayFormatted}`
+            : `📰 Woodmont Daily Briefing - ${todayFormatted}`;
+
+        const success = await sendEmail(recipients, subject, html);
+
+        if (success) {
+            console.log('✅ Goth daily briefing sent successfully!');
+        } else {
+            console.log('❌ Failed to send Goth daily briefing');
+        }
+
+        return success;
+    } catch (error) {
+        console.error('❌ Error in sendDailyNewsletterGoth:', error);
         return false;
     }
 }

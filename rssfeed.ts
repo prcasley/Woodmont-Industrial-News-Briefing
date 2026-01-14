@@ -141,6 +141,27 @@ async function sendWeeklyNewsletterCmd(): Promise<void> {
     }
 }
 
+/**
+ * Send Goth newsletter (stripped-down, boss-approved format)
+ */
+async function sendNewsletterGoth(): Promise<void> {
+    console.log('Sending Goth daily briefing...');
+    try {
+        const { sendDailyNewsletterGoth } = await import('./src/server/email.js');
+        const success = await sendDailyNewsletterGoth();
+        if (success) {
+            console.log('Goth newsletter sent successfully!');
+            process.exit(0);
+        } else {
+            console.error('Failed to send Goth newsletter');
+            process.exit(1);
+        }
+    } catch (err) {
+        console.error('Error sending Goth newsletter:', err);
+        process.exit(1);
+    }
+}
+
 // Main entry point
 if (require.main === module) {
     const args = process.argv.slice(2);
@@ -159,6 +180,9 @@ if (require.main === module) {
     } else if (args.includes('--send-weekly-newsletter')) {
         // Send weekly newsletter recap
         sendWeeklyNewsletterCmd();
+    } else if (args.includes('--send-newsletter-goth')) {
+        // Send Goth newsletter (stripped-down format)
+        sendNewsletterGoth();
     } else {
         // Start the server
         startServer(!noBrowserFlag);
