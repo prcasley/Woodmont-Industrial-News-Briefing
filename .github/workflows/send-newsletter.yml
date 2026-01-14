@@ -2,8 +2,8 @@ name: Send Daily Newsletter
 
 on:
   schedule:
-    # Run Monday-Friday at 8:00 AM EST (13:00 UTC)
-    - cron: '0 13 * * 1-5'
+    # Run Monday-Friday at 7 AM EST / 8 AM EDT (12:00 UTC)
+    - cron: '0 12 * * 1-5'
   workflow_dispatch:
     inputs:
       test_mode:
