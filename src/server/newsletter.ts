@@ -330,12 +330,13 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
         }
 
         .read-more-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background-color: #e8eef7;
+            color: #1e3c72;
             padding: 8px 16px;
             border-radius: 6px;
+            border: 2px solid #667eea;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 13px;
             transition: transform 0.2s, box-shadow 0.2s;
             display: inline-block;
@@ -345,7 +346,7 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
             text-decoration: none;
-            color: white;
+            color: #1e3c72;
         }
 
         .highlight-box {
