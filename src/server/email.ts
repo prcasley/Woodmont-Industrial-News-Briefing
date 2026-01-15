@@ -414,3 +414,108 @@ export async function sendDailyNewsletterGoth(): Promise<boolean> {
         return false;
     }
 }
+
+/**
+ * Send "Goth" weekly newsletter - dark executive theme, 5 days coverage
+ */
+export async function sendWeeklyNewsletterGoth(): Promise<boolean> {
+    try {
+        console.log('📧 Preparing Goth weekly briefing (5-day recap)...');
+
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = path.dirname(__filename);
+
+        const feedPath = path.join(__dirname, '../../docs/feed.json');
+        console.log('📂 Loading articles from:', feedPath);
+
+        if (!fs.existsSync(feedPath)) {
+            console.error('❌ Feed file not found:', feedPath);
+            return false;
+        }
+
+        const feedData = JSON.parse(fs.readFileSync(feedPath, 'utf-8'));
+        const allArticles: NormalizedItem[] = feedData.items || [];
+
+        console.log(`📊 Total articles loaded: ${allArticles.length}`);
+
+        // Target regions - strict focus on NJ, PA, TX, FL
+        const targetRegions = ['NJ', 'NY', 'PA', 'TX', 'FL', 'New Jersey', 'New York', 'Pennsylvania', 'Texas', 'Florida'];
+
+        const isTargetRegion = (article: NormalizedItem): boolean => {
+            if (article.regions && article.regions.length > 0) {
+                return article.regions.some(r =>
+                    targetRegions.some(tr => r.toUpperCase().includes(tr.toUpperCase()))
+                );
+            }
+            const text = `${article.title || ''} ${article.description || ''} ${article.summary || ''}`.toUpperCase();
+            return targetRegions.some(r => text.includes(r.toUpperCase()));
+        };
+
+        // Weekly recap covers last 5 days
+        const hoursBack = 5 * 24;
+        const periodLabel = '5 days';
+
+        const cutoffDate = new Date(Date.now() - hoursBack * 60 * 60 * 1000);
+        const recentArticles = allArticles.filter(article => {
+            const pubDate = new Date(article.pubDate || article.date_published || 0);
+            return pubDate >= cutoffDate;
+        });
+
+        // Filter to target regions
+        const filteredArticles = recentArticles.filter(isTargetRegion);
+
+        console.log(`📅 Regional articles from last ${periodLabel}: ${filteredArticles.length}`);
+
+        // Categorize articles
+        const transactions = filteredArticles.filter(a => a.category === 'transactions');
+        const availabilities = filteredArticles.filter(a => a.category === 'availabilities');
+        const relevant = filteredArticles.filter(a => a.category === 'relevant');
+        const people = filteredArticles.filter(a => a.category === 'people');
+
+        console.log('📋 Article breakdown (regional focus):');
+        console.log(`  - Relevant: ${relevant.length}`);
+        console.log(`  - Transactions: ${transactions.length}`);
+        console.log(`  - Availabilities: ${availabilities.length}`);
+        console.log(`  - People: ${people.length}`);
+
+        // Generate Goth HTML newsletter with Friday flag for week-in-review
+        const html = buildGothBriefing({
+            transactions,
+            availabilities,
+            relevant,
+            people
+        }, periodLabel, true); // true = include week-in-review
+
+        const emailTo = process.env.EMAIL_TO || '';
+        if (!emailTo) {
+            console.error('❌ No EMAIL_TO configured in environment');
+            return false;
+        }
+
+        const recipients = emailTo.split(',').map(e => e.trim());
+        console.log(`📬 Sending to ${recipients.length} recipient(s):`, recipients);
+
+        const today = new Date();
+        const todayFormatted = today.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        const subject = `📊 Woodmont Weekly Executive Briefing - ${todayFormatted}`;
+
+        const success = await sendEmail(recipients, subject, html);
+
+        if (success) {
+            console.log('✅ Goth weekly briefing sent successfully!');
+        } else {
+            console.log('❌ Failed to send Goth weekly briefing');
+        }
+
+        return success;
+    } catch (error) {
+        console.error('❌ Error in sendWeeklyNewsletterGoth:', error);
+        return false;
+    }
+}
