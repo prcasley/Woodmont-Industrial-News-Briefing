@@ -388,13 +388,13 @@ export async function sendDailyNewsletterGoth(): Promise<boolean> {
         console.log(`  - Availabilities: ${availabilities.length}`);
         console.log(`  - People: ${people.length}`);
 
-        // Generate Goth HTML newsletter
+        // Generate Goth HTML newsletter (no week-in-review for daily)
         const html = buildGothBriefing({
             transactions,
             availabilities,
             relevant,
             people
-        }, periodLabel, isFriday);
+        }, periodLabel, false);
 
         const emailTo = process.env.EMAIL_TO || '';
         if (!emailTo) {
