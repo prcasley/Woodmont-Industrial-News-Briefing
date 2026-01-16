@@ -412,9 +412,7 @@ export async function sendDailyNewsletterGoth(): Promise<boolean> {
             day: 'numeric'
         });
 
-        const subject = isFriday
-            ? `📊 Woodmont Weekly Briefing - ${todayFormatted}`
-            : `📰 Woodmont Daily Briefing - ${todayFormatted}`;
+        const subject = `📊 Woodmont Industrial News Briefing - ${todayFormatted}`;
 
         const success = await sendEmail(recipients, subject, html);
 
@@ -519,7 +517,7 @@ export async function sendWeeklyNewsletterGoth(): Promise<boolean> {
             day: 'numeric'
         });
 
-        const subject = `📊 Woodmont Weekly Executive Briefing - ${todayFormatted}`;
+        const subject = `📊 Woodmont Industrial News Briefing (Weekly) - ${todayFormatted}`;
 
         const success = await sendEmail(recipients, subject, html);
 
