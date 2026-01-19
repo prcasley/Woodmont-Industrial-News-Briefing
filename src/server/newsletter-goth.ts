@@ -37,7 +37,7 @@ export function buildGothBriefing(
     const startDate = new Date(now.getTime() - hoursBack * 60 * 60 * 1000);
     const dateRange = `${startDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} – ${now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`;
 
-    // Helper to format a single bullet item - executive dark theme with full details
+    // Helper to format a single bullet item - executive light theme with full details
     const formatBullet = (item: NormalizedItem): string => {
         const title = item.title || 'Untitled';
         const url = (item as any).url || item.link || '#';
@@ -56,12 +56,12 @@ export function buildGothBriefing(
             ? rawDescription.substring(0, 177).replace(/\s+\S*$/, '') + '...'
             : rawDescription;
 
-        return `<li style="margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid #3a3a3a; list-style: none;">
-            <a href="${url}" style="color: #ffffff; text-decoration: none; font-weight: 600; font-size: 15px; line-height: 1.4; display: block;">${title}</a>
-            ${description ? `<p style="margin: 8px 0 0 0; color: #b0b0b0; font-size: 13px; line-height: 1.5;">${description}</p>` : ''}
+        return `<li style="margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid #e8e8e8; list-style: none;">
+            <a href="${url}" style="color: #1e3c72; text-decoration: none; font-weight: 600; font-size: 15px; line-height: 1.4; display: block;">${title}</a>
+            ${description ? `<p style="margin: 8px 0 0 0; color: #555; font-size: 13px; line-height: 1.5;">${description}</p>` : ''}
             <div style="margin-top: 8px;">
-                <a href="${url}" style="color: #4a9eff; text-decoration: none; font-size: 12px;">Read at ${source || 'source'} →</a>
-                <span style="font-size: 11px; color: #666; margin-left: 12px;">[Track] [Share] [Ignore]</span>
+                <a href="${url}" style="color: #2563eb; text-decoration: none; font-size: 12px;">Read at ${source || 'source'} →</a>
+                <span style="font-size: 11px; color: #999; margin-left: 12px;">[Track] [Share] [Ignore]</span>
             </div>
         </li>`;
     };
@@ -105,15 +105,15 @@ export function buildGothBriefing(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Woodmont Industrial Daily Briefing</title>
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #1a1a1a; margin: 0; padding: 30px 20px; color: #e0e0e0;">
-    <div style="max-width: 640px; margin: 0 auto; background-color: #242424; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 30px 20px; color: #333;">
+    <div style="max-width: 640px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
 
-        <!-- Header - Dark Executive -->
-        <div style="background-color: #1a1a1a; padding: 30px; border-bottom: 1px solid #333;">
+        <!-- Header - Light Executive -->
+        <div style="background-color: #1e3c72; padding: 30px; border-bottom: 3px solid #4a9eff;">
             <h1 style="margin: 0; font-size: 22px; color: #ffffff; font-weight: 300; letter-spacing: 2px;">WOODMONT INDUSTRIAL</h1>
-            <p style="margin: 8px 0 0 0; font-size: 13px; color: #4a9eff; font-weight: 500; letter-spacing: 1px;">EXECUTIVE DAILY BRIEFING</p>
-            <p style="margin: 12px 0 0 0; font-size: 12px; color: #888;">${dateRange}</p>
-            <p style="margin: 4px 0 0 0; font-size: 11px; color: #666;">Focus: NJ • PA • FL</p>
+            <p style="margin: 8px 0 0 0; font-size: 13px; color: #a8c5ff; font-weight: 500; letter-spacing: 1px;">EXECUTIVE DAILY BRIEFING</p>
+            <p style="margin: 12px 0 0 0; font-size: 12px; color: #d0e0ff;">${dateRange}</p>
+            <p style="margin: 4px 0 0 0; font-size: 11px; color: #a0b8e0;">Focus: NJ • PA • FL</p>
         </div>
 
         <!-- Content -->
@@ -121,37 +121,37 @@ export function buildGothBriefing(
 
             <!-- Section 1: Relevant Articles -->
             <div style="margin-bottom: 30px;">
-                <h2 style="color: #4a9eff; font-size: 12px; margin: 0 0 15px 0; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 8px;">
+                <h2 style="color: #1e3c72; font-size: 12px; margin: 0 0 15px 0; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px;">
                     RELEVANT ARTICLES
                 </h2>
-                <p style="margin: 0 0 12px 0; font-size: 11px; color: #666;">Macro Trends & Industrial News</p>
+                <p style="margin: 0 0 12px 0; font-size: 11px; color: #888;">Macro Trends & Industrial News</p>
                 <ul style="margin: 0; padding: 0;">${renderSection(relevant, 6)}</ul>
             </div>
 
             <!-- Section 2: Transactions -->
             <div style="margin-bottom: 30px;">
-                <h2 style="color: #4a9eff; font-size: 12px; margin: 0 0 15px 0; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 8px;">
+                <h2 style="color: #1e3c72; font-size: 12px; margin: 0 0 15px 0; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px;">
                     TRANSACTIONS
                 </h2>
-                <p style="margin: 0 0 12px 0; font-size: 11px; color: #666;">Sales & Leases ≥100K SF / ≥$25M</p>
+                <p style="margin: 0 0 12px 0; font-size: 11px; color: #888;">Sales & Leases ≥100K SF / ≥$25M</p>
                 <ul style="margin: 0; padding: 0;">${renderSection(transactions, 6)}</ul>
             </div>
 
             <!-- Section 3: Availabilities -->
             <div style="margin-bottom: 30px;">
-                <h2 style="color: #4a9eff; font-size: 12px; margin: 0 0 15px 0; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 8px;">
+                <h2 style="color: #1e3c72; font-size: 12px; margin: 0 0 15px 0; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px;">
                     AVAILABILITIES
                 </h2>
-                <p style="margin: 0 0 12px 0; font-size: 11px; color: #666;">Industrial Properties for Sale/Lease</p>
+                <p style="margin: 0 0 12px 0; font-size: 11px; color: #888;">Industrial Properties for Sale/Lease</p>
                 <ul style="margin: 0; padding: 0;">${renderSection(availabilities, 6)}</ul>
             </div>
 
             <!-- Section 4: People News -->
             <div style="margin-bottom: 20px;">
-                <h2 style="color: #4a9eff; font-size: 12px; margin: 0 0 15px 0; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 8px;">
+                <h2 style="color: #1e3c72; font-size: 12px; margin: 0 0 15px 0; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px;">
                     PEOPLE NEWS
                 </h2>
-                <p style="margin: 0 0 12px 0; font-size: 11px; color: #666;">Personnel Moves in Industrial</p>
+                <p style="margin: 0 0 12px 0; font-size: 11px; color: #888;">Personnel Moves in Industrial</p>
                 <ul style="margin: 0; padding: 0;">${renderSection(people, 6)}</ul>
             </div>
 
@@ -159,11 +159,11 @@ export function buildGothBriefing(
 
         </div>
 
-        <!-- Footer - Minimal Dark -->
-        <div style="background-color: #1a1a1a; padding: 20px 30px; text-align: center; border-top: 1px solid #333;">
-            <p style="margin: 0; font-size: 10px; color: #555; letter-spacing: 1px;">
+        <!-- Footer - Light -->
+        <div style="background-color: #f8f9fa; padding: 20px 30px; text-align: center; border-top: 1px solid #e0e0e0;">
+            <p style="margin: 0; font-size: 10px; color: #888; letter-spacing: 1px;">
                 WOODMONT INDUSTRIAL PARTNERS<br>
-                <span style="color: #444;">Confidential & Proprietary © ${now.getFullYear()}</span>
+                <span style="color: #aaa;">Confidential & Proprietary © ${now.getFullYear()}</span>
             </p>
         </div>
 
