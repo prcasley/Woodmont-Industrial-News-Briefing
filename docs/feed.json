@@ -10,29 +10,131 @@
   },
   "items": [
     {
+      "id": "c625e208b5a546c7bff89acf6d085454ca625092",
+      "url": "https://www.bloomberg.com/news/videos/2026-01-19/ecb-vice-president-candidate-mario-centeno-video",
+      "title": "ECB to Benefit From His Voice of Consensus As Vice President: Centeno",
+      "content_html": "Mario Centeno, former Bank of Portugal governor discusses monetary policy, rates and his candidacy for ECB vice president position. He says that as Europe has entered a phase of structural uncertainty, “EU institutions will increasingly be called upon to act as a stabilizing actor” and that a ‘’voice of consensus’’ is his well-known trademark he will be to the ECB if elected vice president. He speaks with Tom McKenzie and Anna Edwards. (Source: Bloomberg)",
+      "content_text": "Mario Centeno, former Bank of Portugal governor discusses monetary policy, rates and his candidacy for ECB vice president position. He says that as Europe has entered a phase of structural uncertainty, “EU institutions will increasingly be called upon to act as a stabilizing actor” and that a ‘’voice of consensus’’ is his well-known trademark he will be to the ECB if elected vice president. He speaks with Tom McKenzie and Anna Edwards. (Source: Bloomberg)",
+      "summary": "Mario Centeno, former Bank of Portugal governor discusses monetary policy, rates and his candidacy for ECB vice president position. He says that as Europe has entered a phase of structural uncertainty...",
+      "date_published": "2026-01-19T10:30:20.000Z",
+      "date_modified": "2026-01-19T12:33:09.245Z",
+      "image": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i4K.1Cm3ISls/v3/1200x-1.jpg",
+      "author": {
+        "name": "Bloomberg Markets"
+      },
+      "_source": {
+        "name": "Bloomberg Markets",
+        "website": "bloomberg.com",
+        "url": "https://www.bloomberg.com/news/videos/2026-01-19/ecb-vice-president-candidate-mario-centeno-video",
+        "feedName": "Bloomberg Markets"
+      },
+      "category": "people",
+      "tags": [
+        "PEOPLE NEWS — Personnel Moves in Industrial Brokerage/Development",
+        "bloomberg.com",
+        "US"
+      ]
+    },
+    {
+      "id": "c13e276d96470064f2216aa39a63745ec963a146",
+      "url": "https://www.areadevelopment.com/newsItems/1-16-2026/cesiumastro-bee-cave-texas.shtml",
+      "title": "CesiumAstro Expands Bee Cave, Texas, Headquarters-Manufacturing Operations",
+      "content_html": "CesiumAstro, a company specializing in connectivity solutions, plans to establish operations in Bee Cave, Texas. The more than $500 million project is expected to create more than 500 jobs over the next five years.",
+      "content_text": "CesiumAstro, a company specializing in connectivity solutions, plans to establish operations in Bee Cave, Texas. The more than $500 million project is expected to create more than 500 jobs over the next five years.",
+      "summary": "CesiumAstro, a company specializing in connectivity solutions, plans to establish operations in Bee Cave, Texas. The more than $500 million project is expected to create more than 500 jobs over the ne...",
+      "date_published": "2026-01-16T21:07:00.000Z",
+      "date_modified": "2026-01-19T12:33:09.265Z",
+      "image": "https://picsum.photos/seed/xc4jsn/640/360",
+      "author": {
+        "name": "Area Development Master"
+      },
+      "_source": {
+        "name": "Area Development Master",
+        "website": "areadevelopment.com",
+        "url": "https://www.areadevelopment.com/newsItems/1-16-2026/cesiumastro-bee-cave-texas.shtml",
+        "feedName": "Area Development Master"
+      },
+      "category": "relevant",
+      "tags": [
+        "RELEVANT ARTICLES — Macro Trends & Industrial Real Estate News",
+        "areadevelopment.com",
+        "US"
+      ]
+    },
+    {
+      "id": "de739e1ca6830fb710583ffe7695f8114f41ac0c",
+      "url": "https://www.freightwaves.com/news/union-pacific-ceo-tells-customers-they-will-benefit-from-merger",
+      "title": "Union Pacific CEO tells customers they will benefit from merger",
+      "content_html": "Union Pacific's chief executive fired back at rivals who oppose the merger to create the first transcontinental railroad. The post Union Pacific CEO tells customers they will benefit from merger appeared first on FreightWaves .",
+      "content_text": "Union Pacific's chief executive fired back at rivals who oppose the merger to create the first transcontinental railroad. The post Union Pacific CEO tells customers they will benefit from merger appeared first on FreightWaves .",
+      "summary": "Union Pacific's chief executive fired back at rivals who oppose the merger to create the first transcontinental railroad. The post Union Pacific CEO tells customers they will benefit from merger appea...",
+      "date_published": "2026-01-16T19:29:09.000Z",
+      "date_modified": "2026-01-19T12:33:09.513Z",
+      "image": "https://www.freightwaves.com/wp-content/uploads/2026/01/16/TRN_Vena_MARS2026.jpg",
+      "author": {
+        "name": "Trains.com Staff"
+      },
+      "_source": {
+        "name": "FreightWaves",
+        "website": "freightwaves.com",
+        "url": "https://www.freightwaves.com/news/union-pacific-ceo-tells-customers-they-will-benefit-from-merger",
+        "feedName": "FreightWaves"
+      },
+      "category": "people",
+      "tags": [
+        "PEOPLE NEWS — Personnel Moves in Industrial Brokerage/Development",
+        "freightwaves.com",
+        "US"
+      ]
+    },
+    {
+      "id": "c5feeefbe57cf7c9d4c09930090819d25ffed0bb",
+      "url": "https://www.areadevelopment.com/newsItems/1-16-2026/solstice-advanced-materials-chesterfield-county-virginia.shtml",
+      "title": " Solstice Advanced Materials Expands Chesterfield County, Virginia, Manufacturing Operations",
+      "content_html": "Solstice Advanced Materials Inc., a specialty chemicals and materials company, plans to expand operations in Chesterfield County, Virginia. The $220 million project is expected to create 100 jobs.",
+      "content_text": "Solstice Advanced Materials Inc., a specialty chemicals and materials company, plans to expand operations in Chesterfield County, Virginia. The $220 million project is expected to create 100 jobs.",
+      "summary": "Solstice Advanced Materials Inc., a specialty chemicals and materials company, plans to expand operations in Chesterfield County, Virginia. The $220 million project is expected to create 100 jobs.",
+      "date_published": "2026-01-16T19:03:00.000Z",
+      "date_modified": "2026-01-19T12:33:09.266Z",
+      "image": "https://picsum.photos/seed/ala26x/640/360",
+      "author": {
+        "name": "Area Development Master"
+      },
+      "_source": {
+        "name": "Area Development Master",
+        "website": "areadevelopment.com",
+        "url": "https://www.areadevelopment.com/newsItems/1-16-2026/solstice-advanced-materials-chesterfield-county-virginia.shtml",
+        "feedName": "Area Development Master"
+      },
+      "category": "relevant",
+      "tags": [
+        "RELEVANT ARTICLES — Macro Trends & Industrial Real Estate News",
+        "areadevelopment.com",
+        "US"
+      ]
+    },
+    {
       "id": "a45c63511bd52316ba03acda59b1856fb1389159",
       "url": "https://www.bisnow.com/houston/news/commercial-real-estate/inflation-housing-costs-and-taxes-screwing-up-the-texas-miracle-132760",
       "title": "Inflation, Housing Costs And Taxes 'Screwing Up The Texas Miracle'",
-      "content_html": "Houston commercial real estate executives are caught in a balancing act. They’re optimistic about Houston’s cultural vibrance, economic growth and a slowdown in development that is allowing demand to catch up. But with every utterance of “inflation”...",
-      "content_text": "Houston commercial real estate executives are caught in a balancing act. They’re optimistic about Houston’s cultural vibrance, economic growth and a slowdown in development that is allowing demand to catch up. But with every utterance of “inflation”...",
-      "summary": "Houston commercial real estate executives are caught in a balancing act. They’re optimistic about Houston’s cultural vibrance, economic growth and a slowdown in development that is allowing demand to ...",
-      "date_published": "2026-01-15T21:41:28.000Z",
-      "date_modified": "2026-01-16T17:27:05.846Z",
+      "content_html": "",
+      "content_text": "",
+      "summary": "",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/exl0es/640/360",
       "author": {
         "name": "maddy.mccarty@bisnow.com"
       },
       "_source": {
-        "name": "Bisnow Houston",
+        "name": "Unknown",
         "website": "bisnow.com",
-        "url": "https://www.bisnow.com/houston/news/commercial-real-estate/inflation-housing-costs-and-taxes-screwing-up-the-texas-miracle-132760",
-        "feedName": "Bisnow Houston"
+        "url": "https://www.bisnow.com/houston/news/commercial-real-estate/inflation-housing-costs-and-taxes-screwing-up-the-texas-miracle-132760"
       },
       "category": "people",
       "tags": [
         "PEOPLE NEWS — Personnel Moves in Industrial Brokerage/Development",
-        "bisnow.com",
-        "TX"
+        "bisnow.com"
       ]
     },
     {
@@ -42,8 +144,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/idSqAIp0TmOo/v1/1200x-1.jpg",
       "author": {
         "name": "Veena Ali-Khan"
@@ -66,8 +168,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/453ega/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -90,8 +192,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iRTQ5mZWIr9E/v3/1200x-1.jpg",
       "author": {
         "name": "Bloomberg Markets"
@@ -114,8 +216,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/ib52Y.i2NuBI/v3/1200x-1.png",
       "author": {
         "name": "Georgie McKay"
@@ -138,8 +240,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://static.therealdeal.com/wp-content/uploads/2026/01/Iranian-Americans-In-Real-Estate-React-to-Deadly-Protests-700x467.jpg",
       "author": {
         "name": "Jess Hardin, Katherine Kallergis"
@@ -162,8 +264,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://static.therealdeal.com/wp-content/uploads/2026/01/Lull-Hits-Miami-Commercial-Real-Estate-Market-700x467.jpg",
       "author": {
         "name": "Francisco Alvarado"
@@ -186,8 +288,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/4re4j0/640/360",
       "author": {
         "name": "matthew.wasielewski@bisnow.com"
@@ -210,8 +312,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/271og5/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -234,8 +336,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/w8tv6p/640/360",
       "author": {
         "name": "Area Development Master"
@@ -258,8 +360,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/faabbt/640/360",
       "author": {
         "name": "Taylor Williams"
@@ -282,8 +384,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/7cxb78/640/360",
       "author": {
         "name": "John Nelson"
@@ -306,8 +408,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/tm75v4/640/360",
       "author": {
         "name": "Taylor Williams"
@@ -330,8 +432,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/cadnx7/640/360",
       "author": {
         "name": "Taylor Williams"
@@ -354,8 +456,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/7wjnoj/640/360",
       "author": {
         "name": "Kristin Harlow"
@@ -378,8 +480,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iZSn7glfv6Gk/v1/1200x-1.jpg",
       "author": {
         "name": "Mathieu Dion"
@@ -402,8 +504,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://static.therealdeal.com/wp-content/uploads/2026/01/QA-With-Leila-Bozorg-700x467.jpg",
       "author": {
         "name": "Kathryn Brenzel"
@@ -426,8 +528,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/fd8bjf/640/360",
       "author": {
         "name": "Area Development Master"
@@ -450,8 +552,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/ijWxaef7h_SM/v0/1200x-1.jpg",
       "author": {
         "name": "Paige Smith"
@@ -474,8 +576,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://imgproxy.divecdn.com/72qTyr_6RWL9jz0mPNZWN9SKJvMEho_KUmn0xcC5gIw/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9lbGNvLXNpcy1icmFuZC1mZWF0dXJlLTYxNXg0OTJfaGVyby5qcGc=.webp",
       "author": {
         "name": "Kelly Stroh"
@@ -498,8 +600,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/2xyjho/640/360",
       "author": {
         "name": "LVB Staff"
@@ -522,8 +624,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/shsxt0/640/360",
       "author": {
         "name": "Area Development Master"
@@ -546,8 +648,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/if31.6f2.ei0/v1/1200x-1.jpg",
       "author": {
         "name": "Derek Decloet"
@@ -570,8 +672,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/n37u0r/640/360",
       "author": {
         "name": "Stacy Wescoe"
@@ -594,8 +696,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iVLz.GoP.NtY/v1/1200x-1.jpg",
       "author": {
         "name": "Yassmin Jabri"
@@ -618,8 +720,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/15edf8/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -642,8 +744,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/2fsydk/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -666,8 +768,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iUVkYr8XYcu0/v3/1200x-1.jpg",
       "author": {
         "name": "Bloomberg Markets"
@@ -690,8 +792,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://www.freightwaves.com/wp-content/uploads/2026/01/13/Houston-congestion-credit-JAFW.jpg",
       "author": {
         "name": "John Gallagher"
@@ -714,8 +816,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/jzaic5/640/360",
       "author": {
         "name": "maddy.mccarty@bisnow.com"
@@ -738,8 +840,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/3ifubq/640/360",
       "author": {
         "name": "noah.zucker@bisnow.com"
@@ -762,8 +864,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/6763v1/640/360",
       "author": {
         "name": "taylor.driscoll@bisnow.com"
@@ -786,8 +888,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://imgproxy.divecdn.com/ThVG-yIo4FKiX1Q5YmiwnvmBvEPCb95Kc4L8qtpFVJ0/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0yMjU1Mjc3NDAzLmpwZw==.webp",
       "author": {
         "name": "Phil Neuffer"
@@ -810,8 +912,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/vabd73/640/360",
       "author": {
         "name": "Kristin Harlow"
@@ -834,8 +936,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/qvoqxh/640/360",
       "author": {
         "name": "Taylor Williams"
@@ -858,8 +960,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.771Z",
+      "date_modified": "2026-01-19T12:33:10.771Z",
       "image": "https://picsum.photos/seed/vi3ud7/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -882,8 +984,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/e4o6ml/640/360",
       "author": {
         "name": "Taylor Williams"
@@ -906,8 +1008,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/gm85id/640/360",
       "author": {
         "name": "Kristin Harlow"
@@ -930,8 +1032,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/ij7v0.AmFiyg/v3/1200x-1.jpg",
       "author": {
         "name": "Bloomberg Markets"
@@ -954,8 +1056,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/2w3unn/640/360",
       "author": {
         "name": "Jessica Perry"
@@ -978,8 +1080,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://static.therealdeal.com/wp-content/uploads/2026/01/Movers-Shakers-Chuck-Bonfiglio-Leads-Florida-Realtors--700x467.jpg",
       "author": {
         "name": "Kate Hinsche"
@@ -1002,8 +1104,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iaHErCOqzum4/v1/1200x-1.jpg",
       "author": {
         "name": "Paula Sambo"
@@ -1026,8 +1128,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/qxz42o/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -1050,8 +1152,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/6honad/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -1074,8 +1176,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://static.therealdeal.com/wp-content/uploads/2026/01/Mamdani-Trump-Hochul-Offer-Startling-Real-Estate-Ideas-700x467.jpg",
       "author": {
         "name": "Erik Engquist"
@@ -1098,8 +1200,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/bpne5p/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1122,8 +1224,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/y9lcnb/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1146,8 +1248,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/sejrbd/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -1170,8 +1272,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/xpac1j/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -1194,8 +1296,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://imgproxy.divecdn.com/TkMcaOGD7zPKgywqmZRBeIf7aQsT-MxdwfzaUjuGVGc/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9kaGxfc3VwcGx5Y2hhaW5fd2FyZWhvdXNlX21hbmFnZW1lbnQuanBn.webp",
       "author": {
         "name": "Max Garland"
@@ -1218,8 +1320,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/74q7hp/640/360",
       "author": {
         "name": "Jessica Perry"
@@ -1242,8 +1344,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/cbwjbv/640/360",
       "author": {
         "name": "matthew.wasielewski@bisnow.com"
@@ -1266,8 +1368,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://imgproxy.divecdn.com/dX6I6tnCy2-VX78Xk8yEBbiISviBiPtaRhVEbYCZNGQ/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0xNDUxMTUyNDE4LmpwZw==.webp",
       "author": {
         "name": "Max Garland"
@@ -1290,8 +1392,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/579ijp/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -1314,8 +1416,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/gkm21n/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -1338,8 +1440,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/dca0n0/640/360",
       "author": {
         "name": "Taylor Williams"
@@ -1362,8 +1464,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/901yga/640/360",
       "author": {
         "name": "Taylor Williams"
@@ -1386,8 +1488,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/1xcwn2/640/360",
       "author": {
         "name": "John Nelson"
@@ -1410,8 +1512,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/pj7ejo/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1434,8 +1536,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/qgk357/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1458,8 +1560,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/s6buho/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1482,8 +1584,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/g3ve6m/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1506,8 +1608,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/g361tg/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1530,8 +1632,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/yo87ub/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1554,8 +1656,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/y4w3bw/640/360",
       "author": {
         "name": "Lucian Alixandrescu"
@@ -1578,8 +1680,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/ko6gyb/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1602,8 +1704,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/24aut6/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1626,8 +1728,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/o8csjr/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1650,8 +1752,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/ds2iyz/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1674,8 +1776,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/9stl73/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1698,8 +1800,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/awyxhz/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1722,8 +1824,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/kulum4/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1746,8 +1848,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/mumrat/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1770,8 +1872,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/o0x24q/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1794,8 +1896,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/mi72ij/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1818,8 +1920,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/n06dea/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1842,8 +1944,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/w3v7bc/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1866,8 +1968,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/fcbxqt/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1890,8 +1992,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/x9u1o/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1914,8 +2016,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/llgkj0/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1938,8 +2040,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/bj6y7a/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1962,8 +2064,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/ra2t2i/640/360",
       "author": {
         "name": "Area Development Master"
@@ -1986,8 +2088,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/82cvm5/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2010,8 +2112,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/a5ww76/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2034,8 +2136,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/2246q1/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2058,8 +2160,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/x4db8b/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2082,8 +2184,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/d16w2g/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2106,8 +2208,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/8xrjfk/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2130,8 +2232,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/ysx2tk/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2154,8 +2256,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/jghld8/640/360",
       "author": {
         "name": "Diana Sabau"
@@ -2178,8 +2280,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/qoq0c5/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2202,8 +2304,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/2i38qs/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2226,8 +2328,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/wxuef3/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2250,8 +2352,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/1jhg2w/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2274,8 +2376,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/v73dih/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2298,8 +2400,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/1wa1zf/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2322,8 +2424,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/8cay1t/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2346,8 +2448,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/ctf6qr/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2370,8 +2472,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/13cby3/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2394,8 +2496,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/20wycq/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2418,8 +2520,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/rifzyl/640/360",
       "author": {
         "name": "Area Development Master"
@@ -2442,8 +2544,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://www.freightwaves.com/wp-content/uploads/2026/01/07/trucks-on-highway.jpg",
       "author": {
         "name": "Mary O'Connell"
@@ -2466,8 +2568,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iqex6mePGXA4/v1/1200x-1.jpg",
       "author": {
         "name": "Lisa Pham"
@@ -2490,8 +2592,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://static.therealdeal.com/wp-content/uploads/2026/01/Moishe-Mana-Pays-34-Million-For-Wynwood-Development-Site-700x467.jpg",
       "author": {
         "name": "Francisco Alvarado"
@@ -2514,8 +2616,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://static.therealdeal.com/wp-content/uploads/2026/01/DWS-sells-Coral-Gables-The-Alhambra-for-120M-amid-its-retreat-from-office-700x467.jpg",
       "author": {
         "name": "Lidia Dinkova"
@@ -2538,8 +2640,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://static.therealdeal.com/wp-content/uploads/2026/01/NY-Eyal-Ofers-Global-Holdings-lands-AI-tenant-at-25-Kent-MAIN-r2-700x467.jpg",
       "author": {
         "name": "Elizabeth Cryan"
@@ -2562,8 +2664,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://static.therealdeal.com/wp-content/uploads/2026/01/Google-co-founders-in-the-market-for-Miami-homes-1-700x467.jpg",
       "author": {
         "name": "Katherine Kallergis"
@@ -2586,8 +2688,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/q7otar/640/360",
       "author": {
         "name": "ryan.wangman@bisnow.com"
@@ -2610,8 +2712,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://static.therealdeal.com/wp-content/uploads/2026/01/Carnegie-House-Lease-Dispute-Goes-to-Land-Owners-700x467.jpg",
       "author": {
         "name": "TRD Staff"
@@ -2634,8 +2736,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://static.therealdeal.com/wp-content/uploads/2026/01/Spec-developer-Michael-Klinger-sells-Golden-Beach-home-for-27M-700x467.jpg",
       "author": {
         "name": "Kate Hinsche"
@@ -2658,8 +2760,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/ktid3m/640/360",
       "author": {
         "name": "Matthew Fazelpoor"
@@ -2682,8 +2784,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://static.therealdeal.com/wp-content/uploads/2026/01/NY-Rithm-Capital-lands-first-big-lease-since-Paramount-takeover-MAIN-700x467.jpg",
       "author": {
         "name": "TRD Staff"
@@ -2706,8 +2808,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.225Z",
-      "date_modified": "2026-01-16T17:27:08.225Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/r4lpko/640/360",
       "author": {
         "name": "ryan.wangman@bisnow.com"
@@ -2730,8 +2832,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://imgproxy.divecdn.com/YW77DOjdUe9aqB87OTyzj-gLEAHtnG6n2LNtX02FgMI/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0xNDYyMTg4MzY5LmpwZw==.webp",
       "author": {
         "name": "Carolyn Crist"
@@ -2754,8 +2856,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/u99zil/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -2778,8 +2880,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/skf0av/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -2802,8 +2904,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/u9obap/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -2826,8 +2928,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/3qfmvk/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -2850,8 +2952,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://static.therealdeal.com/wp-content/uploads/2026/01/TPG-Buys-Majority-of-Lennars-Struggling-Multifamily-Arm--700x467.jpg",
       "author": {
         "name": "TRD Staff"
@@ -2874,8 +2976,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://static.therealdeal.com/wp-content/uploads/2026/01/Boca-Raton-Mixed-Use-Lands-74-Million-Construction-Loan-700x467.jpg",
       "author": {
         "name": "Francisco Alvarado"
@@ -2898,8 +3000,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/snal67/640/360",
       "author": {
         "name": "chloe.gallivan@bisnow.com"
@@ -2922,8 +3024,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/kadmf8/640/360",
       "author": {
         "name": "kayla.carmicheal@bisnow.com"
@@ -2946,8 +3048,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/ssb3gx/640/360",
       "author": {
         "name": "Joshua Burd"
@@ -2970,8 +3072,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/wl3rm8/640/360",
       "author": {
         "name": "maddy.mccarty@bisnow.com"
@@ -2994,8 +3096,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/ee3se7/640/360",
       "author": {
         "name": "taylor.driscoll@bisnow.com"
@@ -3018,8 +3120,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/swovoi/640/360",
       "author": {
         "name": "taylor.driscoll@bisnow.com"
@@ -3042,8 +3144,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/dbgr2h/640/360",
       "author": {
         "name": "matthew.wasielewski@bisnow.com"
@@ -3066,8 +3168,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/gmvqjz/640/360",
       "author": {
         "name": "dan.rabb@bisnow.com"
@@ -3090,8 +3192,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://www.freightwaves.com/wp-content/uploads/2026/01/05/jacobs-5.jpg",
       "author": {
         "name": "John Kingston"
@@ -3114,8 +3216,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://images.wsj.net/im-75022277",
       "author": {
         "name": "Sarah Tilton"
@@ -3138,8 +3240,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://images.wsj.net/im-39083453",
       "author": {
         "name": "E.B. Solomont"
@@ -3162,8 +3264,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://www.freightwaves.com/wp-content/uploads/2026/01/02/FW_GAL_T9-469.jpg",
       "author": {
         "name": "Mary O'Connell"
@@ -3186,8 +3288,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://images.wsj.net/im-85897103",
       "author": {
         "name": "E.B. Solomont"
@@ -3210,8 +3312,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/ozus69/640/360",
       "author": {
         "name": "bianca.barragan@bisnow.com"
@@ -3234,8 +3336,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/k9qsua/640/360",
       "author": {
         "name": "maddy.mccarty@bisnow.com"
@@ -3258,8 +3360,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/s88lhk/640/360",
       "author": {
         "name": "maddy.mccarty@bisnow.com"
@@ -3282,8 +3384,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/p9l02w/640/360",
       "author": {
         "name": "matthew.wasielewski@bisnow.com"
@@ -3306,8 +3408,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/ga38r/640/360",
       "author": {
         "name": "taylor.driscoll@bisnow.com"
@@ -3330,8 +3432,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/6o7te5/640/360",
       "author": {
         "name": "ethan.rothstein@bisnow.com"
@@ -3354,8 +3456,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/b0pbvm/640/360",
       "author": {
         "name": "taylor.driscoll@bisnow.com"
@@ -3378,8 +3480,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/yuf7sl/640/360",
       "author": {
         "name": "taylor.driscoll@bisnow.com"
@@ -3402,8 +3504,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/fw59ta/640/360",
       "author": {
         "name": "jarred@bisnow.com"
@@ -3426,8 +3528,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/8xikf/640/360",
       "author": {
         "name": "noah.zucker@bisnow.com"
@@ -3450,8 +3552,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/y783bh/640/360",
       "author": {
         "name": "emily.lynch@bisnow.com"
@@ -3474,8 +3576,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/hisn64/640/360",
       "author": {
         "name": "taylor.driscoll@bisnow.com"
@@ -3498,8 +3600,8 @@
       "content_html": "",
       "content_text": "",
       "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
+      "date_published": "2026-01-19T12:33:10.772Z",
+      "date_modified": "2026-01-19T12:33:10.772Z",
       "image": "https://picsum.photos/seed/q5fki5/640/360",
       "author": {
         "name": "chloe.gallivan@bisnow.com"
@@ -3508,102 +3610,6 @@
         "name": "Unknown",
         "website": "bisnow.com",
         "url": "https://www.bisnow.com/south-florida/news/deal-sheet/university-of-miami-signs-42m-sf-lease-for-office-space-the-south-florida-deal-sheet-132370"
-      },
-      "category": "transactions",
-      "tags": [
-        "transactions",
-        "bisnow.com"
-      ]
-    },
-    {
-      "id": "aa075f93d611f94c5bf53a91dbc2a6033994f65c",
-      "url": "https://www.bisnow.com/houston/news/construction-development/texas-industrial-data-center-graydaze-contracting-studiob-132367",
-      "title": "A National Painting Contractor Sets Its Sights On Texas' Booming Industrial And Data Center Markets ",
-      "content_html": "",
-      "content_text": "",
-      "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
-      "image": "https://picsum.photos/seed/dsnztc/640/360",
-      "author": {
-        "name": "julia.troy@bisnow.com"
-      },
-      "_source": {
-        "name": "Unknown",
-        "website": "bisnow.com",
-        "url": "https://www.bisnow.com/houston/news/construction-development/texas-industrial-data-center-graydaze-contracting-studiob-132367"
-      },
-      "category": "relevant",
-      "tags": [
-        "RELEVANT ARTICLES — Macro Trends & Industrial Real Estate News",
-        "bisnow.com"
-      ]
-    },
-    {
-      "id": "cce58b4ef13b1320e58fc8e6f106fbbf550fb066",
-      "url": "https://blog.naiop.org/2025/12/policy-politics-and-progress-how-2025-reshaped-commercial-real-estate/",
-      "title": "Policy, Politics and Progress: How 2025 Reshaped Commercial Real Estate",
-      "content_html": "",
-      "content_text": "",
-      "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
-      "image": "https://blog.naiop.org/wp-content/uploads/2025/12/Capitol-Hill-800px.jpg",
-      "author": {
-        "name": "Brielle Scott"
-      },
-      "_source": {
-        "name": "Unknown",
-        "website": "blog.naiop.org",
-        "url": "https://blog.naiop.org/2025/12/policy-politics-and-progress-how-2025-reshaped-commercial-real-estate/"
-      },
-      "category": "people",
-      "tags": [
-        "PEOPLE NEWS — Personnel Moves in Industrial Brokerage/Development",
-        "blog.naiop.org"
-      ]
-    },
-    {
-      "id": "022fa3946aa78263f58fc1fabc552b7ecf690cc6",
-      "url": "https://www.bisnow.com/national/news/industrial/ios-attracts-even-more-institutional-investment-as-sector-shows-resilience-132336",
-      "title": "Industrial Outdoor Storage 'Surprisingly Resilient.' Institutions Want In",
-      "content_html": "",
-      "content_text": "",
-      "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
-      "image": "https://picsum.photos/seed/63lujg/640/360",
-      "author": {
-        "name": "maddy.mccarty@bisnow.com"
-      },
-      "_source": {
-        "name": "Unknown",
-        "website": "bisnow.com",
-        "url": "https://www.bisnow.com/national/news/industrial/ios-attracts-even-more-institutional-investment-as-sector-shows-resilience-132336"
-      },
-      "category": "relevant",
-      "tags": [
-        "RELEVANT ARTICLES — Macro Trends & Industrial Real Estate News",
-        "bisnow.com"
-      ]
-    },
-    {
-      "id": "f3d74d105c874d472c7ee9f01d465b1e7b01cc39",
-      "url": "https://www.bisnow.com/houston/news/deal-sheet/energy-firm-leases-62k-sf-for-hq-in-spring-the-houston-deal-sheet-132329",
-      "title": "Energy Firm Leases 62K SF For HQ In Spring: The Houston Deal Sheet",
-      "content_html": "",
-      "content_text": "",
-      "summary": "",
-      "date_published": "2026-01-16T17:27:08.226Z",
-      "date_modified": "2026-01-16T17:27:08.226Z",
-      "image": "https://picsum.photos/seed/y290au/640/360",
-      "author": {
-        "name": "maddy.mccarty@bisnow.com"
-      },
-      "_source": {
-        "name": "Unknown",
-        "website": "bisnow.com",
-        "url": "https://www.bisnow.com/houston/news/deal-sheet/energy-firm-leases-62k-sf-for-hq-in-spring-the-houston-deal-sheet-132329"
       },
       "category": "transactions",
       "tags": [
