@@ -116,7 +116,7 @@ export async function sendDailyNewsletter(): Promise<boolean> {
         const people = recentArticles.filter(a => a.category === 'people');
 
         // Target regions for strict filtering
-        const targetRegions = ['NJ', 'NY', 'PA', 'TX', 'FL', 'New Jersey', 'New York', 'Pennsylvania', 'Texas', 'Florida'];
+        const targetRegions = ['NJ', 'PA', 'FL', 'New Jersey', 'Pennsylvania', 'Florida'];
 
         // Helper to check if article is in target regions
         const isTargetRegion = (article: NormalizedItem): boolean => {
@@ -323,7 +323,7 @@ export async function sendDailyNewsletterGoth(): Promise<boolean> {
         console.log(`📅 Today is ${['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][dayOfWeek]}`);
 
         // Target regions - strict focus on NJ, PA, TX, FL
-        const targetRegions = ['NJ', 'NY', 'PA', 'TX', 'FL', 'New Jersey', 'New York', 'Pennsylvania', 'Texas', 'Florida'];
+        const targetRegions = ['NJ', 'PA', 'FL', 'New Jersey', 'Pennsylvania', 'Florida'];
 
         const isTargetRegion = (article: NormalizedItem): boolean => {
             if (article.regions && article.regions.length > 0) {
@@ -364,12 +364,34 @@ export async function sendDailyNewsletterGoth(): Promise<boolean> {
         const transactions = recentArticles.filter(a => a.category === 'transactions');
         const availabilities = recentArticles.filter(a => a.category === 'availabilities');
         let relevant = recentArticles.filter(a => a.category === 'relevant');
-        const people = recentArticles.filter(a => a.category === 'people');
+
+        // Filter People News: exclude political content, focus on NAI/industrial personnel
+        const excludePolitical = ['trump', 'biden', 'president', 'congress', 'senate', 'election', 'political', 'white house', 'democrat', 'republican'];
+        const includeIndustrial = ['nai', 'sior', 'ccim', 'cbre', 'jll', 'cushman', 'colliers', 'newmark', 'marcus', 'millichap', 'broker', 'industrial', 'warehouse', 'logistics', 'cre', 'commercial real estate', 'development', 'leasing', 'investment sales'];
+
+        const isIndustrialPeopleNews = (article: NormalizedItem): boolean => {
+            const text = `${article.title || ''} ${article.description || ''} ${article.summary || ''}`.toLowerCase();
+            // Exclude if contains political terms
+            if (excludePolitical.some(term => text.includes(term))) {
+                return false;
+            }
+            // Include if contains industrial/NAI terms
+            return includeIndustrial.some(term => text.includes(term));
+        };
+
+        let people = recentArticles.filter(a => a.category === 'people');
+        const filteredPeople = people.filter(isIndustrialPeopleNews);
+        if (filteredPeople.length > 0) {
+            console.log(`👥 People News: filtered from ${people.length} to ${filteredPeople.length} (industrial/NAI focus)`);
+            people = filteredPeople;
+        } else {
+            console.log(`👥 People News: keeping all ${people.length} (no industrial matches found)`);
+        }
 
         // FILTER 2: Regional filter - only apply if 5+ relevant articles
         if (relevant.length >= 5) {
             const filteredRelevant = relevant.filter(isTargetRegion);
-            console.log(`🎯 5+ relevant articles (${relevant.length}) - applying regional filter (NJ, NY, PA, TX, FL)`);
+            console.log(`🎯 5+ relevant articles (${relevant.length}) - applying regional filter (NJ, PA, FL)`);
             console.log(`   Filtered from ${relevant.length} to ${filteredRelevant.length} regional articles`);
 
             // Only apply filter if we still have at least 3 articles after filtering
@@ -453,7 +475,7 @@ export async function sendWeeklyNewsletterGoth(): Promise<boolean> {
         console.log(`📊 Total articles loaded: ${allArticles.length}`);
 
         // Target regions - strict focus on NJ, PA, TX, FL
-        const targetRegions = ['NJ', 'NY', 'PA', 'TX', 'FL', 'New Jersey', 'New York', 'Pennsylvania', 'Texas', 'Florida'];
+        const targetRegions = ['NJ', 'PA', 'FL', 'New Jersey', 'Pennsylvania', 'Florida'];
 
         const isTargetRegion = (article: NormalizedItem): boolean => {
             if (article.regions && article.regions.length > 0) {
@@ -484,7 +506,27 @@ export async function sendWeeklyNewsletterGoth(): Promise<boolean> {
         const transactions = filteredArticles.filter(a => a.category === 'transactions');
         const availabilities = filteredArticles.filter(a => a.category === 'availabilities');
         const relevant = filteredArticles.filter(a => a.category === 'relevant');
-        const people = filteredArticles.filter(a => a.category === 'people');
+
+        // Filter People News: exclude political content, focus on NAI/industrial personnel
+        const excludePolitical = ['trump', 'biden', 'president', 'congress', 'senate', 'election', 'political', 'white house', 'democrat', 'republican'];
+        const includeIndustrial = ['nai', 'sior', 'ccim', 'cbre', 'jll', 'cushman', 'colliers', 'newmark', 'marcus', 'millichap', 'broker', 'industrial', 'warehouse', 'logistics', 'cre', 'commercial real estate', 'development', 'leasing', 'investment sales'];
+
+        const isIndustrialPeopleNews = (article: NormalizedItem): boolean => {
+            const text = `${article.title || ''} ${article.description || ''} ${article.summary || ''}`.toLowerCase();
+            if (excludePolitical.some(term => text.includes(term))) {
+                return false;
+            }
+            return includeIndustrial.some(term => text.includes(term));
+        };
+
+        let people = filteredArticles.filter(a => a.category === 'people');
+        const filteredPeople = people.filter(isIndustrialPeopleNews);
+        if (filteredPeople.length > 0) {
+            console.log(`👥 People News: filtered from ${people.length} to ${filteredPeople.length} (industrial/NAI focus)`);
+            people = filteredPeople;
+        } else {
+            console.log(`👥 People News: keeping all ${people.length} (no industrial matches found)`);
+        }
 
         console.log('📋 Article breakdown (regional focus):');
         console.log(`  - Relevant: ${relevant.length}`);

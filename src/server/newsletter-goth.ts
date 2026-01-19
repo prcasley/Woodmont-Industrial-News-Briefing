@@ -5,7 +5,7 @@ import { NormalizedItem } from '../types/index.js';
  *
  * Rules:
  * - Concise, scannable daily briefing
- * - Focus on NJ, PA, TX, FL; national only if it informs these markets
+ * - Focus on NJ, PA, FL; national only if it informs these markets
  * - Deals ≥100K SF or ≥$25M highlighted
  * - Clear headings and bullets
  * - 2 lines or fewer per bullet, 4-6 bullets per section
@@ -113,7 +113,7 @@ export function buildGothBriefing(
             <h1 style="margin: 0; font-size: 22px; color: #ffffff; font-weight: 300; letter-spacing: 2px;">WOODMONT INDUSTRIAL</h1>
             <p style="margin: 8px 0 0 0; font-size: 13px; color: #4a9eff; font-weight: 500; letter-spacing: 1px;">EXECUTIVE DAILY BRIEFING</p>
             <p style="margin: 12px 0 0 0; font-size: 12px; color: #888;">${dateRange}</p>
-            <p style="margin: 4px 0 0 0; font-size: 11px; color: #666;">Focus: NJ • PA • TX • FL</p>
+            <p style="margin: 4px 0 0 0; font-size: 11px; color: #666;">Focus: NJ • PA • FL</p>
         </div>
 
         <!-- Content -->
