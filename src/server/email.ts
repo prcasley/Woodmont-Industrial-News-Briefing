@@ -325,26 +325,42 @@ export async function sendDailyNewsletterGoth(): Promise<boolean> {
         // Target regions - STRICT focus on NJ, PA, FL ONLY
         const targetRegions = ['NJ', 'PA', 'FL', 'NEW JERSEY', 'PENNSYLVANIA', 'FLORIDA', 'PHILADELPHIA', 'NEWARK', 'JERSEY CITY', 'TRENTON', 'CAMDEN', 'MIAMI', 'ORLANDO', 'TAMPA', 'JACKSONVILLE', 'FORT LAUDERDALE'];
 
-        // Exclude articles primarily about OTHER states
+        // Exclude articles about ALL OTHER states (everything except NJ, PA, FL)
         const excludeRegions = [
-            'TEXAS', 'TX', 'HOUSTON', 'DALLAS', 'AUSTIN', 'SAN ANTONIO',
-            'MARYLAND', 'MD', 'BALTIMORE',
-            'VIRGINIA', 'VA', 'RICHMOND', 'NORFOLK',
-            'GEORGIA', 'GA', 'ATLANTA',
-            'CALIFORNIA', 'CA', 'LOS ANGELES', 'SAN FRANCISCO', 'SAN DIEGO',
-            'NEW YORK', 'NY', 'MANHATTAN', 'BROOKLYN', 'LONG ISLAND',
-            'NORTH CAROLINA', 'NC', 'CHARLOTTE', 'RALEIGH',
-            'SOUTH CAROLINA', 'SC', 'CHARLESTON',
-            'TENNESSEE', 'TN', 'NASHVILLE', 'MEMPHIS',
-            'ARIZONA', 'AZ', 'PHOENIX',
-            'NEVADA', 'NV', 'LAS VEGAS',
-            'COLORADO', 'CO', 'DENVER',
-            'OHIO', 'COLUMBUS', 'CLEVELAND', 'CINCINNATI',
-            'ILLINOIS', 'IL', 'CHICAGO',
-            'MICHIGAN', 'DETROIT',
-            'INDIANA', 'INDIANAPOLIS',
-            'WISCONSIN', 'MILWAUKEE',
-            'MINNESOTA', 'MINNEAPOLIS'
+            // States A-M
+            'ALABAMA', 'AL,', 'ALASKA', 'AK,', 'ARIZONA', 'AZ,', 'ARKANSAS', 'AR,',
+            'CALIFORNIA', 'CA,', 'COLORADO', 'CO,', 'CONNECTICUT', 'CT,',
+            'DELAWARE', 'DE,', 'GEORGIA', 'GA,', 'HAWAII', 'HI,',
+            'IDAHO', 'ID,', 'ILLINOIS', 'IL,', 'INDIANA', 'IN,', 'IOWA', 'IA,',
+            'KANSAS', 'KS,', 'KENTUCKY', 'KY,', 'LOUISIANA', 'LA,',
+            'MAINE', 'ME,', 'MARYLAND', 'MD,', 'MASSACHUSETTS', 'MA,',
+            'MICHIGAN', 'MI,', 'MINNESOTA', 'MN,', 'MISSISSIPPI', 'MS,',
+            'MISSOURI', 'MO,', 'MONTANA', 'MT,',
+            // States N-W
+            'NEBRASKA', 'NE,', 'NEVADA', 'NV,', 'NEW HAMPSHIRE', 'NH,',
+            'NEW MEXICO', 'NM,', 'NEW YORK', 'NORTH CAROLINA', 'NC,',
+            'NORTH DAKOTA', 'ND,', 'OHIO', 'OH,', 'OKLAHOMA', 'OK,', 'OREGON', 'OR,',
+            'RHODE ISLAND', 'RI,', 'SOUTH CAROLINA', 'SC,', 'SOUTH DAKOTA', 'SD,',
+            'TENNESSEE', 'TN,', 'TEXAS', 'TX,', 'UTAH', 'UT,', 'VERMONT', 'VT,',
+            'VIRGINIA', 'VA,', 'WASHINGTON', 'WA,', 'WEST VIRGINIA', 'WV,',
+            'WISCONSIN', 'WI,', 'WYOMING', 'WY,',
+            // Major cities in other states
+            'HOUSTON', 'DALLAS', 'AUSTIN', 'SAN ANTONIO', 'BALTIMORE', 'ATLANTA',
+            'LOS ANGELES', 'SAN FRANCISCO', 'SAN DIEGO', 'SEATTLE', 'PORTLAND',
+            'CHICAGO', 'DETROIT', 'CLEVELAND', 'CINCINNATI', 'COLUMBUS',
+            'PHOENIX', 'LAS VEGAS', 'DENVER', 'SALT LAKE', 'BOISE',
+            'NASHVILLE', 'MEMPHIS', 'CHARLOTTE', 'RALEIGH', 'CHARLESTON',
+            'BOSTON', 'HARTFORD', 'PROVIDENCE', 'NEW HAVEN',
+            'MINNEAPOLIS', 'MILWAUKEE', 'INDIANAPOLIS', 'LOUISVILLE', 'LEXINGTON',
+            'KANSAS CITY', 'ST. LOUIS', 'OMAHA', 'DES MOINES',
+            'ALBUQUERQUE', 'TUCSON', 'OKLAHOMA CITY', 'TULSA',
+            'BIRMINGHAM', 'MOBILE', 'LITTLE ROCK', 'BATON ROUGE', 'NEW ORLEANS',
+            'RICHMOND', 'NORFOLK', 'VIRGINIA BEACH',
+            ', NY', ', TX', ', CA', ', GA', ', MD', ', VA', ', NC', ', SC',
+            ', TN', ', OH', ', IL', ', MI', ', IN', ', WI', ', MN', ', MO',
+            ', KY', ', AL', ', LA', ', AR', ', OK', ', KS', ', NE', ', IA',
+            ', CO', ', AZ', ', NV', ', UT', ', NM', ', MT', ', WY', ', ID',
+            ', WA', ', OR', ', MA', ', CT', ', NH', ', VT', ', ME', ', RI'
         ];
 
         const isTargetRegion = (article: NormalizedItem): boolean => {
@@ -549,26 +565,42 @@ export async function sendWeeklyNewsletterGoth(): Promise<boolean> {
         // Target regions - STRICT focus on NJ, PA, FL ONLY
         const targetRegions = ['NJ', 'PA', 'FL', 'NEW JERSEY', 'PENNSYLVANIA', 'FLORIDA', 'PHILADELPHIA', 'NEWARK', 'JERSEY CITY', 'TRENTON', 'CAMDEN', 'MIAMI', 'ORLANDO', 'TAMPA', 'JACKSONVILLE', 'FORT LAUDERDALE'];
 
-        // Exclude articles primarily about OTHER states
+        // Exclude articles about ALL OTHER states (everything except NJ, PA, FL)
         const excludeRegions = [
-            'TEXAS', 'TX', 'HOUSTON', 'DALLAS', 'AUSTIN', 'SAN ANTONIO',
-            'MARYLAND', 'MD', 'BALTIMORE',
-            'VIRGINIA', 'VA', 'RICHMOND', 'NORFOLK',
-            'GEORGIA', 'GA', 'ATLANTA',
-            'CALIFORNIA', 'CA', 'LOS ANGELES', 'SAN FRANCISCO', 'SAN DIEGO',
-            'NEW YORK', 'NY', 'MANHATTAN', 'BROOKLYN', 'LONG ISLAND',
-            'NORTH CAROLINA', 'NC', 'CHARLOTTE', 'RALEIGH',
-            'SOUTH CAROLINA', 'SC', 'CHARLESTON',
-            'TENNESSEE', 'TN', 'NASHVILLE', 'MEMPHIS',
-            'ARIZONA', 'AZ', 'PHOENIX',
-            'NEVADA', 'NV', 'LAS VEGAS',
-            'COLORADO', 'CO', 'DENVER',
-            'OHIO', 'COLUMBUS', 'CLEVELAND', 'CINCINNATI',
-            'ILLINOIS', 'IL', 'CHICAGO',
-            'MICHIGAN', 'DETROIT',
-            'INDIANA', 'INDIANAPOLIS',
-            'WISCONSIN', 'MILWAUKEE',
-            'MINNESOTA', 'MINNEAPOLIS'
+            // States A-M
+            'ALABAMA', 'AL,', 'ALASKA', 'AK,', 'ARIZONA', 'AZ,', 'ARKANSAS', 'AR,',
+            'CALIFORNIA', 'CA,', 'COLORADO', 'CO,', 'CONNECTICUT', 'CT,',
+            'DELAWARE', 'DE,', 'GEORGIA', 'GA,', 'HAWAII', 'HI,',
+            'IDAHO', 'ID,', 'ILLINOIS', 'IL,', 'INDIANA', 'IN,', 'IOWA', 'IA,',
+            'KANSAS', 'KS,', 'KENTUCKY', 'KY,', 'LOUISIANA', 'LA,',
+            'MAINE', 'ME,', 'MARYLAND', 'MD,', 'MASSACHUSETTS', 'MA,',
+            'MICHIGAN', 'MI,', 'MINNESOTA', 'MN,', 'MISSISSIPPI', 'MS,',
+            'MISSOURI', 'MO,', 'MONTANA', 'MT,',
+            // States N-W
+            'NEBRASKA', 'NE,', 'NEVADA', 'NV,', 'NEW HAMPSHIRE', 'NH,',
+            'NEW MEXICO', 'NM,', 'NEW YORK', 'NORTH CAROLINA', 'NC,',
+            'NORTH DAKOTA', 'ND,', 'OHIO', 'OH,', 'OKLAHOMA', 'OK,', 'OREGON', 'OR,',
+            'RHODE ISLAND', 'RI,', 'SOUTH CAROLINA', 'SC,', 'SOUTH DAKOTA', 'SD,',
+            'TENNESSEE', 'TN,', 'TEXAS', 'TX,', 'UTAH', 'UT,', 'VERMONT', 'VT,',
+            'VIRGINIA', 'VA,', 'WASHINGTON', 'WA,', 'WEST VIRGINIA', 'WV,',
+            'WISCONSIN', 'WI,', 'WYOMING', 'WY,',
+            // Major cities in other states
+            'HOUSTON', 'DALLAS', 'AUSTIN', 'SAN ANTONIO', 'BALTIMORE', 'ATLANTA',
+            'LOS ANGELES', 'SAN FRANCISCO', 'SAN DIEGO', 'SEATTLE', 'PORTLAND',
+            'CHICAGO', 'DETROIT', 'CLEVELAND', 'CINCINNATI', 'COLUMBUS',
+            'PHOENIX', 'LAS VEGAS', 'DENVER', 'SALT LAKE', 'BOISE',
+            'NASHVILLE', 'MEMPHIS', 'CHARLOTTE', 'RALEIGH', 'CHARLESTON',
+            'BOSTON', 'HARTFORD', 'PROVIDENCE', 'NEW HAVEN',
+            'MINNEAPOLIS', 'MILWAUKEE', 'INDIANAPOLIS', 'LOUISVILLE', 'LEXINGTON',
+            'KANSAS CITY', 'ST. LOUIS', 'OMAHA', 'DES MOINES',
+            'ALBUQUERQUE', 'TUCSON', 'OKLAHOMA CITY', 'TULSA',
+            'BIRMINGHAM', 'MOBILE', 'LITTLE ROCK', 'BATON ROUGE', 'NEW ORLEANS',
+            'RICHMOND', 'NORFOLK', 'VIRGINIA BEACH',
+            ', NY', ', TX', ', CA', ', GA', ', MD', ', VA', ', NC', ', SC',
+            ', TN', ', OH', ', IL', ', MI', ', IN', ', WI', ', MN', ', MO',
+            ', KY', ', AL', ', LA', ', AR', ', OK', ', KS', ', NE', ', IA',
+            ', CO', ', AZ', ', NV', ', UT', ', NM', ', MT', ', WY', ', ID',
+            ', WA', ', OR', ', MA', ', CT', ', NH', ', VT', ', ME', ', RI'
         ];
 
         const isTargetRegion = (article: NormalizedItem): boolean => {
