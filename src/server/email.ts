@@ -463,18 +463,22 @@ export async function sendDailyNewsletterGoth(): Promise<boolean> {
         ];
 
         // PEOPLE NEWS: personnel moves in industrial brokerage, development, investment
-        const peopleKeywords = [
-            // Actions
+        // Must have BOTH: a personnel action AND an industrial context
+        const peopleActionKeywords = [
             'hired', 'appointed', 'promoted', 'joined', 'named', 'elevated', 'tapped', 'recruit',
-            // Titles
-            'broker', 'director', 'vp', 'vice president', 'president', 'ceo', 'coo', 'cfo', 'partner',
-            'managing director', 'principal', 'executive', 'head of', 'leader',
-            // Companies
-            'nai', 'sior', 'ccim', 'cbre', 'jll', 'cushman', 'colliers', 'newmark', 'marcus', 'millichap',
-            'prologis', 'duke', 'link', 'rexford', 'first industrial', 'stag', 'terreno',
-            // Industrial focus
-            'industrial', 'logistics', 'warehouse', 'distribution', 'development', 'investment sales', 'capital markets'
+            'hires', 'appoints', 'promotes', 'names', 'adds'
         ];
+        const industrialContextKeywords = [
+            // Industrial CRE companies
+            'nai', 'sior', 'ccim', 'cbre', 'jll', 'cushman', 'colliers', 'newmark', 'marcus', 'millichap',
+            'prologis', 'duke', 'link logistics', 'rexford', 'first industrial', 'stag', 'terreno',
+            'exeter', 'blackstone', 'brookfield', 'clarion', 'dermody', 'hillwood', 'idl', 'panattoni',
+            // Industrial focus keywords
+            'industrial', 'logistics', 'warehouse', 'distribution', 'fulfillment', 'cold storage',
+            'commercial real estate', 'cre', 'investment sales', 'capital markets', 'brokerage'
+        ];
+        // Exclude residential/non-industrial
+        const excludeFromPeople = ['residential', 'elliman', 'compass', 'redfin', 'zillow', 'bank', 'lending', 'mortgage', 'retail', 'multifamily', 'apartment', 'hotel', 'hospitality'];
 
         const getText = (article: NormalizedItem): string =>
             `${article.title || ''} ${article.description || ''} ${article.summary || ''}`.toLowerCase();
@@ -495,6 +499,22 @@ export async function sendDailyNewsletterGoth(): Promise<boolean> {
             return filtered;
         };
 
+        // Special strict filter for People News - requires BOTH action keyword AND industrial context
+        const applyPeopleFilter = (items: NormalizedItem[]): NormalizedItem[] => {
+            const filtered = items.filter(article => {
+                const text = getText(article);
+                if (isPolitical(text)) return false;
+                // Exclude non-industrial sectors
+                if (containsAny(text, excludeFromPeople)) return false;
+                // Must have personnel action AND industrial context
+                const hasAction = containsAny(text, peopleActionKeywords);
+                const hasIndustrial = containsAny(text, industrialContextKeywords);
+                return hasAction && hasIndustrial;
+            });
+            console.log(`🔍 People News: ${items.length} → ${filtered.length} (strict industrial filter)`);
+            return filtered;
+        };
+
         // Categorize from REGIONAL articles only, then apply content filters
         let relevant = regionalArticles.filter(a => a.category === 'relevant');
         relevant = applyStrictFilter(relevant, relevantKeywords, 'Relevant');
@@ -506,7 +526,7 @@ export async function sendDailyNewsletterGoth(): Promise<boolean> {
         availabilities = applyStrictFilter(availabilities, availabilityKeywords, 'Availabilities');
 
         let people = regionalArticles.filter(a => a.category === 'people');
-        people = applyStrictFilter(people, peopleKeywords, 'People News');
+        people = applyPeopleFilter(people);
 
         console.log('📋 Final article breakdown (NJ, PA, FL + industrial content):');
         console.log(`  - Relevant: ${relevant.length}`);
@@ -701,18 +721,22 @@ export async function sendWeeklyNewsletterGoth(): Promise<boolean> {
         ];
 
         // PEOPLE NEWS: personnel moves in industrial brokerage, development, investment
-        const peopleKeywords = [
-            // Actions
+        // Must have BOTH: a personnel action AND an industrial context
+        const peopleActionKeywords = [
             'hired', 'appointed', 'promoted', 'joined', 'named', 'elevated', 'tapped', 'recruit',
-            // Titles
-            'broker', 'director', 'vp', 'vice president', 'president', 'ceo', 'coo', 'cfo', 'partner',
-            'managing director', 'principal', 'executive', 'head of', 'leader',
-            // Companies
-            'nai', 'sior', 'ccim', 'cbre', 'jll', 'cushman', 'colliers', 'newmark', 'marcus', 'millichap',
-            'prologis', 'duke', 'link', 'rexford', 'first industrial', 'stag', 'terreno',
-            // Industrial focus
-            'industrial', 'logistics', 'warehouse', 'distribution', 'development', 'investment sales', 'capital markets'
+            'hires', 'appoints', 'promotes', 'names', 'adds'
         ];
+        const industrialContextKeywords = [
+            // Industrial CRE companies
+            'nai', 'sior', 'ccim', 'cbre', 'jll', 'cushman', 'colliers', 'newmark', 'marcus', 'millichap',
+            'prologis', 'duke', 'link logistics', 'rexford', 'first industrial', 'stag', 'terreno',
+            'exeter', 'blackstone', 'brookfield', 'clarion', 'dermody', 'hillwood', 'idl', 'panattoni',
+            // Industrial focus keywords
+            'industrial', 'logistics', 'warehouse', 'distribution', 'fulfillment', 'cold storage',
+            'commercial real estate', 'cre', 'investment sales', 'capital markets', 'brokerage'
+        ];
+        // Exclude residential/non-industrial
+        const excludeFromPeople = ['residential', 'elliman', 'compass', 'redfin', 'zillow', 'bank', 'lending', 'mortgage', 'retail', 'multifamily', 'apartment', 'hotel', 'hospitality'];
 
         const getText = (article: NormalizedItem): string =>
             `${article.title || ''} ${article.description || ''} ${article.summary || ''}`.toLowerCase();
@@ -733,6 +757,20 @@ export async function sendWeeklyNewsletterGoth(): Promise<boolean> {
             return filtered;
         };
 
+        // Special strict filter for People News - requires BOTH action keyword AND industrial context
+        const applyPeopleFilter = (items: NormalizedItem[]): NormalizedItem[] => {
+            const filtered = items.filter(article => {
+                const text = getText(article);
+                if (isPolitical(text)) return false;
+                if (containsAny(text, excludeFromPeople)) return false;
+                const hasAction = containsAny(text, peopleActionKeywords);
+                const hasIndustrial = containsAny(text, industrialContextKeywords);
+                return hasAction && hasIndustrial;
+            });
+            console.log(`🔍 People News: ${items.length} → ${filtered.length} (strict industrial filter)`);
+            return filtered;
+        };
+
         // Categorize and apply section-specific filters
         let relevant = filteredArticles.filter(a => a.category === 'relevant');
         relevant = applyStrictFilter(relevant, relevantKeywords, 'Relevant');
@@ -744,7 +782,7 @@ export async function sendWeeklyNewsletterGoth(): Promise<boolean> {
         availabilities = applyStrictFilter(availabilities, availabilityKeywords, 'Availabilities');
 
         let people = filteredArticles.filter(a => a.category === 'people');
-        people = applyStrictFilter(people, peopleKeywords, 'People News');
+        people = applyPeopleFilter(people);
 
         console.log('📋 Article breakdown (regional + industrial filter):');
         console.log(`  - Relevant: ${relevant.length}`);
