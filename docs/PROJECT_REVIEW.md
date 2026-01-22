@@ -4,8 +4,8 @@
 This project is an RSS feed aggregator specifically designed for industrial and commercial real estate news across key U.S. regions (NJ, PA, TX, FL). It provides a web interface for viewing articles, generating newsletters, and exporting to PDF. The system can be deployed to GitHub Pages for public RSS feed access.
 
 ## Current State
-- **Repository**: `https://github.com/prcasley/Woodmont-Industrial-News-Briefing`
-- **Live Site**: `https://prcasley.github.io/Woodmont-Industrial-News-Briefing/`
+- **Repository**: `https://github.com/woodmont-industrial/Woodmont-Industrial-News-Briefing`
+- **Live Site**: `https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/`
 - **Status**: Partially deployed with placeholder URLs (YOUR_USERNAME/YOUR_REPO) showing in RSS feed
 - **Local Development**: Functional with Node.js backend serving articles and UI
 
@@ -36,31 +36,31 @@ The following placeholders in `rssfeed.ts` need to be replaced for proper deploy
    ```xml
    <link>https://github.com/YOUR_USERNAME/YOUR_REPO</link>
    ```
-   **Replace with**: `https://github.com/prcasley/Woodmont-Industrial-News-Briefing`
+   **Replace with**: `https://github.com/woodmont-industrial/Woodmont-Industrial-News-Briefing`
 
 2. **Atom Self-Link** (Line ~1992):
    ```xml
    <atom:link href="https://YOUR_USERNAME.github.io/YOUR_REPO/rss.xml" rel="self" type="application/rss+xml" />
    ```
-   **Replace with**: `https://prcasley.github.io/Woodmont-Industrial-News-Briefing/rss.xml`
+   **Replace with**: `https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/rss.xml`
 
 3. **JSON Feed Home Page URL** (Line ~2014):
    ```json
    "home_page_url": "https://YOUR_USERNAME.github.io/YOUR_REPO/"
    ```
-   **Replace with**: `https://prcasley.github.io/Woodmont-Industrial-News-Briefing/`
+   **Replace with**: `https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/`
 
 4. **JSON Feed URL** (Line ~2015):
    ```json
    "feed_url": "https://YOUR_USERNAME.github.io/YOUR_REPO/feed.json"
    ```
-   **Replace with**: `https://prcasley.github.io/Woodmont-Industrial-News-Briefing/feed.json`
+   **Replace with**: `https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/feed.json`
 
 5. **JSON Feed Author URL** (Line ~2019):
    ```json
    "url": "https://YOUR_USERNAME.github.io/YOUR_REPO/"
    ```
-   **Replace with**: `https://prcasley.github.io/Woodmont-Industrial-News-Briefing/`
+   **Replace with**: `https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/`
 
 ## Current Issues
 1. **Placeholder URLs**: RSS feed contains `YOUR_USERNAME` and `YOUR_REPO` instead of actual GitHub details
@@ -89,7 +89,7 @@ The following placeholders in `rssfeed.ts` need to be replaced for proper deploy
 
 ## Configuration
 ### Required Updates
-- Replace `YOUR_USERNAME` with `prcasley`
+- Replace `YOUR_USERNAME` with `woodmont-industrial`
 - Replace `YOUR_REPO` with `Woodmont-Industrial-News-Briefing`
 - Configure SMTP settings via environment variables (not hardcoded)
 - Add XML escaping for RSS generation
@@ -252,7 +252,7 @@ To sync local with GitHub:
 
 ## Manual GitHub Edits for rssfeed.ts
 
-Go to https://github.com/prcasley/Woodmont-Industrial-News-Briefing/blob/main/rssfeed.ts and edit each section below using the GitHub web editor. Make one commit per logical group of changes.
+Go to https://github.com/woodmont-industrial/Woodmont-Industrial-News-Briefing/blob/main/rssfeed.ts and edit each section below using the GitHub web editor. Make one commit per logical group of changes.
 
 ### 1. Secure SMTP Credentials (Lines 1480-1485)
 **Action Required:** Remove hardcoded email credentials and use environment variables only.
@@ -305,29 +305,29 @@ return `\n    <item>
 
 **Location 1: RSS Channel Link (Line 1985)**
 - Current: `<link>https://github.com/YOUR_USERNAME/YOUR_REPO</link>`
-- Replace: `<link>https://github.com/prcasley/Woodmont-Industrial-News-Briefing</link>`
+- Replace: `<link>https://github.com/woodmont-industrial/Woodmont-Industrial-News-Briefing</link>`
 
 **Location 2: Atom Self-Link (Line 1992)**
 - Current: `<atom:link href="https://YOUR_USERNAME.github.io/YOUR_REPO/rss.xml" rel="self" type="application/rss+xml" />`
-- Replace: `<atom:link href="https://prcasley.github.io/Woodmont-Industrial-News-Briefing/rss.xml" rel="self" type="application/rss+xml" />`
+- Replace: `<atom:link href="https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/rss.xml" rel="self" type="application/rss+xml" />`
 
 **Location 3: JSON Feed Home Page URL (Line 2014)**
 - Current: `home_page_url: "https://YOUR_USERNAME.github.io/YOUR_REPO/",`
-- Replace: `home_page_url: "https://prcasley.github.io/Woodmont-Industrial-News-Briefing/",`
+- Replace: `home_page_url: "https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/",`
 
 **Location 4: JSON Feed URL (Line 2015)**
 - Current: `feed_url: "https://YOUR_USERNAME.github.io/YOUR_REPO/feed.json",`
-- Replace: `feed_url: "https://prcasley.github.io/Woodmont-Industrial-News-Briefing/feed.json",`
+- Replace: `feed_url: "https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/feed.json",`
 
 **Location 5: JSON Feed Author URL (Line 2019)**
 - Current: `url: "https://YOUR_USERNAME.github.io/YOUR_REPO/"`
-- Replace: `url: "https://prcasley.github.io/Woodmont-Industrial-News-Briefing/"`
+- Replace: `url: "https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/"`
 
 ### Post-Edit Steps
 1. Commit all changes with message: "Fix placeholders, secure creds, add XML escaping"
 2. Pull changes locally: `git pull origin main`
 3. Run build: `npm run build`
 4. Commit/push generated docs/: `git add docs/ && git commit -m "Update static RSS files" && git push`
-5. Verify at https://prcasley.github.io/Woodmont-Industrial-News-Briefing/rss.xml
+5. Verify at https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/rss.xml
 
 These changes will resolve placeholder URLs, hide credentials, and fix XML validation errors for clean RSS deployment.

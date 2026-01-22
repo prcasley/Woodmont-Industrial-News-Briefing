@@ -520,7 +520,7 @@ function generateRSSXML(items: NormalizedItem[]): string {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Woodmont Industrial News Feed</title>
-    <link>https://github.com/prcasley/Woodmont-Industrial-News-Briefing</link>
+    <link>https://github.com/woodmont-industrial/Woodmont-Industrial-News-Briefing</link>
     <description>Daily industrial and CRE updates across key regions</description>
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
@@ -545,12 +545,12 @@ function generateJSONFeed(items: NormalizedItem[]): object {
     return {
         version: "https://jsonfeed.org/version/1.1",
         title: "Woodmont Industrial News Feed",
-        home_page_url: "https://prcasley.github.io/Woodmont-Industrial-News-Briefing/",
-        feed_url: "https://prcasley.github.io/Woodmont-Industrial-News-Briefing/feed.json",
+        home_page_url: "https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/",
+        feed_url: "https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/feed.json",
         description: "Daily industrial and CRE updates across key regions",
         author: {
             name: "Woodmont Industrial Partners",
-            url: "https://prcasley.github.io/Woodmont-Industrial-News-Briefing/"
+            url: "https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/"
         },
         items: items.filter(item => {
             // Only include items with valid links

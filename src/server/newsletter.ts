@@ -403,7 +403,7 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
         <div class="footer">
             <strong>Woodmont Industrial Partners</strong><br>
             Daily Industrial News Briefing – Confidential & Proprietary<br>
-            © 2025 All Rights Reserved
+            © ${new Date().getFullYear()} All Rights Reserved
         </div>
     </div>
 </body>

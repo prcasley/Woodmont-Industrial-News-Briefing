@@ -372,10 +372,6 @@ const allowedDomains = [
     "reit.com"
 ];
 
-function fallbackThumbnail(id: string): string {
-    return `https://picsum.photos/seed/${id}/640/360`;
-}
-
 // Generate a consistent fallback thumbnail based on URL hash
 function generateFallbackThumbnail(url: string): string {
     if (!url) return '';

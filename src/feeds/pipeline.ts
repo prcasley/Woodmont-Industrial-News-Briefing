@@ -56,7 +56,7 @@ export async function parseSourceFeed(
       const response = await fetch(feedUrl, {
               signal: controller.signal,
               headers: {
-                        'User-Agent': 'Woodmont-Industrial-News-Briefing/1.0 (+https://github.com/prcasley/Woodmont-Industrial-News-Briefing)',
+                        'User-Agent': 'Woodmont-Industrial-News-Briefing/1.0 (+https://github.com/woodmont-industrial/Woodmont-Industrial-News-Briefing)',
               },
       });
 

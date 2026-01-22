@@ -29,7 +29,7 @@ Industrial News Sources → RSS Ingestion → AI Filtering → Storage → RSS 2
 
 ## 📤 What It Outputs
 
-- **RSS Feed**: `https://prcasley.github.io/Woodmont-Industrial-News-Briefing/rss.xml`
+- **RSS Feed**: `https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/rss.xml`
   - RSS 2.0 compliant with metadata, categories, and enclosures
   - 30-minute automated updates via GitHub Actions
   - Deduplicated, filtered, time-limited (last 5 business days)
@@ -75,7 +75,7 @@ API_KEY=your-secret-key      # For manual article additions
 
 **Step 3**: Your Public RSS URL
 ```
-https://prcasley.github.io/Woodmont-Industrial-News-Briefing/rss.xml
+https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/rss.xml
 ```
 
 ### How It's Used at Woodmont
@@ -88,7 +88,7 @@ https://prcasley.github.io/Woodmont-Industrial-News-Briefing/rss.xml
 
 1. Open **Microsoft Copilot Studio** or **Power Automate**
 2. Add **RSS feed** as data source
-3. Enter feed URL: `https://prcasley.github.io/Woodmont-Industrial-News-Briefing/rss.xml`
+3. Enter feed URL: `https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/rss.xml`
 4. Configure 30-minute refresh interval
 5. Set up automated email delivery via O365 Send Email (V2)
 

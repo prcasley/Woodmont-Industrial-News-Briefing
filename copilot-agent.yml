@@ -26,7 +26,7 @@ actions:
     description: "Fetches latest articles and sends daily newsletter"
     steps:
       - name: "Fetch articles from GitHub"
-        url: "https://[username].github.io/[repo]/articles.json"
+        url: "https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/articles.json"
         
       - name: "Generate newsletter HTML"
         template: "newsletter-template.html"
@@ -41,7 +41,7 @@ actions:
     description: "Sends weekly summary of all articles"
     steps:
       - name: "Fetch week's articles"
-        url: "https://[username].github.io/[repo]/articles.json"
+        url: "https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/articles.json"
         filter: "last_7_days"
         
       - name: "Generate weekly summary"
@@ -62,6 +62,6 @@ email_settings:
   from_email: "operationssupport@woodmontproperties.com"
 
 monitoring:
-  github_repo: "[username]/[repo]"
+  github_repo: "woodmont-industrial/Woodmont-Industrial-News-Briefing"
   check_interval: "5m"
-  webhook_url: "https://api.github.com/repos/[username]/[repo]/dispatches"
+  webhook_url: "https://api.github.com/repos/woodmont-industrial/Woodmont-Industrial-News-Briefing/dispatches"

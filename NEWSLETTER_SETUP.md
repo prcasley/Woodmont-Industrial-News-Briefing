@@ -32,7 +32,7 @@ npx tsx rssfeed.ts --send-newsletter
 ### Option B: GitHub Actions (Automated Daily)
 
 1. **Go to GitHub Repository Settings**:
-   - Navigate to: `https://github.com/prcasley/Woodmont-Industrial-News-Briefing/settings/secrets/actions`
+   - Navigate to: `https://github.com/woodmont-industrial/Woodmont-Industrial-News-Briefing/settings/secrets/actions`
 
 2. **Add these Repository Secrets**:
    ```

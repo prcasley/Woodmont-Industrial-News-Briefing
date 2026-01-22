@@ -73,5 +73,5 @@ jobs:
       if: success()
       run: |
         echo "::notice::✅ Articles updated successfully!"
-        echo "📊 RSS Feed: https://prcasley.github.io/Woodmont-Industrial-News-Briefing/rss.xml"
-        echo "🌐 Web UI: https://prcasley.github.io/Woodmont-Industrial-News-Briefing/"
+        echo "📊 RSS Feed: https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/rss.xml"
+        echo "🌐 Web UI: https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing/"

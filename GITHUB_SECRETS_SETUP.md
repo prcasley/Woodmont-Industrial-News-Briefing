@@ -11,7 +11,7 @@ For **automated daily newsletters via GitHub Actions**, you need to add your ema
 ## 📝 Step-by-Step: Add GitHub Secrets
 
 ### 1. Go to Repository Settings
-Navigate to: **https://github.com/prcasley/Woodmont-Industrial-News-Briefing/settings/secrets/actions**
+Navigate to: **https://github.com/woodmont-industrial/Woodmont-Industrial-News-Briefing/settings/secrets/actions**
 
 Or:
 - Go to your repository on GitHub
