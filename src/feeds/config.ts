@@ -512,13 +512,35 @@ export const RSS_FEEDS: FeedConfig[] = [
       headers: BROWSER_HEADERS
 },
 
-    // Prologis Blog - Industrial REIT Insights
+    // Prologis - Try IR press releases RSS (different from marketing site)
 {
-      url: "https://www.prologis.com/news-research/feed",
-      name: "Prologis News",
+      url: "https://ir.prologis.com/rss/news.xml",
+      name: "Prologis IR",
       region: "US",
       source: "Prologis",
       type: FEED_TYPES.INDUSTRIAL_NEWS,
+      timeout: 30000,
+      headers: BROWSER_HEADERS
+},
+
+    // PR Newswire - Industrial Real Estate (aggregator, bypasses individual site blocks)
+{
+      url: "https://www.prnewswire.com/rss/news-releases-list.rss",
+      name: "PR Newswire",
+      region: "US",
+      source: "PR Newswire",
+      type: FEED_TYPES.PRESS_RELEASE,
+      timeout: 30000,
+      headers: BROWSER_HEADERS
+},
+
+    // GlobeNewswire - Real Estate (aggregator)
+{
+      url: "https://www.globenewswire.com/RssFeed/subjectcode/13-Real%20Estate/feedTitle/GlobeNewswire%20-%20Real%20Estate",
+      name: "GlobeNewswire RE",
+      region: "US",
+      source: "GlobeNewswire",
+      type: FEED_TYPES.PRESS_RELEASE,
       timeout: 30000,
       headers: BROWSER_HEADERS
 }

@@ -24,19 +24,32 @@ const MAX_FAILURES_BEFORE_BLOCK = 3;
 // ============================================
 // ENHANCED BROWSER HEADERS FOR BLOCKED FEEDS
 // ============================================
+// Use realistic Chrome 122 headers (latest stable as of 2026)
 const STEALTH_BROWSER_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Accept": "application/rss+xml, application/xml;q=0.9, text/xml;q=0.8, */*;q=0.5",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
     "Accept-Encoding": "gzip, deflate, br",
-    "Cache-Control": "no-cache",
-    "Pragma": "no-cache",
+    "Cache-Control": "max-age=0",
     "Connection": "keep-alive",
     "Upgrade-Insecure-Requests": "1",
+    "Sec-Ch-Ua": '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
+    "Sec-Ch-Ua-Mobile": "?0",
+    "Sec-Ch-Ua-Platform": '"Windows"',
     "Sec-Fetch-Dest": "document",
     "Sec-Fetch-Mode": "navigate",
     "Sec-Fetch-Site": "none",
     "Sec-Fetch-User": "?1"
+};
+
+// RSS-specific headers (some sites prefer these for feed requests)
+const RSS_FEED_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Accept": "application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.8, */*;q=0.7",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Cache-Control": "no-cache",
+    "Connection": "keep-alive"
 };
 
 // Domains that commonly block automated requests
@@ -44,26 +57,51 @@ const BLOCKED_FEED_DOMAINS = [
     'connectcre.com',
     'bizjournals.com',
     'therealdeal.com',
-    'freightwaves.com'
+    'freightwaves.com',
+    'njbiz.com',
+    'prologis.com',
+    'traded.co',
+    'commercialsearch.com'
 ];
+
+// Rate limiting settings
+const BATCH_SIZE = 5; // Number of feeds to fetch in parallel
+const BATCH_DELAY_MS = 1000; // Delay between batches (1 second)
+const REQUEST_DELAY_MS = 200; // Small delay between individual requests in a batch
+
+// Helper to add delay
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 function needsStealthHeaders(url: string): boolean {
     return BLOCKED_FEED_DOMAINS.some(domain => url.includes(domain));
 }
 
 function getHeadersForFeed(feed: FeedConfig): Record<string, string> {
-    // Priority: feed-specific headers > stealth headers for blocked domains > basic browser headers
+    const baseUrl = new URL(feed.url);
+    const origin = baseUrl.origin;
+
+    // Priority: feed-specific headers > stealth headers for blocked domains > RSS headers
     if (feed.headers) {
-        return { ...STEALTH_BROWSER_HEADERS, ...feed.headers };
-    }
-    if (needsStealthHeaders(feed.url)) {
-        // Add Referer for blocked domains
         return {
             ...STEALTH_BROWSER_HEADERS,
-            "Referer": new URL(feed.url).origin + "/"
+            ...feed.headers,
+            "Referer": origin + "/",
+            "Origin": origin
         };
     }
-    return BROWSER_HEADERS;
+    if (needsStealthHeaders(feed.url)) {
+        // Add Referer and Origin for blocked domains (helps bypass some checks)
+        return {
+            ...STEALTH_BROWSER_HEADERS,
+            "Referer": origin + "/",
+            "Origin": origin
+        };
+    }
+    // For non-problematic feeds, use RSS-specific headers
+    return {
+        ...RSS_FEED_HEADERS,
+        "Referer": origin + "/"
+    };
 }
 
 // Check if a 403 response is a Cloudflare/WAF challenge
@@ -788,13 +826,32 @@ function extractImageFromItem(item: RawRSSItem & { content?: string }): string {
     return imgMatch ? imgMatch[1] : '';
 }
 
-// Fetch articles from all feeds
+// Fetch articles from all feeds with rate limiting
 export async function fetchAllRSSArticles(): Promise<FetchResult[]> {
     const startTime = Date.now();
-    const promises = RSS_FEEDS
-        .filter(f => f.enabled !== false)
-        .map(feed => fetchRSSFeedImproved(feed));
-    const results = await Promise.all(promises);
+    const enabledFeeds = RSS_FEEDS.filter(f => f.enabled !== false);
+    const results: FetchResult[] = [];
+
+    // Fetch in batches to avoid triggering rate limits
+    for (let i = 0; i < enabledFeeds.length; i += BATCH_SIZE) {
+        const batch = enabledFeeds.slice(i, i + BATCH_SIZE);
+
+        // Add small delay between requests within a batch
+        const batchPromises = batch.map(async (feed, index) => {
+            if (index > 0) {
+                await delay(REQUEST_DELAY_MS * index);
+            }
+            return fetchRSSFeedImproved(feed);
+        });
+
+        const batchResults = await Promise.all(batchPromises);
+        results.push(...batchResults);
+
+        // Add delay between batches (except after last batch)
+        if (i + BATCH_SIZE < enabledFeeds.length) {
+            await delay(BATCH_DELAY_MS);
+        }
+    }
     if (manualArticles.length) {
         results.unshift({
             status: 'ok',
