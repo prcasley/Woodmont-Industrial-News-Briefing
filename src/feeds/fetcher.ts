@@ -385,6 +385,30 @@ function generateFallbackThumbnail(url: string): string {
     return `https://picsum.photos/seed/${seed}/640/360`;
 }
 
+/**
+ * Robust date parsing for RSS articles
+ * Tries multiple date fields and formats, only falls back to current time as last resort
+ */
+function parseArticleDate(...dateValues: (string | undefined | null)[]): string {
+    for (const dateVal of dateValues) {
+        if (!dateVal || dateVal === '') continue;
+
+        try {
+            const parsed = new Date(dateVal);
+            // Check if valid date (not NaN and reasonable year)
+            if (!isNaN(parsed.getTime()) && parsed.getFullYear() >= 2000 && parsed.getFullYear() <= 2100) {
+                return parsed.toISOString();
+            }
+        } catch {
+            // Try next value
+        }
+    }
+
+    // Only use current time as absolute last resort - log this so we can diagnose
+    console.warn(`[Date Parse] Could not parse any date from values: ${dateValues.filter(Boolean).join(', ')} - using current time`);
+    return new Date().toISOString();
+}
+
 // Enhanced article filtering with expanded market coverage for better article yield
 // Mandatory sources - these get VERY light filtering (basically allow everything)
 const MANDATORY_SOURCE_PATTERNS = [
@@ -595,6 +619,9 @@ async function fetchRSSFeedImproved(feed: FeedConfig): Promise<FetchResult> {
                     websiteDomain = urlObj.hostname.replace(/^www\./, '');
                 } catch { websiteDomain = ''; }
                 
+                // Robust date parsing - check multiple fields and formats
+                const parsedDate = parseArticleDate(item.isoDate, item.pubDate, item.published, item.date);
+
                 const normalized: NormalizedItem = {
                     id: computeId({ guid: item.guid, canonicalUrl: normalizedLink }),
                     guid: item.guid || '',
@@ -604,7 +631,7 @@ async function fetchRSSFeedImproved(feed: FeedConfig): Promise<FetchResult> {
                     source: feed.name,
                     publisher: websiteDomain || feed.name,
                     regions: [feed.region || 'US'],
-                    pubDate: new Date(item.pubDate || item.published || new Date()).toISOString(),
+                    pubDate: parsedDate,
                     description: stripHtmlTags(item.description || item['content:encoded'] || ''),
                     author: authorName,
                     image: imageUrl,

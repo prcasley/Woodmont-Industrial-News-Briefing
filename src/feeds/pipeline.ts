@@ -96,7 +96,7 @@ export function normalizeArticle(
     sourceName: string
   ): NormalizedItem {
     const now = Date.now();
-    const publishedTime = raw.pubDate ? new Date(raw.pubDate).getTime() : now;
+    const publishedTime = parseArticleTimestamp(raw.pubDate) || now;
 
   return {
         id: generateArticleId(raw.link, raw.title, sourceId),
@@ -292,4 +292,18 @@ function cleanText(text: string): string {
       .replace(/&#39;/g, "'")
       .replace(/<[^>]*>/g, '')
       .trim();
+}
+
+/**
+ * Parse article date and return timestamp, or null if invalid
+ */
+function parseArticleTimestamp(dateVal: string | undefined | null): number | null {
+    if (!dateVal || dateVal === '') return null;
+    try {
+        const parsed = new Date(dateVal);
+        if (!isNaN(parsed.getTime()) && parsed.getFullYear() >= 2000 && parsed.getFullYear() <= 2100) {
+            return parsed.getTime();
+        }
+    } catch { /* invalid */ }
+    return null;
 }

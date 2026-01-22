@@ -63,7 +63,7 @@ export async function parseRSSFeed(feed: FeedConfig): Promise<ParsedFeed> {
           link: normalizeUrl(item.link || item.guid || ''),
           source: feed.name,
           region: feed.region || 'US',
-          pubDate: new Date(item.pubDate || item.published || new Date()).toISOString(),
+          pubDate: parseArticleDate(item.isoDate, item.pubDate, item.published),
           description: stripHtmlTags(item.description || item['content:encoded'] || ''),
           content: item.content || item['content:encoded'] || item.description || '',
           author: (item as any).creator || (item as any).author || '',
@@ -138,7 +138,7 @@ async function parseManually(feed: FeedConfig): Promise<ParsedFeed> {
         link: normalizeUrl(rawItem.link?.[0] || rawItem.id?.[0] || ''),
         source: feed.name,
         region: feed.region || 'US',
-        pubDate: new Date(rawItem.pubDate?.[0] || rawItem.published?.[0] || new Date()).toISOString(),
+        pubDate: parseArticleDate(rawItem.pubDate?.[0], rawItem.published?.[0]),
         description: stripHtmlTags(rawItem.description?.[0] || rawItem.summary?.[0] || ''),
         content: rawItem['content:encoded']?.[0] || rawItem.description?.[0] || '',
         author: rawItem['dc:creator']?.[0] || rawItem.author?.[0] || '',
@@ -204,6 +204,22 @@ function stripTrackingParams(url: string): string {
 function stripHtmlTags(html: string): string {
   if (!html) return '';
   return html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * Robust date parsing - tries multiple values, only falls back to current time as last resort
+ */
+function parseArticleDate(...dateValues: (string | undefined | null)[]): string {
+    for (const dateVal of dateValues) {
+        if (!dateVal || dateVal === '') continue;
+        try {
+            const parsed = new Date(dateVal);
+            if (!isNaN(parsed.getTime()) && parsed.getFullYear() >= 2000 && parsed.getFullYear() <= 2100) {
+                return parsed.toISOString();
+            }
+        } catch { /* try next */ }
+    }
+    return new Date().toISOString();
 }
 
 function extractImage(item: any): string {
