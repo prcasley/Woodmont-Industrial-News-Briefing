@@ -52,6 +52,20 @@ const RSS_FEED_HEADERS = {
     "Connection": "keep-alive"
 };
 
+// Simple RSS headers for feeds that do content negotiation (like FeedBlitz)
+// No quality values = they return XML instead of HTML
+const SIMPLE_RSS_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (compatible; RSSReader/1.0)",
+    "Accept": "application/rss+xml, application/xml, text/xml, */*",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Cache-Control": "no-cache",
+    "Connection": "keep-alive"
+};
+
+// Domains that need simple RSS headers (content negotiation)
+const SIMPLE_ACCEPT_DOMAINS = ['feedblitz.com'];
+
 // Domains that commonly block automated requests
 const BLOCKED_FEED_DOMAINS = [
     'connectcre.com',
@@ -76,11 +90,22 @@ function needsStealthHeaders(url: string): boolean {
     return BLOCKED_FEED_DOMAINS.some(domain => url.includes(domain));
 }
 
+function needsSimpleRSSHeaders(url: string): boolean {
+    return SIMPLE_ACCEPT_DOMAINS.some(domain => url.includes(domain));
+}
+
 function getHeadersForFeed(feed: FeedConfig): Record<string, string> {
     const baseUrl = new URL(feed.url);
     const origin = baseUrl.origin;
 
-    // Priority: feed-specific headers > stealth headers for blocked domains > RSS headers
+    // Priority: simple RSS for content-negotiating feeds > feed-specific > stealth > RSS headers
+    if (needsSimpleRSSHeaders(feed.url)) {
+        // FeedBlitz and similar - use simple headers without quality values
+        return {
+            ...SIMPLE_RSS_HEADERS,
+            "Referer": origin + "/"
+        };
+    }
     if (feed.headers) {
         return {
             ...STEALTH_BROWSER_HEADERS,
@@ -374,6 +399,7 @@ const allowedDomains = [
     "dowjones.com",         // WSJ parent
     "bisnow.com",           // Bisnow
     "globest.com",          // GlobeSt
+    "feedblitz.com",        // GlobeSt FeedBlitz feeds
     "naiop.org",            // NAIOP
     "blog.naiop.org",       // NAIOP Blog
     "naiopma.org",          // NAIOP Massachusetts
@@ -572,7 +598,29 @@ async function fetchRSSFeedImproved(feed: FeedConfig): Promise<FetchResult> {
                 validateStatus: () => true, // Don't throw on any status
                 responseType: 'text'
             });
-            
+
+            // DIAGNOSTIC LOGGING - capture full request/response details
+            const finalUrl = response.request?.res?.responseUrl || response.config?.url || feed.url;
+            const diagnosticHeaders = {
+                server: response.headers['server'],
+                'cf-ray': response.headers['cf-ray'],
+                'cf-cache-status': response.headers['cf-cache-status'],
+                location: response.headers['location'],
+                'content-type': response.headers['content-type'],
+                'set-cookie': response.headers['set-cookie'] ? '[present]' : undefined
+            };
+
+            if (response.status >= 400 || feed.url.includes('connectcre') || feed.url.includes('feedblitz')) {
+                console.log(`\n🔍 DIAGNOSTIC [${feed.name}]:`);
+                console.log(`   Request URL: ${feed.url}`);
+                console.log(`   Final URL (after redirects): ${finalUrl}`);
+                console.log(`   Status: ${response.status} ${response.statusText}`);
+                console.log(`   Response Headers:`, JSON.stringify(diagnosticHeaders, null, 2));
+                console.log(`   Request Headers Sent:`, JSON.stringify(headers, null, 2));
+                console.log(`   Body (first 300 chars): ${String(response.data).slice(0, 300)}`);
+                console.log(`   Followed redirects: ${feed.url !== finalUrl ? 'YES' : 'NO'}`);
+            }
+
             // Handle HTTP errors
             if (response.status === 403) {
                 const bodyPreview = String(response.data).slice(0, 500);

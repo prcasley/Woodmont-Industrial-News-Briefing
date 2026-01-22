@@ -121,7 +121,49 @@ export const RSS_FEEDS: FeedConfig[] = [
     headers: BROWSER_HEADERS
   },
 
-  // 6. SOUTH FLORIDA BUSINESS JOURNAL
+  // 6. GLOBEST ✅ - Using FeedBlitz feeds (direct XML, no Cloudflare)
+  {
+    url: "http://feeds.feedblitz.com/globest/industrial",
+    name: "GlobeSt Industrial",
+    region: "US",
+    source: "GlobeSt",
+    type: FEED_TYPES.INDUSTRIAL_NEWS,
+    timeout: 30000
+  },
+  {
+    url: "http://feeds.feedblitz.com/globest/new-jersey",
+    name: "GlobeSt New Jersey",
+    region: "NJ",
+    source: "GlobeSt",
+    type: FEED_TYPES.INDUSTRIAL_NEWS,
+    timeout: 30000
+  },
+  {
+    url: "http://feeds.feedblitz.com/globest/philadelphia",
+    name: "GlobeSt Philadelphia",
+    region: "PA",
+    source: "GlobeSt",
+    type: FEED_TYPES.INDUSTRIAL_NEWS,
+    timeout: 30000
+  },
+  {
+    url: "http://feeds.feedblitz.com/globest/miami",
+    name: "GlobeSt Miami",
+    region: "FL",
+    source: "GlobeSt",
+    type: FEED_TYPES.INDUSTRIAL_NEWS,
+    timeout: 30000
+  },
+  {
+    url: "http://feeds.feedblitz.com/globest/national",
+    name: "GlobeSt National",
+    region: "US",
+    source: "GlobeSt",
+    type: FEED_TYPES.INDUSTRIAL_NEWS,
+    timeout: 30000
+  },
+
+  // 7. SOUTH FLORIDA BUSINESS JOURNAL
   {
     url: "https://www.bizjournals.com/southflorida/feed/",
     name: "South Florida Business Journal",
@@ -145,7 +187,8 @@ export const RSS_FEEDS: FeedConfig[] = [
     timeout: 30000
   },
 
-  // 11. NJBIZ ✅ - Working
+  // 11. NJBIZ - nginx 403 block (cookie priming didn't help)
+  // Falls back to Google News for NJ business coverage
   {
     url: "https://njbiz.com/feed/",
     name: "NJBIZ",
