@@ -725,7 +725,7 @@
         </div>
       );
     };
-    const NewsletterPreview = ({ html, loading, timeframe, setTimeframe, onGenerate, onClear, generated, newsletterRecipients, setNewsletterRecipients, onSendEmail, emailLoading }) => {
+    const NewsletterPreview = ({ html, loading, timeframe, setTimeframe, theme, setTheme, onGenerate, onClear, generated, newsletterRecipients, setNewsletterRecipients, onSendEmail, emailLoading }) => {
       const [showTemplate, setShowTemplate] = useState(false);
       const [sendingEmail, setSendingEmail] = useState(false);
       
@@ -850,7 +850,19 @@
                     <option value="90">Last 90 days</option>
                   </select>
                 </div>
-                
+
+                <div className="flex items-center gap-2">
+                  <label className="text-sm text-slate-600 dark:text-slate-400">Theme:</label>
+                  <select
+                    className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1 text-sm focus:ring-2 focus:ring-slate-300 dark:focus:ring-slate-600 outline-none text-slate-900 dark:text-white"
+                    value={theme}
+                    onChange={(e) => setTheme(e.target.value)}
+                  >
+                    <option value="default">Default (Colorful)</option>
+                    <option value="goth">Goth (Executive)</option>
+                  </select>
+                </div>
+
                 <button
                   onClick={onGenerate}
                   className="px-4 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors"
@@ -939,6 +951,7 @@
       const [newsletterHTML, setNewsletterHTML] = useState("");
       const [newsletterGenerated, setNewsletterGenerated] = useState(false);
       const [newsletterTimeframe, setNewsletterTimeframe] = useState("1");
+      const [newsletterTheme, setNewsletterTheme] = useState("default");
       const [newsletterRecipients, setNewsletterRecipients] = useState("");
       const [refreshLoading, setRefreshLoading] = useState(false);
       const [lastFetchInfo, setLastFetchInfo] = useState(null);
@@ -1154,9 +1167,71 @@
           <div class="footer">
             <strong>Woodmont Industrial Partners</strong><br>
             Daily Industrial News Briefing – Confidential & Proprietary<br>
-            © 2025 All Rights Reserved
+            © ${new Date().getFullYear()} All Rights Reserved
           </div>
         </div></body></html>`;
+      };
+
+      // Goth theme newsletter builder - executive style, dark header
+      const buildGothNewsletterHTML = (articles, days) => {
+        const now = new Date();
+        const startDate = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+        const dateRange = `${startDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} – ${now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })} (ET)`;
+
+        const relevant = articles.filter(a => a.category === 'relevant').slice(0, 6);
+        const transactions = articles.filter(a => a.category === 'transaction').slice(0, 5);
+        const availabilities = articles.filter(a => a.category === 'availabilities').slice(0, 5);
+        const people = articles.filter(a => a.category === 'people').slice(0, 5);
+
+        const formatBullet = (item) => {
+          const title = item.title || 'Untitled';
+          const url = item.link || '#';
+          const source = item.source || 'Industry News';
+          const desc = (item.description || '').substring(0, 180) + (item.description?.length > 180 ? '...' : '');
+
+          return `<li style="margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid #e8e8e8; list-style: none;">
+            <a href="${url}" style="color: #1e3c72; text-decoration: none; font-weight: 600; font-size: 15px; line-height: 1.4; display: block;">${title}</a>
+            ${desc ? `<p style="margin: 8px 0 0 0; color: #555; font-size: 13px; line-height: 1.5;">${desc}</p>` : ''}
+            <div style="margin-top: 8px;">
+              <a href="${url}" style="color: #2563eb; text-decoration: none; font-size: 12px;">Read at ${source} →</a>
+              <span style="font-size: 11px; color: #999; margin-left: 12px;">[Track] [Share] [Ignore]</span>
+            </div>
+          </li>`;
+        };
+
+        const renderSection = (title, items) => {
+          if (!items || items.length === 0) {
+            return `<div style="margin-bottom: 28px;">
+              <h3 style="color: #1e3c72; font-size: 16px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #e8e8e8;">${title}</h3>
+              <p style="color: #888; font-style: italic; margin-left: 20px;">No updates for this section.</p>
+            </div>`;
+          }
+          return `<div style="margin-bottom: 28px;">
+            <h3 style="color: #1e3c72; font-size: 16px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #e8e8e8;">${title}</h3>
+            <ul style="margin: 0; padding-left: 0;">${items.map(formatBullet).join('')}</ul>
+          </div>`;
+        };
+
+        return `<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin: 0; padding: 20px; background: #f4f4f4; font-family: 'Segoe UI', Arial, sans-serif;">
+          <div style="max-width: 700px; margin: 0 auto; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); color: #fff; padding: 30px; text-align: center;">
+              <h1 style="margin: 0 0 8px 0; font-size: 24px; font-weight: 700;">🏭 Woodmont Industrial Partners</h1>
+              <p style="margin: 0 0 4px 0; font-size: 14px; opacity: 0.9;">Daily Industrial News Briefing — Executive Summary</p>
+              <p style="margin: 0; font-size: 12px; opacity: 0.7;">${dateRange} | Focus: NJ, PA, FL, TX</p>
+            </div>
+            <div style="padding: 24px;">
+              ${renderSection('📰 MARKET INTELLIGENCE', relevant)}
+              ${renderSection('💼 TRANSACTIONS (≥100K SF or ≥$25M)', transactions)}
+              ${renderSection('🏢 AVAILABILITIES', availabilities)}
+              ${renderSection('👥 PEOPLE MOVES', people)}
+            </div>
+            <div style="background: #f8f8f8; padding: 20px; text-align: center; color: #666; font-size: 12px; border-top: 1px solid #e8e8e8;">
+              <strong>Woodmont Industrial Partners</strong><br>
+              Daily Industrial News Briefing – Confidential & Proprietary<br>
+              © ${new Date().getFullYear()} All Rights Reserved
+            </div>
+          </div>
+        </body></html>`;
       };
 
       const generateNewsletter = useCallback(async () => {
@@ -1170,11 +1245,15 @@
               const pubDate = new Date(item.pubDate || item.fetchedAt || 0);
               return pubDate >= cutoff;
             });
-            const html = buildNewsletterHTML(recentArticles, days);
+            // Use selected theme
+            const html = newsletterTheme === 'goth'
+              ? buildGothNewsletterHTML(recentArticles, days)
+              : buildNewsletterHTML(recentArticles, days);
             setNewsletterHTML(html);
             setNewsletterGenerated(true);
           } else {
-            const res = await fetch(`/api/newsletter?days=${newsletterTimeframe}`);
+            // For server-side, pass theme parameter
+            const res = await fetch(`/api/newsletter?days=${newsletterTimeframe}&theme=${newsletterTheme}`);
             const data = await res.json();
             setNewsletterHTML(data.html || '');
             setNewsletterGenerated(true);
@@ -1185,7 +1264,7 @@
         } finally {
           setLoading(false);
         }
-      }, [newsletterTimeframe, items]);
+      }, [newsletterTimeframe, newsletterTheme, items]);
 
       const clearNewsletter = useCallback(() => {
         setNewsletterHTML('');
@@ -1435,11 +1514,13 @@
           {viewMode === "articles" ? (
               <ArticleGrid items={filtered} loading={loading || refreshLoading} onArticleClick={handleArticleClick} />
             ) : viewMode === "newsletter" ? (
-            <NewsletterPreview 
-              html={newsletterHTML} 
+            <NewsletterPreview
+              html={newsletterHTML}
               loading={loading}
               timeframe={newsletterTimeframe}
               setTimeframe={setNewsletterTimeframe}
+              theme={newsletterTheme}
+              setTheme={setNewsletterTheme}
               onGenerate={generateNewsletter}
               onClear={clearNewsletter}
               generated={newsletterGenerated}
