@@ -5,7 +5,7 @@ import { classifyArticle } from '../filter/classifier.js';
 
 // File-based persistent storage
 const STORAGE_FILE = path.join(process.cwd(), 'articles.json');
-const ITEM_RETENTION_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+const ITEM_RETENTION_MS = 90 * 24 * 60 * 60 * 1000; // 90 days
 const FETCH_CACHE_TTL_MS = 20 * 60 * 1000; // 20 minutes
 
 // In-memory fetch cache (per-feed) and item store (deduped, retained for 7d)
@@ -85,18 +85,18 @@ export function pruneItemStore() {
     }
 
     if (removedCount > 0) {
-        console.log(`🧹 Pruned ${removedCount} articles older than 30 days`);
+        console.log(`🧹 Pruned ${removedCount} articles older than 90 days`);
     }
 }
 
-// Archive articles older than 90 days (don't delete, just mark)
+// Archive articles older than 180 days (don't delete, just mark)
 export function archiveOldArticles() {
-    const ninetyDaysAgo = Date.now() - (90 * 24 * 60 * 60 * 1000);
+    const oneEightyDaysAgo = Date.now() - (180 * 24 * 60 * 60 * 1000);
     let archivedCount = 0;
 
     for (const item of itemStore.values()) {
         const itemDate = new Date(item.pubDate || item.fetchedAt || 0).getTime();
-        if (itemDate < ninetyDaysAgo) {
+        if (itemDate < oneEightyDaysAgo) {
             // Mark as archived but keep in store
             item.archived = true;
             archivedCount++;
@@ -104,6 +104,6 @@ export function archiveOldArticles() {
     }
 
     if (archivedCount > 0) {
-        console.log(`📚 Archived ${archivedCount} articles older than 90 days (kept for reference)`);
+        console.log(`📚 Archived ${archivedCount} articles older than 180 days (kept for reference)`);
     }
 }

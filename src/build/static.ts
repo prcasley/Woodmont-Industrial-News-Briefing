@@ -411,18 +411,18 @@ export async function buildStaticRSS(): Promise<void> {
             log('info', `Cleaned ${mergedArticles.length - cleanMerged.length} out-of-state articles from existing feed`);
         }
 
-        // === STEP 4: Apply 30-day cleanup ===
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        // === STEP 4: Apply 90-day cleanup ===
+        const ninetyDaysAgo = new Date();
+        ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
 
         const cleanedArticles = cleanMerged.filter(item => {
             const pubDate = new Date(item.pubDate || item.date_published || item.fetchedAt || Date.now());
-            return pubDate >= thirtyDaysAgo;
+            return pubDate >= ninetyDaysAgo;
         });
 
         const removedCount = cleanMerged.length - cleanedArticles.length;
         if (removedCount > 0) {
-            log('info', `Auto-deleted ${removedCount} articles older than 30 days`);
+            log('info', `Auto-deleted ${removedCount} articles older than 90 days`);
         }
 
         // Sort by publication date (newest first)

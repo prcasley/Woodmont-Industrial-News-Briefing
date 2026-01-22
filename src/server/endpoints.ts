@@ -8,7 +8,7 @@ import { sendEmail } from './email.js';
 // Security Configuration
 const API_KEY = process.env.API_KEY || "";
 const REQUIRE_API_KEY = process.env.REQUIRE_API_KEY === "true"; // Set to true in production
-const windowDefaultHours = 720; // default articles window if not specified (30 days)
+const windowDefaultHours = 2160; // default articles window if not specified (90 days)
 const FRONTEND_FILE = path.join(process.cwd(), "frontend", "index.html");
 
 // CORS Configuration - Restrict to allowed origins in production

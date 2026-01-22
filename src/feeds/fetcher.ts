@@ -952,7 +952,7 @@ export async function fetchAllRSSArticles(): Promise<FetchResult[]> {
     const allCurrentItems = Array.from(itemStore.values());
     let cleanupCount = 0;
 
-    // Archive articles older than 90 days (don't delete, just log)
+    // Archive articles older than 180 days (don't delete, just log)
     archiveOldArticles();
 
     // Update last fetch info
