@@ -338,6 +338,7 @@ const allowedDomains = [
     "globest.com",          // GlobeSt
     "naiop.org",            // NAIOP
     "blog.naiop.org",       // NAIOP Blog
+    "naiopma.org",          // NAIOP Massachusetts
     "cpexecutive.com",      // Commercial Property Executive
     "bizjournals.com",      // South FL Business Journal + others
     "loopnet.com",          // LoopNet

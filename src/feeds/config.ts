@@ -32,12 +32,23 @@ export const RSS_FEEDS: FeedConfig[] = [
     timeout: 30000
   },
 
-  // 2. COMMERCIAL SEARCH - Using alternative (CommercialCafe is same company)
+  // 2. COMMERCIAL SEARCH (Commercial Property Executive / CommercialSearch News)
+  {
+    url: "https://commercialsearch.com/news/feed",
+    name: "Commercial Search",
+    region: "US",
+    source: "Commercial Search",
+    type: FEED_TYPES.INDUSTRIAL_NEWS,
+    timeout: 30000,
+    headers: BROWSER_HEADERS
+  },
+
+  // 2b. COMMERCIAL CAFE (sister site to Commercial Search)
   {
     url: "https://www.commercialcafe.com/blog/feed/",
     name: "Commercial Cafe",
     region: "US",
-    source: "Commercial Search",
+    source: "Commercial Cafe",
     type: FEED_TYPES.INDUSTRIAL_NEWS,
     timeout: 30000,
     headers: BROWSER_HEADERS
@@ -88,13 +99,35 @@ export const RSS_FEEDS: FeedConfig[] = [
     timeout: 30000
   },
 
-  // 5. NAIOP - Using blog feed
+  // 5. NAIOP - Using blog feed (official NAIOP Market Share blog)
   {
     url: "https://blog.naiop.org/feed/",
     name: "NAIOP Blog",
     region: "US",
     source: "NAIOP",
     type: FEED_TYPES.INDUSTRIAL_NEWS,
+    timeout: 30000,
+    headers: BROWSER_HEADERS
+  },
+
+  // 5b. NAIOP MA - Massachusetts chapter blog (optional)
+  {
+    url: "https://www.naiopma.org/feed/",
+    name: "NAIOP Massachusetts",
+    region: "MA",
+    source: "NAIOP MA",
+    type: FEED_TYPES.INDUSTRIAL_NEWS,
+    timeout: 30000,
+    headers: BROWSER_HEADERS
+  },
+
+  // 6. SOUTH FLORIDA BUSINESS JOURNAL
+  {
+    url: "https://www.bizjournals.com/southflorida/feed/",
+    name: "South Florida Business Journal",
+    region: "FL",
+    source: "Business Journals",
+    type: FEED_TYPES.NEWS,
     timeout: 30000,
     headers: BROWSER_HEADERS
   },

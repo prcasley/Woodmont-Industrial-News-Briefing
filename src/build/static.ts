@@ -7,7 +7,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { log } from '../server/logging.js';
 import { fetchAllRSSArticles, isAllowedLink, shouldRejectUrl, isFromMandatorySource } from '../feeds/fetcher.js';
-import { NormalizedItem } from '../types/index.js';
+import { NormalizedItem, FetchResult } from '../types/index.js';
+import { RSS_FEEDS } from '../feeds/config.js';
 
 // Directory for static output
 const DOCS_DIR = path.join(process.cwd(), 'docs');
@@ -449,6 +450,11 @@ export async function buildStaticRSS(): Promise<void> {
         fs.writeFileSync(path.join(DOCS_DIR, 'feed.json'), JSON.stringify(feedJSON, null, 2), 'utf8');
         log('info', 'Generated docs/feed.json', { itemCount: rssItems.length });
 
+        // Generate Feed Health Report
+        const feedHealthReport = generateFeedHealthReport(results);
+        fs.writeFileSync(path.join(DOCS_DIR, 'feed-health.json'), JSON.stringify(feedHealthReport, null, 2), 'utf8');
+        log('info', 'Generated docs/feed-health.json', { feedCount: feedHealthReport.feeds.length });
+
         const duration = Date.now() - startTime;
         log('info', 'Static build completed successfully', {
             durationMs: duration,
@@ -619,5 +625,76 @@ function generateJSONFeed(items: NormalizedItem[]): object {
                 tags: [categoryLabels[category] || category, websiteDomain, ...(item.regions || [])]
             };
         })
+    };
+}
+
+/**
+ * Generate Feed Health Report - JSON report showing status of each feed
+ */
+interface FeedHealthEntry {
+    name: string;
+    url: string;
+    status: 'ok' | 'failed';
+    fetchedRaw: number;
+    keptAfterFiltering: number;
+    lastError: string | null;
+    durationMs: number;
+}
+
+interface FeedHealthReport {
+    generatedAt: string;
+    totalFeeds: number;
+    successfulFeeds: number;
+    failedFeeds: number;
+    totalArticlesFetched: number;
+    totalArticlesKept: number;
+    feeds: FeedHealthEntry[];
+}
+
+function generateFeedHealthReport(results: FetchResult[]): FeedHealthReport {
+    const feeds: FeedHealthEntry[] = [];
+
+    // Create a map of feed names to URLs from config
+    const feedUrlMap = new Map<string, string>();
+    for (const feed of RSS_FEEDS) {
+        feedUrlMap.set(feed.name, feed.url);
+    }
+
+    for (const result of results) {
+        const feedName = result.meta.feed;
+        const feedUrl = feedUrlMap.get(feedName) || 'unknown';
+
+        feeds.push({
+            name: feedName,
+            url: feedUrl,
+            status: result.status === 'ok' ? 'ok' : 'failed',
+            fetchedRaw: result.meta.fetchedRaw,
+            keptAfterFiltering: result.meta.kept,
+            lastError: result.error?.message || null,
+            durationMs: result.meta.durationMs
+        });
+    }
+
+    // Sort by status (failed first) then by name
+    feeds.sort((a, b) => {
+        if (a.status !== b.status) {
+            return a.status === 'failed' ? -1 : 1;
+        }
+        return a.name.localeCompare(b.name);
+    });
+
+    const successfulFeeds = feeds.filter(f => f.status === 'ok').length;
+    const failedFeeds = feeds.filter(f => f.status === 'failed').length;
+    const totalArticlesFetched = feeds.reduce((sum, f) => sum + f.fetchedRaw, 0);
+    const totalArticlesKept = feeds.reduce((sum, f) => sum + f.keptAfterFiltering, 0);
+
+    return {
+        generatedAt: new Date().toISOString(),
+        totalFeeds: feeds.length,
+        successfulFeeds,
+        failedFeeds,
+        totalArticlesFetched,
+        totalArticlesKept,
+        feeds
     };
 }

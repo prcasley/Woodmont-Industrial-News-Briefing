@@ -725,7 +725,7 @@
         </div>
       );
     };
-    const NewsletterPreview = ({ html, loading, timeframe, setTimeframe, theme, setTheme, onGenerate, onClear, generated, newsletterRecipients, setNewsletterRecipients, onSendEmail, emailLoading }) => {
+    const NewsletterPreview = ({ html, loading, timeframe, setTimeframe, theme, setTheme, onGenerate, onClear, generated, newsletterRecipients, setNewsletterRecipients, onSendEmail, emailLoading, feedHealthReport, showFeedHealth, setShowFeedHealth, onFetchFeedHealth, feedHealthLoading }) => {
       const [showTemplate, setShowTemplate] = useState(false);
       const [sendingEmail, setSendingEmail] = useState(false);
       
@@ -869,6 +869,21 @@
                 >
                   Generate Newsletter
                 </button>
+
+                <button
+                  onClick={onFetchFeedHealth}
+                  disabled={feedHealthLoading}
+                  className="px-4 py-2 bg-purple-500 text-white rounded-lg font-medium hover:bg-purple-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+                >
+                  {feedHealthLoading ? (
+                    <>
+                      <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
+                      Loading...
+                    </>
+                  ) : (
+                    <>📊 Feed Health</>
+                  )}
+                </button>
                 
                 {generated && (
                   <>
@@ -932,6 +947,72 @@
               </div>
             </div>
           )}
+
+          {/* Feed Health Report */}
+          {showFeedHealth && feedHealthReport && (
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm overflow-hidden mt-6">
+              <div className="p-6 border-b border-slate-200 dark:border-slate-700">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">📊 Feed Health Report</h3>
+                  <button
+                    onClick={() => setShowFeedHealth(false)}
+                    className="text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                  >
+                    ✕ Close
+                  </button>
+                </div>
+                <div className="mt-2 flex gap-4 text-sm">
+                  <span className="text-slate-600 dark:text-slate-400">
+                    Generated: {new Date(feedHealthReport.generatedAt).toLocaleString()}
+                  </span>
+                  <span className="text-green-600">
+                    ✓ {feedHealthReport.successfulFeeds} OK
+                  </span>
+                  <span className="text-red-600">
+                    ✕ {feedHealthReport.failedFeeds} Failed
+                  </span>
+                  <span className="text-slate-600 dark:text-slate-400">
+                    {feedHealthReport.totalArticlesFetched} fetched → {feedHealthReport.totalArticlesKept} kept
+                  </span>
+                </div>
+              </div>
+              <div className="p-6 max-h-96 overflow-y-auto">
+                <table className="w-full text-sm">
+                  <thead className="text-left border-b border-slate-200 dark:border-slate-700">
+                    <tr>
+                      <th className="pb-2 font-medium text-slate-700 dark:text-slate-300">Feed Name</th>
+                      <th className="pb-2 font-medium text-slate-700 dark:text-slate-300">Status</th>
+                      <th className="pb-2 font-medium text-slate-700 dark:text-slate-300 text-right">Fetched</th>
+                      <th className="pb-2 font-medium text-slate-700 dark:text-slate-300 text-right">Kept</th>
+                      <th className="pb-2 font-medium text-slate-700 dark:text-slate-300">Error</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {feedHealthReport.feeds.map((feed, idx) => (
+                      <tr key={idx} className={`border-b border-slate-100 dark:border-slate-700 ${feed.status === 'failed' ? 'bg-red-50 dark:bg-red-900/20' : ''}`}>
+                        <td className="py-2">
+                          <div className="font-medium text-slate-900 dark:text-slate-100">{feed.name}</div>
+                          <div className="text-xs text-slate-500 truncate max-w-xs" title={feed.url}>{feed.url}</div>
+                        </td>
+                        <td className="py-2">
+                          {feed.status === 'ok' ? (
+                            <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded text-xs">OK</span>
+                          ) : (
+                            <span className="px-2 py-1 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded text-xs">FAILED</span>
+                          )}
+                        </td>
+                        <td className="py-2 text-right text-slate-600 dark:text-slate-400">{feed.fetchedRaw}</td>
+                        <td className="py-2 text-right text-slate-600 dark:text-slate-400">{feed.keptAfterFiltering}</td>
+                        <td className="py-2 text-xs text-red-600 dark:text-red-400 max-w-xs truncate" title={feed.lastError || ''}>
+                          {feed.lastError || '-'}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </div>
       );
     };
@@ -967,6 +1048,9 @@
       const [reviewMode, setReviewMode] = useState(false);
       const [filteredArticles, setFilteredArticles] = useState([]);
       const [reviewCategory, setReviewCategory] = useState('not relevant');
+      const [feedHealthReport, setFeedHealthReport] = useState(null);
+      const [showFeedHealth, setShowFeedHealth] = useState(false);
+      const [feedHealthLoading, setFeedHealthLoading] = useState(false);
 
       const fetchItems = useCallback(async (showLoading = true) => {
         if (showLoading) setLoading(true);
@@ -1427,8 +1511,26 @@
         }
       }, [fetchItems, fetchFilteredArticles]);
 
-      useEffect(() => { 
-          fetchItems(); 
+      const fetchFeedHealth = useCallback(async () => {
+        setFeedHealthLoading(true);
+        try {
+          const res = await fetch(IS_STATIC ? 'feed-health.json' : '/api/feed-health');
+          if (!res.ok) {
+            throw new Error(`Failed to fetch feed health: ${res.status}`);
+          }
+          const data = await res.json();
+          setFeedHealthReport(data);
+          setShowFeedHealth(true);
+        } catch (e) {
+          console.error('Error fetching feed health:', e);
+          alert('Feed health report not available. It will be generated on the next scheduled RSS update.');
+        } finally {
+          setFeedHealthLoading(false);
+        }
+      }, []);
+
+      useEffect(() => {
+          fetchItems();
         fetchLastFetchInfo();
         
         const interval = setInterval(() => {
@@ -1526,8 +1628,13 @@
               generated={newsletterGenerated}
               newsletterRecipients={newsletterRecipients}
               setNewsletterRecipients={setNewsletterRecipients}
-                onSendEmail={sendNewsletterEmail}
-                emailLoading={emailLoading}
+              onSendEmail={sendNewsletterEmail}
+              emailLoading={emailLoading}
+              feedHealthReport={feedHealthReport}
+              showFeedHealth={showFeedHealth}
+              setShowFeedHealth={setShowFeedHealth}
+              onFetchFeedHealth={fetchFeedHealth}
+              feedHealthLoading={feedHealthLoading}
               />
             ) : (
               <AdminPanel
