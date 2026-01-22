@@ -145,4 +145,4 @@ test-*.xml
 # docs/rss.xml (keep for GitHub Pages)
 
 # Cursor IDE
-.cursor/
+.cursor/.playwright-cache/

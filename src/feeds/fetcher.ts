@@ -5,6 +5,7 @@ import { RSS_FEEDS, BROWSER_HEADERS } from './config.js';
 import { classifyArticle } from '../filter/classifier.js';
 import { itemStore, feedStats, fetchCache, manualArticles, pruneItemStore, archiveOldArticles } from '../store/storage.js';
 import { FetchResult, FeedConfig, NormalizedItem, FeedStat, RawRSSItem, RSSLink, RSSEnclosure, RSSMediaContent } from '../types/index.js';
+import { playwrightFetchRSS, isCloudflareChallenge as detectCloudflare, closeBrowser, getPlaywrightStats } from './playwright-fallback.js';
 
 // ============================================
 // BLOCKED FEED TRACKING (24-hour cooldown)
@@ -405,6 +406,7 @@ const allowedDomains = [
     "naiopma.org",          // NAIOP Massachusetts
     "cpexecutive.com",      // Commercial Property Executive
     "bizjournals.com",      // South FL Business Journal + others
+    "feeds.bizjournals.com", // Direct RSS feeds for Business Journals
     "loopnet.com",          // LoopNet
     "costar.com",           // CoStar
     "costargroup.com",      // CoStar Group
@@ -624,22 +626,60 @@ async function fetchRSSFeedImproved(feed: FeedConfig): Promise<FetchResult> {
             // Handle HTTP errors
             if (response.status === 403) {
                 const bodyPreview = String(response.data).slice(0, 500);
+                const fullBody = String(response.data);
                 console.log(`🔒 [${feed.name}] 403 Forbidden - Body preview: ${bodyPreview.slice(0, 250)}`);
-                
-                // Check if it's Cloudflare
-                if (isCloudflareChallenge(bodyPreview)) {
-                    markFeedBlocked(feed.url, 'Cloudflare/WAF challenge detected - use email ingestion instead', bodyPreview);
-                } else {
-                    markFeedBlocked(feed.url, '403 Forbidden - feed likely blocks automated access', bodyPreview);
+
+                // SPECIAL CASE: Some feeds return 403 but still provide RSS content (anti-bot measure)
+                // Check if the response body is actually valid RSS despite the 403 status
+                const hasXmlDecl = fullBody.includes('<?xml');
+                const hasRss = fullBody.includes('<rss');
+                const hasFeed = fullBody.includes('<feed');
+                const hasChannel = fullBody.includes('<channel');
+
+                console.log(`🔍 [${feed.name}] Body analysis: xml=${hasXmlDecl}, rss=${hasRss}, feed=${hasFeed}, channel=${hasChannel}, length=${fullBody.length}`);
+
+                if (hasXmlDecl && (hasRss || hasFeed || hasChannel)) {
+                    console.log(`📰 [${feed.name}] 403 but body contains RSS - treating as valid feed`);
+                    xmlContent = fullBody;
+                    // Continue to parse the XML content below
                 }
-                
-                const oldArticles = Array.from(itemStore.values()).filter(i => i.source === feed.name);
-                return {
-                    status: 'error',
-                    articles: oldArticles,
-                    error: { type: 'blocked', message: '403 Forbidden', httpStatus: 403 },
-                    meta: { feed: feed.name, fetchedRaw: 0, kept: oldArticles.length, filteredOut: 0, durationMs: Date.now() - start }
-                };
+                // Check if it's Cloudflare challenge - try Playwright fallback
+                else if (detectCloudflare(bodyPreview, 403)) {
+                    console.log(`🎭 [${feed.name}] Cloudflare detected - attempting Playwright fallback...`);
+
+                    const playwrightResult = await playwrightFetchRSS(feed.url, {
+                        status: response.status,
+                        body: bodyPreview
+                    });
+
+                    if (playwrightResult.success && playwrightResult.content) {
+                        console.log(`✅ [${feed.name}] Playwright fallback succeeded${playwrightResult.fromCache ? ' (from cache)' : ''}`);
+                        xmlContent = playwrightResult.content;
+                        // Continue to parse the XML content below
+                    } else {
+                        console.log(`❌ [${feed.name}] Playwright fallback failed: ${playwrightResult.error}`);
+                        markFeedBlocked(feed.url, `Cloudflare challenge - Playwright failed: ${playwrightResult.error}`, bodyPreview);
+
+                        const oldArticles = Array.from(itemStore.values()).filter(i => i.source === feed.name);
+                        return {
+                            status: 'error',
+                            articles: oldArticles,
+                            error: { type: 'blocked', message: 'Cloudflare challenge - Playwright failed', httpStatus: 403 },
+                            meta: { feed: feed.name, fetchedRaw: 0, kept: oldArticles.length, filteredOut: 0, durationMs: Date.now() - start }
+                        };
+                    }
+                } else {
+                    // Not Cloudflare - regular 403
+                    markFeedBlocked(feed.url, '403 Forbidden - feed likely blocks automated access', bodyPreview);
+
+                    const oldArticles = Array.from(itemStore.values()).filter(i => i.source === feed.name);
+                    return {
+                        status: 'error',
+                        articles: oldArticles,
+                        error: { type: 'blocked', message: '403 Forbidden', httpStatus: 403 },
+                        meta: { feed: feed.name, fetchedRaw: 0, kept: oldArticles.length, filteredOut: 0, durationMs: Date.now() - start }
+                    };
+                }
             }
             
             if (response.status === 404) {
@@ -937,5 +977,26 @@ export async function fetchAllRSSArticles(): Promise<FetchResult[]> {
     };
 
     console.log(`Fetch completed: ${totalFetched} fetched, ${totalKept} kept from ${sourcesProcessed} sources`);
+
+    // Log Playwright stats and cleanup
+    try {
+        const pwStats = getPlaywrightStats();
+        const usedDomains = Object.entries(pwStats.rateLimits)
+            .filter(([_, stats]) => stats.used > 0)
+            .map(([domain, stats]) => `${domain}: ${stats.used}/${stats.used + stats.remaining}`);
+
+        if (usedDomains.length > 0) {
+            console.log(`🎭 Playwright usage today: ${usedDomains.join(', ')}`);
+        }
+        if (pwStats.cacheSize > 0) {
+            console.log(`🗄️ Playwright cache: ${pwStats.cacheSize} cached feeds`);
+        }
+
+        // Close browser to free resources
+        await closeBrowser();
+    } catch (e) {
+        // Playwright stats/cleanup is optional, don't fail on error
+    }
+
     return results;
 }

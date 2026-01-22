@@ -32,7 +32,8 @@ export const RSS_FEEDS: FeedConfig[] = [
     timeout: 30000
   },
 
-  // 2. COMMERCIAL SEARCH (Commercial Property Executive / CommercialSearch News)
+  // 2. COMMERCIAL SEARCH - DISABLED: Cloudflare protected, returns HTML (no RSS)
+  // Using Commercial Cafe (sister site) instead
   {
     url: "https://commercialsearch.com/news/feed",
     name: "Commercial Search",
@@ -40,7 +41,8 @@ export const RSS_FEEDS: FeedConfig[] = [
     source: "Commercial Search",
     type: FEED_TYPES.INDUSTRIAL_NEWS,
     timeout: 30000,
-    headers: BROWSER_HEADERS
+    headers: BROWSER_HEADERS,
+    enabled: false  // No RSS feed available - returns HTML after Cloudflare bypass
   },
 
   // 2b. COMMERCIAL CAFE (sister site to Commercial Search)
@@ -163,15 +165,16 @@ export const RSS_FEEDS: FeedConfig[] = [
     timeout: 30000
   },
 
-  // 7. SOUTH FLORIDA BUSINESS JOURNAL
+  // 7. SOUTH FLORIDA BUSINESS JOURNAL - DISABLED: 403 Forbidden on direct feed
+  // Coverage provided via Google News RSS feeds and Bisnow South Florida
   {
-    url: "https://www.bizjournals.com/southflorida/feed/",
+    url: "https://feeds.bizjournals.com/bizj_southflorida",
     name: "South Florida Business Journal",
     region: "FL",
     source: "Business Journals",
     type: FEED_TYPES.NEWS,
     timeout: 30000,
-    headers: BROWSER_HEADERS
+    enabled: false  // 403 Forbidden - bizjournals blocks automated access
   },
 
   // 9. LOOPNET/COSTAR - No public RSS, using CRE alternatives
@@ -187,23 +190,24 @@ export const RSS_FEEDS: FeedConfig[] = [
     timeout: 30000
   },
 
-  // 11. NJBIZ - nginx 403 block (cookie priming didn't help)
-  // Falls back to Google News for NJ business coverage
+  // 11. NJBIZ - DISABLED: nginx 403 block (not Cloudflare, needs residential proxy)
+  // Coverage provided via Google News RSS feeds instead
   {
     url: "https://njbiz.com/feed/",
     name: "NJBIZ",
     region: "NJ",
     source: "NJBIZ",
     type: FEED_TYPES.NEWS,
-    timeout: 30000
+    timeout: 30000,
+    enabled: false  // nginx 403 - use Google News for NJ coverage
   },
 
   // ============================================
   // ADDITIONAL QUALITY SOURCES
   // ============================================
 
-  // ConnectCRE (Industrial focused) - Often blocks automated requests
-  // Using enhanced headers to bypass; if still failing, use email ingestion
+  // ConnectCRE - DISABLED: Cloudflare protected, returns HTML after bypass (no RSS feed available)
+  // Playwright confirmed these URLs return HTML pages, not RSS feeds
   {
     url: "https://www.connectcre.com/feed?story-sector=industrial",
     name: "ConnectCRE Industrial",
@@ -211,7 +215,8 @@ export const RSS_FEEDS: FeedConfig[] = [
     source: "ConnectCRE",
     type: FEED_TYPES.INDUSTRIAL_NEWS,
     timeout: 30000,
-    headers: BROWSER_HEADERS
+    headers: BROWSER_HEADERS,
+    enabled: false  // No RSS feed available - returns HTML after Cloudflare bypass
   },
   {
     url: "https://www.connectcre.com/feed?story-market=new-jersey",
@@ -220,9 +225,9 @@ export const RSS_FEEDS: FeedConfig[] = [
     source: "ConnectCRE",
     type: FEED_TYPES.INDUSTRIAL_NEWS,
     timeout: 30000,
-    headers: BROWSER_HEADERS
+    headers: BROWSER_HEADERS,
+    enabled: false  // No RSS feed available - returns HTML after Cloudflare bypass
   },
-  // Removed: ConnectCRE Texas - focus on NJ, PA, FL only
   {
     url: "https://www.connectcre.com/feed?story-market=pennsylvania",
     name: "ConnectCRE PA",
@@ -230,7 +235,8 @@ export const RSS_FEEDS: FeedConfig[] = [
     source: "ConnectCRE",
     type: FEED_TYPES.INDUSTRIAL_NEWS,
     timeout: 30000,
-    headers: BROWSER_HEADERS
+    headers: BROWSER_HEADERS,
+    enabled: false  // No RSS feed available - returns HTML after Cloudflare bypass
   },
 
   // Supply Chain & Logistics
@@ -272,7 +278,8 @@ export const RSS_FEEDS: FeedConfig[] = [
     headers: BROWSER_HEADERS
   },
 
-  // REBusinessOnline (Good industrial coverage)
+  // REBusinessOnline - DISABLED: Returns HTML instead of RSS (feed disabled or removed)
+  // Coverage provided via Google News RSS feeds instead
   {
     url: "https://rebusinessonline.com/feed/",
     name: "REBusiness Online",
@@ -280,7 +287,8 @@ export const RSS_FEEDS: FeedConfig[] = [
     source: "REBusiness",
     type: FEED_TYPES.INDUSTRIAL_NEWS,
     timeout: 30000,
-    headers: BROWSER_HEADERS
+    headers: BROWSER_HEADERS,
+    enabled: false  // Returns HTML - no RSS feed available
   },
 
     // ============================================
@@ -341,18 +349,19 @@ export const RSS_FEEDS: FeedConfig[] = [
     // CRE NEWS SOURCES
     // ============================================
 
-    // Business Journals (Market-specific coverage)
+    // Business Journals (Market-specific coverage) - DISABLED: 403 Forbidden
+    // NY coverage outside core NJ/PA/FL focus anyway
 {
-      url: "https://www.bizjournals.com/newyork/feed/",
+      url: "https://feeds.bizjournals.com/bizj_newyork",
             name: "Business Journal NY",
             region: "NY",
             source: "Business Journals",
             type: FEED_TYPES.NEWS,
             timeout: 30000,
-            headers: BROWSER_HEADERS
+            enabled: false  // 403 Forbidden - bizjournals blocks automated access
 },
 
-    // Traded.co - Commercial Real Estate Marketplace
+    // Traded.co - DISABLED: Cloudflare protected, returns HTML after bypass (no RSS feed available)
 {
       url: "https://www.traded.co/rss/",
             name: "Traded.co",
@@ -360,7 +369,8 @@ export const RSS_FEEDS: FeedConfig[] = [
             source: "Traded",
             type: FEED_TYPES.INDUSTRIAL_NEWS,
             timeout: 30000,
-            headers: BROWSER_HEADERS
+            headers: BROWSER_HEADERS,
+            enabled: false  // No RSS feed available - returns HTML after Cloudflare bypass
 },
 
     // ============================================
