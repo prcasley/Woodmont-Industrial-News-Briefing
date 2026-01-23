@@ -535,6 +535,23 @@ export async function sendDailyNewsletterGoth(): Promise<boolean> {
             // Industrial RE
             'industrial', 'warehouse', 'distribution', 'fulfillment', 'cold storage', 'logistics', 'flex space',
             'manufacturing', 'last mile', 'e-commerce', 'spec development', 'industrial park',
+            // Project approvals & development
+            'approved', 'approves', 'approval', 'zoning', 'rezoning', 'entitlement', 'permits', 'planning board',
+            'groundbreaking', 'under construction', 'development', 'project', 'proposed', 'planned',
+            // Sustainability & ESG
+            'sustainable industrial', 'esg property', 'net zero', 'green building', 'leed',
+            // Automation & Technology
+            'last mile delivery', 'automation', 'robotics', 'automated warehouse',
+            // Workforce
+            'workforce development', 'skilled trades', 'labor shortage',
+            // Supply chain trends
+            'reshoring', 'nearshoring', 'supply chain resilience', 'onshoring',
+            // Property types
+            'data center', 'flex warehouse', 'cross-dock', 'cross dock',
+            'last-mile facility', 'micro-fulfillment', 'micro fulfillment',
+            // Specialized industrial
+            'agri-tech', 'agritech', 'food processing', 'food facility',
+            'advanced manufacturing', 'contract manufacturing',
             // CRE general
             'commercial real estate', 'cre', 'vacancy', 'absorption', 'rent growth', 'cap rate'
         ];
@@ -605,11 +622,18 @@ export async function sendDailyNewsletterGoth(): Promise<boolean> {
         };
 
         // Transaction filter - must meet threshold (≥100K SF OR ≥$25M) and be industrial
+        // EXCEPTION: Project approvals, zoning decisions are always relevant
+        const approvalKeywords = ['approved', 'approves', 'approval', 'zoning', 'rezoning', 'entitlement', 'permits', 'planning board', 'commission'];
+
         const applyTransactionFilter = (items: NormalizedItem[]): NormalizedItem[] => {
             const filtered = items.filter(article => {
                 const text = getText(article);
                 if (isPolitical(text)) return false;
                 if (!isIndustrialProperty(text)) return false;
+
+                // Project approvals/zoning are ALWAYS relevant (no threshold needed)
+                const isApproval = containsAny(text, approvalKeywords);
+                if (isApproval) return true;
 
                 const threshold = meetsDealThreshold(text);
                 // Include if meets threshold OR has clear transaction indicators with any size
@@ -619,7 +643,7 @@ export async function sendDailyNewsletterGoth(): Promise<boolean> {
                 // Accept if meets threshold, or has size mentioned (smaller deals still relevant)
                 return meetsThreshold || hasAnySizeMentioned;
             });
-            console.log(`🔍 Transactions: ${items.length} → ${filtered.length} (threshold filter: ≥100K SF or ≥$25M)`);
+            console.log(`🔍 Transactions: ${items.length} → ${filtered.length} (threshold filter: ≥100K SF or ≥$25M, approvals always included)`);
             return filtered;
         };
 
@@ -889,6 +913,23 @@ export async function sendWeeklyNewsletterGoth(): Promise<boolean> {
             'insurance', 'insurance cost', 'property insurance',
             'industrial', 'warehouse', 'distribution', 'fulfillment', 'cold storage', 'logistics', 'flex space',
             'manufacturing', 'last mile', 'e-commerce', 'spec development', 'industrial park',
+            // Project approvals & development
+            'approved', 'approves', 'approval', 'zoning', 'rezoning', 'entitlement', 'permits', 'planning board',
+            'groundbreaking', 'under construction', 'development', 'project', 'proposed', 'planned',
+            // Sustainability & ESG
+            'sustainable industrial', 'esg property', 'net zero', 'green building', 'leed',
+            // Automation & Technology
+            'last mile delivery', 'automation', 'robotics', 'automated warehouse',
+            // Workforce
+            'workforce development', 'skilled trades', 'labor shortage',
+            // Supply chain trends
+            'reshoring', 'nearshoring', 'supply chain resilience', 'onshoring',
+            // Property types
+            'data center', 'flex warehouse', 'cross-dock', 'cross dock',
+            'last-mile facility', 'micro-fulfillment', 'micro fulfillment',
+            // Specialized industrial
+            'agri-tech', 'agritech', 'food processing', 'food facility',
+            'advanced manufacturing', 'contract manufacturing',
             'commercial real estate', 'cre', 'vacancy', 'absorption', 'rent growth', 'cap rate'
         ];
 
@@ -950,15 +991,23 @@ export async function sendWeeklyNewsletterGoth(): Promise<boolean> {
         };
 
         // Transaction filter with thresholds
+        // EXCEPTION: Project approvals, zoning decisions are always relevant
+        const approvalKeywords = ['approved', 'approves', 'approval', 'zoning', 'rezoning', 'entitlement', 'permits', 'planning board', 'commission'];
+
         const applyTransactionFilter = (items: NormalizedItem[]): NormalizedItem[] => {
             const filtered = items.filter(article => {
                 const text = getText(article);
                 if (isPolitical(text)) return false;
                 if (!isIndustrialProperty(text)) return false;
+
+                // Project approvals/zoning are ALWAYS relevant (no threshold needed)
+                const isApproval = containsAny(text, approvalKeywords);
+                if (isApproval) return true;
+
                 const threshold = meetsDealThreshold(text);
                 return threshold.meetsSF || threshold.meetsDollar || (threshold.sizeSF !== null && threshold.sizeSF > 0);
             });
-            console.log(`🔍 Transactions: ${items.length} → ${filtered.length} (threshold filter)`);
+            console.log(`🔍 Transactions: ${items.length} → ${filtered.length} (threshold filter, approvals always included)`);
             return filtered;
         };
 
