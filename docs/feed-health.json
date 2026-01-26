@@ -1,11 +1,20 @@
 {
-  "generatedAt": "2026-01-26T14:50:31.001Z",
+  "generatedAt": "2026-01-26T20:55:22.801Z",
   "totalFeeds": 50,
-  "successfulFeeds": 50,
-  "failedFeeds": 0,
-  "totalArticlesFetched": 2130,
-  "totalArticlesKept": 123,
+  "successfulFeeds": 49,
+  "failedFeeds": 1,
+  "totalArticlesFetched": 2123,
+  "totalArticlesKept": 124,
   "feeds": [
+    {
+      "name": "REJournals",
+      "url": "https://rejournals.com/feed/",
+      "status": "failed",
+      "fetchedRaw": 0,
+      "keptAfterFiltering": 0,
+      "lastError": "Cloudflare challenge - Playwright failed",
+      "durationMs": 116
+    },
     {
       "name": "Area Development Master",
       "url": "https://www.areadevelopment.com/rss/rss.xml?t=5",
@@ -13,7 +22,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 47,
       "lastError": null,
-      "durationMs": 1070
+      "durationMs": 520
     },
     {
       "name": "Area Development News",
@@ -22,16 +31,16 @@
       "fetchedRaw": 50,
       "keptAfterFiltering": 21,
       "lastError": null,
-      "durationMs": 1331
+      "durationMs": 516
     },
     {
       "name": "Bisnow National",
       "url": "https://www.bisnow.com/rss-feed/national",
       "status": "ok",
       "fetchedRaw": 30,
-      "keptAfterFiltering": 9,
+      "keptAfterFiltering": 7,
       "lastError": null,
-      "durationMs": 662
+      "durationMs": 750
     },
     {
       "name": "Bisnow New Jersey",
@@ -40,7 +49,7 @@
       "fetchedRaw": 30,
       "keptAfterFiltering": 5,
       "lastError": null,
-      "durationMs": 1363
+      "durationMs": 698
     },
     {
       "name": "Bisnow Philadelphia",
@@ -49,7 +58,7 @@
       "fetchedRaw": 30,
       "keptAfterFiltering": 9,
       "lastError": null,
-      "durationMs": 747
+      "durationMs": 1129
     },
     {
       "name": "Bisnow South Florida",
@@ -58,16 +67,16 @@
       "fetchedRaw": 30,
       "keptAfterFiltering": 4,
       "lastError": null,
-      "durationMs": 556
+      "durationMs": 585
     },
     {
       "name": "Bloomberg Markets",
       "url": "https://feeds.bloomberg.com/markets/news.rss",
       "status": "ok",
       "fetchedRaw": 30,
-      "keptAfterFiltering": 1,
+      "keptAfterFiltering": 3,
       "lastError": null,
-      "durationMs": 2076
+      "durationMs": 327
     },
     {
       "name": "CBRE Press Releases",
@@ -76,7 +85,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 2164
+      "durationMs": 134
     },
     {
       "name": "Commercial Cafe",
@@ -85,7 +94,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 1,
       "lastError": null,
-      "durationMs": 394
+      "durationMs": 240
     },
     {
       "name": "Commercial Observer",
@@ -94,7 +103,7 @@
       "fetchedRaw": 17,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 384
+      "durationMs": 451
     },
     {
       "name": "Construction Dive",
@@ -103,7 +112,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 560
+      "durationMs": 214
     },
     {
       "name": "CRE Daily",
@@ -112,7 +121,7 @@
       "fetchedRaw": 0,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 553
+      "durationMs": 228
     },
     {
       "name": "DC Velocity",
@@ -121,7 +130,7 @@
       "fetchedRaw": 30,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 666
+      "durationMs": 176
     },
     {
       "name": "FreightWaves",
@@ -130,7 +139,7 @@
       "fetchedRaw": 50,
       "keptAfterFiltering": 8,
       "lastError": null,
-      "durationMs": 2950
+      "durationMs": 1898
     },
     {
       "name": "GlobeNewswire RE",
@@ -139,7 +148,7 @@
       "fetchedRaw": 20,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 892
+      "durationMs": 207
     },
     {
       "name": "GlobeSt Industrial",
@@ -148,7 +157,7 @@
       "fetchedRaw": 50,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 859
+      "durationMs": 431
     },
     {
       "name": "GlobeSt Miami",
@@ -157,7 +166,7 @@
       "fetchedRaw": 1,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 105
+      "durationMs": 65
     },
     {
       "name": "GlobeSt National",
@@ -166,16 +175,16 @@
       "fetchedRaw": 0,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 149
+      "durationMs": 64
     },
     {
       "name": "GlobeSt New Jersey",
       "url": "http://feeds.feedblitz.com/globest/new-jersey",
       "status": "ok",
-      "fetchedRaw": 54,
+      "fetchedRaw": 56,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 624
+      "durationMs": 189
     },
     {
       "name": "GlobeSt Philadelphia",
@@ -184,7 +193,7 @@
       "fetchedRaw": 5,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 690
+      "durationMs": 71
     },
     {
       "name": "Google News Brokerage",
@@ -193,7 +202,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 2601
+      "durationMs": 667
     },
     {
       "name": "Google News Cold Storage",
@@ -202,7 +211,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 2433
+      "durationMs": 914
     },
     {
       "name": "Google News CRE Transactions",
@@ -211,16 +220,16 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 3066
+      "durationMs": 828
     },
     {
       "name": "Google News Distribution",
       "url": "https://news.google.com/rss/search?q=distribution+center+lease+sale+development&hl=en-US&gl=US&ceid=US:en",
       "status": "ok",
-      "fetchedRaw": 78,
+      "fetchedRaw": 79,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 1571
+      "durationMs": 563
     },
     {
       "name": "Google News E-commerce",
@@ -229,7 +238,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 1822
+      "durationMs": 984
     },
     {
       "name": "Google News FL Industrial",
@@ -238,7 +247,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 2072
+      "durationMs": 751
     },
     {
       "name": "Google News Industrial Dev",
@@ -247,7 +256,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 2363
+      "durationMs": 746
     },
     {
       "name": "Google News Industrial RE",
@@ -256,7 +265,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 1892
+      "durationMs": 946
     },
     {
       "name": "Google News Industrial REIT",
@@ -265,25 +274,25 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 1419
+      "durationMs": 734
     },
     {
       "name": "Google News Logistics",
       "url": "https://news.google.com/rss/search?q=logistics+facility+%22supply+chain%22+%22last+mile%22+warehouse&hl=en-US&gl=US&ceid=US:en",
       "status": "ok",
-      "fetchedRaw": 71,
+      "fetchedRaw": 72,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 4314
+      "durationMs": 623
     },
     {
       "name": "Google News NJ Industrial",
       "url": "https://news.google.com/rss/search?q=industrial+warehouse+%22New+Jersey%22+OR+%22Newark%22+OR+%22Jersey+City%22&hl=en-US&gl=US&ceid=US:en",
       "status": "ok",
-      "fetchedRaw": 89,
+      "fetchedRaw": 93,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 3653
+      "durationMs": 697
     },
     {
       "name": "Google News PA Industrial",
@@ -292,16 +301,16 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 1491
+      "durationMs": 687
     },
     {
       "name": "Google News Ports",
       "url": "https://news.google.com/rss/search?q=port+logistics+%22intermodal%22+OR+%22Port+Newark%22+OR+%22Port+Miami%22+OR+%22Port+Everglades%22&hl=en-US&gl=US&ceid=US:en",
       "status": "ok",
-      "fetchedRaw": 83,
+      "fetchedRaw": 78,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 1108
+      "durationMs": 889
     },
     {
       "name": "Google News Warehouse",
@@ -310,7 +319,7 @@
       "fetchedRaw": 79,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 1155
+      "durationMs": 565
     },
     {
       "name": "Inbound Logistics",
@@ -319,7 +328,7 @@
       "fetchedRaw": 0,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 1053
+      "durationMs": 334
     },
     {
       "name": "Lehigh Valley Business",
@@ -328,7 +337,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 428
+      "durationMs": 217
     },
     {
       "name": "Logistics Management",
@@ -337,7 +346,7 @@
       "fetchedRaw": 40,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 1006
+      "durationMs": 293
     },
     {
       "name": "Modern Shipper",
@@ -346,7 +355,7 @@
       "fetchedRaw": 50,
       "keptAfterFiltering": 5,
       "lastError": null,
-      "durationMs": 2072
+      "durationMs": 1355
     },
     {
       "name": "NAI Keystone",
@@ -355,7 +364,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 4,
       "lastError": null,
-      "durationMs": 1193
+      "durationMs": 754
     },
     {
       "name": "NAI Platform",
@@ -364,16 +373,16 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 1,
       "lastError": null,
-      "durationMs": 2426
+      "durationMs": 2131
     },
     {
       "name": "NAIOP Blog",
       "url": "https://blog.naiop.org/feed/",
       "status": "ok",
       "fetchedRaw": 8,
-      "keptAfterFiltering": 2,
+      "keptAfterFiltering": 1,
       "lastError": null,
-      "durationMs": 2317
+      "durationMs": 925
     },
     {
       "name": "NAIOP Massachusetts",
@@ -382,7 +391,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 1506
+      "durationMs": 1323
     },
     {
       "name": "PR Newswire",
@@ -391,7 +400,7 @@
       "fetchedRaw": 20,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 486
+      "durationMs": 128
     },
     {
       "name": "Prologis IR",
@@ -400,25 +409,16 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 589
+      "durationMs": 256
     },
     {
       "name": "Real Estate NJ",
       "url": "https://re-nj.com/feed/",
       "status": "ok",
       "fetchedRaw": 10,
-      "keptAfterFiltering": 1,
+      "keptAfterFiltering": 2,
       "lastError": null,
-      "durationMs": 394
-    },
-    {
-      "name": "REJournals",
-      "url": "https://rejournals.com/feed/",
-      "status": "ok",
-      "fetchedRaw": 10,
-      "keptAfterFiltering": 0,
-      "lastError": null,
-      "durationMs": 2563
+      "durationMs": 129
     },
     {
       "name": "Supply Chain Dive",
@@ -427,7 +427,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 1,
       "lastError": null,
-      "durationMs": 319
+      "durationMs": 232
     },
     {
       "name": "SupplyChainBrain",
@@ -436,16 +436,16 @@
       "fetchedRaw": 30,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 501
+      "durationMs": 324
     },
     {
       "name": "The Real Deal Miami",
       "url": "https://www.therealdeal.com/miami/feed/",
       "status": "ok",
       "fetchedRaw": 10,
-      "keptAfterFiltering": 2,
+      "keptAfterFiltering": 3,
       "lastError": null,
-      "durationMs": 1263
+      "durationMs": 1250
     },
     {
       "name": "WSJ Real Estate",
@@ -454,7 +454,7 @@
       "fetchedRaw": 35,
       "keptAfterFiltering": 2,
       "lastError": null,
-      "durationMs": 595
+      "durationMs": 97
     }
   ]
 }
