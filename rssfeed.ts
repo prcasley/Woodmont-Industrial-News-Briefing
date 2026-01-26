@@ -163,6 +163,27 @@ async function sendNewsletterGoth(): Promise<void> {
 }
 
 /**
+ * Send Work newsletter (boss's preferred clean, minimal format)
+ */
+async function sendNewsletterWork(): Promise<void> {
+    console.log('Sending Work daily briefing (boss preferred style)...');
+    try {
+        const { sendDailyNewsletterWork } = await import('./src/server/email.js');
+        const success = await sendDailyNewsletterWork();
+        if (success) {
+            console.log('Work newsletter sent successfully!');
+            process.exit(0);
+        } else {
+            console.error('Failed to send Work newsletter');
+            process.exit(1);
+        }
+    } catch (err) {
+        console.error('Error sending Work newsletter:', err);
+        process.exit(1);
+    }
+}
+
+/**
  * Send Goth weekly newsletter (dark executive theme, 5-day recap)
  */
 async function sendWeeklyNewsletterGothCmd(): Promise<void> {
@@ -204,6 +225,9 @@ if (require.main === module) {
     } else if (args.includes('--send-newsletter-goth')) {
         // Send Goth newsletter (stripped-down format)
         sendNewsletterGoth();
+    } else if (args.includes('--send-newsletter-work')) {
+        // Send Work newsletter (boss's preferred clean format)
+        sendNewsletterWork();
     } else if (args.includes('--send-weekly-newsletter-goth')) {
         // Send Goth weekly newsletter
         sendWeeklyNewsletterGothCmd();
