@@ -236,7 +236,8 @@ export async function buildStaticRSS(): Promise<void> {
         // Trusted national sources (include if industrial context present)
         const trustedNationalSources = ['news.google.com', 'bloomberg.com', 'wsj.com', 'reuters.com',
             'freightwaves.com', 'supplychaindive.com', 'dcvelocity.com', 'areadevelopment.com',
-            'bisnow.com/national', 'globest.com', 'commercialcafe.com', 'prologis.com'];
+            'bisnow.com/national', 'globest.com', 'commercialcafe.com', 'prologis.com',
+            'crexi.com', 'ten-x.com', 'cbre.com', 'jll.com', 'cushwake.com', 'colliers.com'];
 
         // Check if article should be included
         const shouldIncludeArticle = (item: NormalizedItem): boolean => {

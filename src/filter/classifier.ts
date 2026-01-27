@@ -226,6 +226,8 @@ function classifyArticleOriginal330(description: string, link: string, source?: 
       'connectcre.com', 'credaily.com', 'therealdeal.com', 'freightwaves.com',
       'supplychaindive.com', 'bloomberg.com', 'reuters.com', 'apnews.com',
       'cbre.com', 'jll.com', 'cushwake.com', 'colliers.com', 'traded.co',
+      // Listing Platforms & Marketplaces
+      'crexi.com', 'ten-x.com', 'realtyrates.com',
       // Industry-Specific Sources
       'dcvelocity.com', 'supplychainbrain.com', 'logisticsmgmt.com', 'inboundlogistics.com',
       'manufacturing.net', 'industryweek.com', 'mbtmag.com', 'modernmaterialshandling.com',

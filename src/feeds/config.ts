@@ -550,6 +550,72 @@ export const RSS_FEEDS: FeedConfig[] = [
             type: FEED_TYPES.INDUSTRIAL_NEWS,
             timeout: 30000,
             headers: BROWSER_HEADERS
+},
+
+    // ============================================
+    // AVAILABILITIES - Industrial For Sale/Lease
+    // ============================================
+    // Note: Crexi, LoopNet, CoStar don't have RSS feeds
+    // Using Google News to capture availability announcements
+
+    // Google News - NJ Industrial Availabilities
+{
+      url: "https://news.google.com/rss/search?q=industrial+%22for+lease%22+OR+%22for+sale%22+OR+%22available%22+%22New+Jersey%22&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News NJ Availabilities",
+            region: "NJ",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - PA Industrial Availabilities
+{
+      url: "https://news.google.com/rss/search?q=industrial+%22for+lease%22+OR+%22for+sale%22+OR+%22available%22+%22Pennsylvania%22+OR+%22Philadelphia%22&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News PA Availabilities",
+            region: "PA",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - FL Industrial Availabilities
+{
+      url: "https://news.google.com/rss/search?q=industrial+%22for+lease%22+OR+%22for+sale%22+OR+%22available%22+%22Florida%22+OR+%22Miami%22&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News FL Availabilities",
+            region: "FL",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Warehouse Availabilities NJ/PA/FL
+{
+      url: "https://news.google.com/rss/search?q=warehouse+%22now+available%22+OR+%22now+leasing%22+OR+%22for+lease%22+NJ+OR+PA+OR+FL&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Warehouse Listings",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Crexi Industrial Listings (news mentions)
+{
+      url: "https://news.google.com/rss/search?q=Crexi+industrial+OR+warehouse+OR+%22commercial+real+estate%22&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Crexi",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - New Industrial Listings/Spec Buildings
+{
+      url: "https://news.google.com/rss/search?q=%22spec+building%22+OR+%22speculative+development%22+OR+%22new+listing%22+industrial+warehouse&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Spec Buildings",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
 }
 
     // NOTE: JLL, Cushman & Wakefield, Colliers brokerage feeds
