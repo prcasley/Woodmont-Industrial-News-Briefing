@@ -38,7 +38,7 @@ export function buildGothBriefing(
     const dateRange = `${startDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} – ${now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`;
 
     // Dashboard URL for tracking links
-    const dashboardUrl = 'https://pratiyushc.github.io/Woodmont-Industrial-News-Briefing';
+    const dashboardUrl = 'https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing';
 
     // Extract a trackable keyword from title
     const extractTrackKeyword = (title: string): string => {

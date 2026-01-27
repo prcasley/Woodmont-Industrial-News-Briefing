@@ -21,7 +21,7 @@ export function buildWorkBriefing(
     });
 
     // Dashboard URL for tracking links
-    const dashboardUrl = 'https://pratiyushc.github.io/Woodmont-Industrial-News-Briefing';
+    const dashboardUrl = 'https://woodmont-industrial.github.io/Woodmont-Industrial-News-Briefing';
 
     // Extract a trackable keyword from title (company name, location, etc.)
     const extractTrackKeyword = (title: string): string => {
