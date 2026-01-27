@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-27T13:25:09.159Z",
+  "generatedAt": "2026-01-27T13:39:48.148Z",
   "totalFeeds": 50,
   "successfulFeeds": 49,
   "failedFeeds": 1,
@@ -13,7 +13,7 @@
       "fetchedRaw": 0,
       "keptAfterFiltering": 0,
       "lastError": "Cloudflare challenge - Playwright failed",
-      "durationMs": 189
+      "durationMs": 96
     },
     {
       "name": "Area Development Master",
@@ -22,7 +22,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 47,
       "lastError": null,
-      "durationMs": 560
+      "durationMs": 247
     },
     {
       "name": "Area Development News",
@@ -31,7 +31,7 @@
       "fetchedRaw": 50,
       "keptAfterFiltering": 21,
       "lastError": null,
-      "durationMs": 220
+      "durationMs": 77
     },
     {
       "name": "Bisnow National",
@@ -40,7 +40,7 @@
       "fetchedRaw": 30,
       "keptAfterFiltering": 7,
       "lastError": null,
-      "durationMs": 615
+      "durationMs": 411
     },
     {
       "name": "Bisnow New Jersey",
@@ -49,7 +49,7 @@
       "fetchedRaw": 30,
       "keptAfterFiltering": 5,
       "lastError": null,
-      "durationMs": 501
+      "durationMs": 470
     },
     {
       "name": "Bisnow Philadelphia",
@@ -58,7 +58,7 @@
       "fetchedRaw": 30,
       "keptAfterFiltering": 9,
       "lastError": null,
-      "durationMs": 502
+      "durationMs": 394
     },
     {
       "name": "Bisnow South Florida",
@@ -67,7 +67,7 @@
       "fetchedRaw": 30,
       "keptAfterFiltering": 4,
       "lastError": null,
-      "durationMs": 632
+      "durationMs": 576
     },
     {
       "name": "Bloomberg Markets",
@@ -76,7 +76,7 @@
       "fetchedRaw": 30,
       "keptAfterFiltering": 3,
       "lastError": null,
-      "durationMs": 296
+      "durationMs": 214
     },
     {
       "name": "CBRE Press Releases",
@@ -85,7 +85,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 443
+      "durationMs": 143
     },
     {
       "name": "Commercial Cafe",
@@ -94,7 +94,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 1,
       "lastError": null,
-      "durationMs": 970
+      "durationMs": 261
     },
     {
       "name": "Commercial Observer",
@@ -103,7 +103,7 @@
       "fetchedRaw": 17,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 940
+      "durationMs": 106
     },
     {
       "name": "Construction Dive",
@@ -112,7 +112,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 335
+      "durationMs": 188
     },
     {
       "name": "CRE Daily",
@@ -121,7 +121,7 @@
       "fetchedRaw": 0,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 292
+      "durationMs": 347
     },
     {
       "name": "DC Velocity",
@@ -130,7 +130,7 @@
       "fetchedRaw": 30,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 527
+      "durationMs": 347
     },
     {
       "name": "FreightWaves",
@@ -139,7 +139,7 @@
       "fetchedRaw": 50,
       "keptAfterFiltering": 8,
       "lastError": null,
-      "durationMs": 697
+      "durationMs": 310
     },
     {
       "name": "GlobeNewswire RE",
@@ -148,7 +148,7 @@
       "fetchedRaw": 20,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 304
+      "durationMs": 214
     },
     {
       "name": "GlobeSt Industrial",
@@ -157,7 +157,7 @@
       "fetchedRaw": 50,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 317
+      "durationMs": 351
     },
     {
       "name": "GlobeSt Miami",
@@ -166,7 +166,7 @@
       "fetchedRaw": 1,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 101
+      "durationMs": 38
     },
     {
       "name": "GlobeSt National",
@@ -175,7 +175,7 @@
       "fetchedRaw": 0,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 85
+      "durationMs": 38
     },
     {
       "name": "GlobeSt New Jersey",
@@ -184,7 +184,7 @@
       "fetchedRaw": 56,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 295
+      "durationMs": 123
     },
     {
       "name": "GlobeSt Philadelphia",
@@ -193,7 +193,7 @@
       "fetchedRaw": 5,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 200
+      "durationMs": 67
     },
     {
       "name": "Google News Brokerage",
@@ -202,7 +202,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 606
+      "durationMs": 676
     },
     {
       "name": "Google News Cold Storage",
@@ -211,7 +211,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 531
+      "durationMs": 633
     },
     {
       "name": "Google News CRE Transactions",
@@ -220,7 +220,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 591
+      "durationMs": 530
     },
     {
       "name": "Google News Distribution",
@@ -229,7 +229,7 @@
       "fetchedRaw": 64,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 429
+      "durationMs": 459
     },
     {
       "name": "Google News E-commerce",
@@ -238,7 +238,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 516
+      "durationMs": 695
     },
     {
       "name": "Google News FL Industrial",
@@ -247,7 +247,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 691
+      "durationMs": 600
     },
     {
       "name": "Google News Industrial Dev",
@@ -256,7 +256,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 608
+      "durationMs": 560
     },
     {
       "name": "Google News Industrial RE",
@@ -265,7 +265,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 712
+      "durationMs": 638
     },
     {
       "name": "Google News Industrial REIT",
@@ -274,7 +274,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 580
+      "durationMs": 669
     },
     {
       "name": "Google News Logistics",
@@ -283,7 +283,7 @@
       "fetchedRaw": 76,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 508
+      "durationMs": 560
     },
     {
       "name": "Google News NJ Industrial",
@@ -292,7 +292,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 592
+      "durationMs": 671
     },
     {
       "name": "Google News PA Industrial",
@@ -301,7 +301,7 @@
       "fetchedRaw": 100,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 575
+      "durationMs": 536
     },
     {
       "name": "Google News Ports",
@@ -310,7 +310,7 @@
       "fetchedRaw": 84,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 577
+      "durationMs": 526
     },
     {
       "name": "Google News Warehouse",
@@ -319,7 +319,7 @@
       "fetchedRaw": 79,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 423
+      "durationMs": 462
     },
     {
       "name": "Inbound Logistics",
@@ -328,7 +328,7 @@
       "fetchedRaw": 0,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 321
+      "durationMs": 184
     },
     {
       "name": "Lehigh Valley Business",
@@ -337,7 +337,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 275
+      "durationMs": 214
     },
     {
       "name": "Logistics Management",
@@ -346,7 +346,7 @@
       "fetchedRaw": 40,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 339
+      "durationMs": 263
     },
     {
       "name": "Modern Shipper",
@@ -355,7 +355,7 @@
       "fetchedRaw": 50,
       "keptAfterFiltering": 5,
       "lastError": null,
-      "durationMs": 374
+      "durationMs": 164
     },
     {
       "name": "NAI Keystone",
@@ -364,7 +364,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 4,
       "lastError": null,
-      "durationMs": 363
+      "durationMs": 326
     },
     {
       "name": "NAI Platform",
@@ -373,7 +373,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 1,
       "lastError": null,
-      "durationMs": 1738
+      "durationMs": 1640
     },
     {
       "name": "NAIOP Blog",
@@ -382,7 +382,7 @@
       "fetchedRaw": 8,
       "keptAfterFiltering": 1,
       "lastError": null,
-      "durationMs": 275
+      "durationMs": 504
     },
     {
       "name": "NAIOP Massachusetts",
@@ -391,7 +391,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 5975
+      "durationMs": 639
     },
     {
       "name": "PR Newswire",
@@ -400,7 +400,7 @@
       "fetchedRaw": 20,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 153
+      "durationMs": 143
     },
     {
       "name": "Prologis IR",
@@ -409,7 +409,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 303
+      "durationMs": 215
     },
     {
       "name": "Real Estate NJ",
@@ -418,7 +418,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 3,
       "lastError": null,
-      "durationMs": 305
+      "durationMs": 210
     },
     {
       "name": "Supply Chain Dive",
@@ -427,7 +427,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 1,
       "lastError": null,
-      "durationMs": 310
+      "durationMs": 131
     },
     {
       "name": "SupplyChainBrain",
@@ -436,7 +436,7 @@
       "fetchedRaw": 30,
       "keptAfterFiltering": 0,
       "lastError": null,
-      "durationMs": 203
+      "durationMs": 110
     },
     {
       "name": "The Real Deal Miami",
@@ -445,7 +445,7 @@
       "fetchedRaw": 10,
       "keptAfterFiltering": 3,
       "lastError": null,
-      "durationMs": 190
+      "durationMs": 161
     },
     {
       "name": "WSJ Real Estate",
@@ -454,7 +454,7 @@
       "fetchedRaw": 35,
       "keptAfterFiltering": 2,
       "lastError": null,
-      "durationMs": 366
+      "durationMs": 133
     }
   ]
 }
