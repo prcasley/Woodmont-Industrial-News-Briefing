@@ -522,9 +522,48 @@ export async function buildStaticRSS(): Promise<void> {
         log('info', `Merged: ${newItems.length} new + ${recategorizedExisting.length} existing = ${mergedArticles.length} total`);
 
         // Also filter out bad existing articles (out-of-state that slipped through before)
-        const cleanMerged = mergedArticles.filter(shouldIncludeArticle);
+        // Apply SAME strict regional validation to ALL articles including existing ones
+        const wrongStateKeywordsClean = [
+            'texas', 'california', 'ohio', 'indiana', 'illinois', 'georgia', 'arizona',
+            'tennessee', 'louisiana', 'colorado', 'washington', 'oregon', 'nevada',
+            'carolina', 'virginia', 'maryland', 'michigan', 'wisconsin', 'minnesota',
+            'dallas', 'houston', 'austin', 'los angeles', 'chicago', 'atlanta', 'phoenix',
+            'denver', 'seattle', 'las vegas', 'nashville', 'charlotte', 'indianapolis'
+        ];
+        const njpaflKeywordsClean = [
+            'new jersey', 'jersey', ' nj ', 'newark', 'edison', 'trenton', 'exit 8a',
+            'pennsylvania', 'philadelphia', 'philly', 'lehigh valley', 'allentown',
+            'florida', 'miami', 'tampa', 'orlando', 'jacksonville', 'fort lauderdale',
+            'boca raton', 'palm beach', 'broward', 'dade'
+        ];
+        const residentialKeywords = [
+            'home for', 'home sale', 'house for', 'condo for', 'apartment for',
+            'residential', 'single family', 'multifamily apartment', 'housing market',
+            'mortgage rate', 'homebuyer', 'realtor group', 'realtors group', 'realtors association'
+        ];
+
+        const cleanMerged = mergedArticles.filter(item => {
+            const text = ((item.title || '') + ' ' + (item.description || '')).toLowerCase();
+
+            // Check for residential content (exclude)
+            if (residentialKeywords.some(kw => text.includes(kw))) {
+                log('info', `CLEANED (residential): ${(item.title || '').substring(0, 50)}`);
+                return false;
+            }
+
+            // Check wrong state vs right state
+            const hasWrongState = wrongStateKeywordsClean.some(kw => text.includes(kw));
+            const hasRightState = njpaflKeywordsClean.some(kw => text.includes(kw));
+
+            if (hasWrongState && !hasRightState) {
+                log('info', `CLEANED (wrong state): ${(item.title || '').substring(0, 50)}`);
+                return false;
+            }
+
+            return shouldIncludeArticle(item);
+        });
         if (cleanMerged.length < mergedArticles.length) {
-            log('info', `Cleaned ${mergedArticles.length - cleanMerged.length} out-of-state articles from existing feed`);
+            log('info', `Cleaned ${mergedArticles.length - cleanMerged.length} bad articles from feed`);
         }
 
         // === STEP 4: Apply 90-day cleanup ===
