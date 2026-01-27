@@ -1,5 +1,5 @@
 /**
- * AI-Powered Article Classifier using OpenAI GPT-4o-mini
+ * AI-Powered Article Classifier using Google Gemini (FREE tier)
  *
  * Classifies articles for Woodmont Industrial Partners briefing:
  * - Determines category (relevant, transactions, availabilities, people, exclude)
@@ -10,9 +10,8 @@
 
 import { NormalizedItem } from '../types/index.js';
 
-// OpenAI API configuration
-const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
-const MODEL = 'gpt-4o-mini'; // Fast, cheap, smart enough for classification
+// Google Gemini API configuration (FREE tier: 15 req/min, 1M tokens/month)
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 
 export interface AIClassificationResult {
     category: 'relevant' | 'transactions' | 'availabilities' | 'people' | 'exclude';
@@ -53,7 +52,7 @@ DESCRIPTION: {description}
 
 SOURCE: {source}
 
-Respond with JSON only:
+Respond with JSON only (no markdown, no code blocks):
 {
   "category": "relevant|transactions|availabilities|people|exclude",
   "relevanceScore": 0-100,
@@ -65,17 +64,17 @@ Respond with JSON only:
 }`;
 
 /**
- * Classify an article using OpenAI
+ * Classify an article using Google Gemini
  */
 export async function classifyWithAI(
     title: string,
     description: string,
     source: string
 ): Promise<AIClassificationResult | null> {
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
-        console.warn('OPENAI_API_KEY not set, skipping AI classification');
+        console.warn('GEMINI_API_KEY not set, skipping AI classification');
         return null;
     }
 
@@ -85,41 +84,48 @@ export async function classifyWithAI(
             .replace('{description}', (description || '').substring(0, 500))
             .replace('{source}', source || 'Unknown');
 
-        const response = await fetch(OPENAI_API_URL, {
+        const fullPrompt = `${SYSTEM_PROMPT}\n\n${userPrompt}`;
+
+        const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: MODEL,
-                messages: [
-                    { role: 'system', content: SYSTEM_PROMPT },
-                    { role: 'user', content: userPrompt }
-                ],
-                temperature: 0.1, // Low temperature for consistent classification
-                max_tokens: 300
+                contents: [{
+                    parts: [{
+                        text: fullPrompt
+                    }]
+                }],
+                generationConfig: {
+                    temperature: 0.1,
+                    maxOutputTokens: 300
+                }
             })
         });
 
         if (!response.ok) {
             const error = await response.text();
-            console.error('OpenAI API error:', response.status, error);
+            console.error('Gemini API error:', response.status, error);
             return null;
         }
 
         const data = await response.json();
-        const content = data.choices?.[0]?.message?.content;
+        const content = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
         if (!content) {
-            console.error('No content in OpenAI response');
+            console.error('No content in Gemini response');
             return null;
         }
 
-        // Parse JSON response
-        const jsonMatch = content.match(/\{[\s\S]*\}/);
+        // Parse JSON response (handle potential markdown code blocks)
+        let jsonStr = content;
+        // Remove markdown code blocks if present
+        jsonStr = jsonStr.replace(/```json\n?/g, '').replace(/```\n?/g, '');
+
+        const jsonMatch = jsonStr.match(/\{[\s\S]*\}/);
         if (!jsonMatch) {
-            console.error('Could not parse JSON from OpenAI response:', content);
+            console.error('Could not parse JSON from Gemini response:', content);
             return null;
         }
 
@@ -143,7 +149,7 @@ export async function classifyWithAI(
 }
 
 /**
- * Batch classify multiple articles (with rate limiting)
+ * Batch classify multiple articles (with rate limiting for Gemini free tier: 15 req/min)
  */
 export async function batchClassifyWithAI(
     articles: NormalizedItem[],
@@ -155,8 +161,8 @@ export async function batchClassifyWithAI(
 ): Promise<Map<string, AIClassificationResult>> {
     const {
         minRelevanceScore = 30,
-        maxConcurrent = 5,
-        delayMs = 200
+        maxConcurrent = 3, // Lower for Gemini free tier (15 req/min)
+        delayMs = 500 // Slower to respect rate limits
     } = options;
 
     const results = new Map<string, AIClassificationResult>();
@@ -182,7 +188,7 @@ export async function batchClassifyWithAI(
 
         await Promise.all(batchPromises);
 
-        // Delay between batches to respect rate limits
+        // Delay between batches to respect Gemini rate limits (15 req/min)
         if (i + maxConcurrent < articles.length) {
             await new Promise(resolve => setTimeout(resolve, delayMs));
         }

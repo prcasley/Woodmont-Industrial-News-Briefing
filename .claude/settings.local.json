@@ -35,7 +35,8 @@
       "Bash(npm install:*)",
       "Bash(npx playwright install:*)",
       "WebFetch(domain:www.nmrk.com)",
-      "WebFetch(domain:www.cushmanwakefield.com)"
+      "WebFetch(domain:www.cushmanwakefield.com)",
+      "Bash(npx tsx:*)"
     ]
   }
 }

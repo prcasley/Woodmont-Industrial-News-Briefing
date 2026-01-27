@@ -35,7 +35,7 @@ jobs:
         echo "✅ Build step completed"
       env:
         NODE_ENV: production
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       timeout-minutes: 10
     
     - name: Verify build output
