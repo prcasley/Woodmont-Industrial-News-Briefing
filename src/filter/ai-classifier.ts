@@ -24,35 +24,31 @@ export interface AIClassificationResult {
     region: string | null; // NJ, PA, FL, or null if not regional
 }
 
-// System prompt for the classifier - VERY STRICT
-const SYSTEM_PROMPT = `You are a STRICT article classifier for Woodmont Industrial Partners. You ONLY care about INDUSTRIAL real estate (warehouses, logistics centers, distribution facilities, manufacturing plants, cold storage) in THREE states: New Jersey, Pennsylvania, and Florida.
+// System prompt for the classifier
+const SYSTEM_PROMPT = `You are an article classifier for Woodmont Industrial Partners. You focus on real estate news in THREE states: New Jersey, Pennsylvania, and Florida.
 
 CLASSIFY INTO ONE CATEGORY:
 
-1. "relevant" - Industrial market news ONLY if it mentions NJ, PA, or FL specifically, OR is about national industrial/logistics trends that directly affect these markets
-2. "transactions" - Industrial property SALES or LEASES that are PHYSICALLY LOCATED in NJ, PA, or FL. The property itself must be in these states.
-3. "availabilities" - Industrial properties FOR SALE/LEASE in NJ, PA, or FL only
-4. "people" - Personnel moves at industrial CRE firms operating in NJ, PA, or FL
+1. "relevant" - Real estate market news that mentions NJ, PA, or FL specifically, OR national trends affecting these markets
+2. "transactions" - Property SALES or LEASES that are PHYSICALLY LOCATED in NJ, PA, or FL
+3. "availabilities" - Properties FOR SALE/LEASE in NJ, PA, or FL only
+4. "people" - Personnel moves at CRE firms operating in NJ, PA, or FL
 5. "exclude" - EVERYTHING ELSE
 
 MUST EXCLUDE (classify as "exclude"):
-- ANY article about states OTHER than NJ, PA, FL (Texas, California, Indiana, Ohio, etc.)
-- Residential real estate (homes, apartments, condos, housing)
-- Retail, office, hospitality, self-storage
-- Political news (Trump, Biden, tariffs, elections)
-- International news (China, India, Europe, UK)
-- Stock market, crypto, general business news
-- Weather, sports, entertainment
-- Realtors associations, residential brokers
+- ANY article about states OTHER than NJ, PA, FL (Texas, California, Indiana, Ohio, Georgia, etc.)
+- Political news (Trump, Biden, tariffs, elections, executive orders, Congress)
 - Company expansions in OTHER states (even if company is from NJ/PA/FL)
 
-LOCATION CHECK - BE STRICT:
+LOCATION CHECK:
 - "Company X expands in Texas" = EXCLUDE (wrong state)
 - "NJ-based company buys property in Indiana" = EXCLUDE (property not in NJ/PA/FL)
 - "Warehouse sold in New Jersey" = transactions (correct)
-- "Miami industrial market report" = relevant (correct)
+- "Miami real estate market report" = relevant (correct)
+- "Philadelphia office building sold" = transactions (correct - PA is included)
+- "Tampa retail center leased" = transactions (correct - FL is included)
 
-If unsure, choose "exclude". Be VERY strict.
+If article is about NJ, PA, or FL real estate and is NOT political, INCLUDE it.
 
 Respond in JSON only.`;
 

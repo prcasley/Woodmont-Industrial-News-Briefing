@@ -50,35 +50,26 @@ The following are **automatically filtered out**:
 
 ---
 
-## Content Filters (STRICT)
+## Content Filters
 
-### INCLUDE (Industrial Real Estate Only)
+### INCLUDE (All Real Estate Types in NJ/PA/FL)
 
 | Category | Examples |
 |----------|----------|
-| Warehouse/Distribution | Fulfillment centers, distribution hubs |
-| Logistics Facilities | 3PL centers, freight terminals |
-| Cold Storage | Refrigerated warehouses, food distribution |
-| Manufacturing | Production facilities, assembly plants |
-| Last-Mile Delivery | Urban distribution, delivery stations |
-| Port/Intermodal | Port-adjacent warehouses, rail yards |
-| Industrial Land | Development sites, land sales |
-| Industrial Market Trends | Vacancy rates, rent growth, absorption |
+| Industrial | Warehouses, distribution centers, logistics, manufacturing |
+| Office | Office buildings, coworking spaces |
+| Retail | Shopping centers, retail stores |
+| Multifamily | Apartments, residential developments |
+| Mixed-Use | Combined property types |
+| Land | Development sites, land sales |
+| Market Trends | Vacancy rates, rent growth, absorption, cap rates |
 
 ### EXCLUDE (Automatically Filtered)
 
 | Category | Examples |
 |----------|----------|
-| **Residential** | Homes, condos, apartments, housing market, realtors |
-| **Retail** | Shopping centers, strip malls, retail stores |
-| **Office** | Office buildings, coworking spaces |
-| **Hospitality** | Hotels, resorts |
-| **Self-Storage** | Mini storage (unless industrial conversion) |
-| **Political News** | Trump, Biden, elections, executive orders, tariffs (unless directly industrial) |
-| **Weather** | Snow storms, hurricanes, power outages |
-| **Sports/Entertainment** | Stadiums, concerts, celebrities |
-| **Crypto/Stock Market** | Bitcoin, NFTs, general stock news |
-| **International** | China trade, India manufacturing, UK/Europe markets |
+| **Political News** | Trump, Biden, elections, executive orders, tariffs, Congress |
+| **Wrong States** | Any state other than NJ, PA, or FL |
 
 ---
 
@@ -93,13 +84,13 @@ All articles are processed through a **Groq AI classifier** that:
 
 ### AI Prompt Rules
 
-The AI is instructed to be **VERY STRICT**:
+The AI classifier follows these rules:
 
 - Focus ONLY on NJ, PA, FL
 - Property must be **physically located** in NJ/PA/FL (not just company HQ)
 - Exclude any article primarily about other states
-- Exclude residential, retail, office content
-- When uncertain, classify as `exclude`
+- Exclude political content (Trump, Biden, elections, etc.)
+- All real estate types are included (industrial, office, retail, multifamily, etc.)
 
 ---
 
@@ -111,22 +102,22 @@ The AI is instructed to be **VERY STRICT**:
 - Remove cached/preview links
 
 ### Layer 2: Rule-Based Content Filtering
-- Check for excluded keywords (residential, retail, office, political)
+- Check for excluded keywords (political content)
 - Check for excluded states/cities
-- Check for required industrial context
+- Verify NJ/PA/FL presence
 
 ### Layer 3: AI Classification
 - Groq AI analyzes and categorizes each article
 - Assigns relevance score
-- Articles below 40% relevance are excluded
+- Articles below 35% relevance are excluded
 
 ### Layer 4: Post-AI Regional Validation
 - Double-check that article mentions NJ, PA, or FL
 - Remove any wrong-state articles that slipped through
 
-### Layer 5: Residential/Irrelevant Cleanup
-- Final check for residential keywords
-- Remove weather, sports, political content
+### Layer 5: Political Content Cleanup
+- Final check for political keywords
+- Remove any political content that slipped through
 
 ---
 
@@ -183,20 +174,11 @@ Highlight deals meeting these criteria:
 
 ## Exclusion Keywords (Automatic Reject)
 
-### Political/International
+### Political Content
 ```
 TRUMP, BIDEN, PRESIDENT, WHITE HOUSE, EXECUTIVE ORDER,
 TARIFF WAR, TRADE WAR, CONGRESS, SENATE, ELECTION,
-INDIA, CHINA, UK, EUROPE, ASIA, MEXICO, CANADA,
-LONDON, BEIJING, SHANGHAI, MUMBAI, DELHI, TOKYO
-```
-
-### Non-Industrial
-```
-SINGLE FAMILY, MULTIFAMILY APARTMENT, CONDO, RESIDENTIAL,
-HOTEL, RESORT, HOSPITALITY, RETAIL STORE, SHOPPING CENTER,
-OFFICE BUILDING, COWORKING, SELF STORAGE, MINI STORAGE,
-CRYPTOCURRENCY, BITCOIN, CRYPTO, NFT, BLOCKCHAIN
+REPUBLICAN, DEMOCRAT, POLITICAL
 ```
 
 ### Wrong States
@@ -204,13 +186,8 @@ CRYPTOCURRENCY, BITCOIN, CRYPTO, NFT, BLOCKCHAIN
 TEXAS, CALIFORNIA, OHIO, INDIANA, ILLINOIS, GEORGIA, ARIZONA,
 TENNESSEE, LOUISIANA, COLORADO, WASHINGTON, OREGON, NEVADA,
 CAROLINA, VIRGINIA, MARYLAND, MICHIGAN, WISCONSIN, MINNESOTA,
-DALLAS, HOUSTON, AUSTIN, LOS ANGELES, CHICAGO, ATLANTA, PHOENIX
-```
-
-### Irrelevant Topics
-```
-SNOW STORM, WEATHER DISRUPTS, FLIGHTS CANCEL, POWER OUTAGE,
-STOCK MARKET, SPORTS, FOOTBALL, BASKETBALL, CONCERT, MOVIE
+DALLAS, HOUSTON, AUSTIN, LOS ANGELES, CHICAGO, ATLANTA, PHOENIX,
+SEATTLE, DENVER, LAS VEGAS, NASHVILLE, CHARLOTTE, INDIANAPOLIS
 ```
 
 ---
@@ -221,13 +198,13 @@ STOCK MARKET, SPORTS, FOOTBALL, BASKETBALL, CONCERT, MOVIE
 
 ```
 WOODMONT INDUSTRIAL PARTNERS
-Daily Industrial News Briefing
+Daily Real Estate News Briefing
 [Date]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 RELEVANT ARTICLES
-Macro trends affecting industrial real estate
+Macro trends affecting real estate in NJ/PA/FL
 
 • [Article title] - [Brief summary with location, key details]
   Source: [Publication] [Track]
@@ -235,7 +212,7 @@ Macro trends affecting industrial real estate
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 TRANSACTIONS
-Industrial property sales and leases
+Property sales and leases in NJ/PA/FL
 
 • [Property/Deal] - [Location, SF, Price/Terms]
   Source: [Publication] [Track]
@@ -251,7 +228,7 @@ Properties for sale or lease
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 PEOPLE NEWS
-Personnel moves in industrial CRE
+Personnel moves in CRE
 
 • [Person] - [New role at Company]
   Source: [Publication] [Track]

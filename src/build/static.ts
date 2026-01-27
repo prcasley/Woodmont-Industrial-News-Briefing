@@ -155,45 +155,20 @@ export async function buildStaticRSS(): Promise<void> {
             'MIAMI', 'ORLANDO', 'TAMPA', 'JACKSONVILLE', 'FORT LAUDERDALE', 'WEST PALM', 'BOCA RATON',
             'CENTRAL JERSEY', 'NORTH JERSEY', 'SOUTH JERSEY', 'RARITAN', 'MONROE', 'MIDDLESEX'];
 
-        // Non-industrial content to EXCLUDE (hard rule per boss)
-        // Property scope: Industrial only - warehouse, logistics, distribution, manufacturing, cold storage, last-mile, IOS, industrial land
-        // Exclude: office, multifamily, retail, hotels, self-storage (unless industrial portfolio), data centers (unless industrial/logistics)
+        // Content to EXCLUDE - only political content
         const excludeContent = [
-            // Sports & Entertainment
-            'SOCCER', 'FOOTBALL', 'BASEBALL', 'BASKETBALL', 'SPORTS FRANCHISE', 'YOUTH SPORTS',
-            'SUPER BOWL', 'WORLD SERIES', 'PLAYOFFS', 'CHAMPIONSHIP', 'NHL', 'MLB', 'NFL', 'NBA',
-            // Retail
-            'RESTAURANT', 'COFFEE SHOP', 'RETAIL STORE', 'SHOPPING CENTER', 'MALL', 'RETAIL LEASE',
-            // Residential/Multifamily
-            'RESIDENTIAL', 'APARTMENT', 'CONDO', 'SINGLE-FAMILY', 'HOMEBUILDER', 'MULTIFAMILY', 'TOWNHOME',
-            // Hospitality
-            'HOTEL', 'HOSPITALITY', 'RESORT', 'CASINO', 'GAMING',
-            // Office (exclude unless mixed-use with industrial)
-            'OFFICE LEASE', 'OFFICE BUILDING', 'OFFICE TOWER', 'OFFICE CAMPUS', 'COWORKING',
-            // Institutional
-            'SCHOOL', 'UNIVERSITY', 'HOSPITAL', 'MEDICAL CENTER', 'CHURCH', 'SENIOR LIVING', 'NURSING HOME',
-            // Self-storage (exclude standalone)
-            'SELF-STORAGE', 'MINI STORAGE',
             // POLITICAL CONTENT - STRICT EXCLUSION
             'TRUMP', 'BIDEN', 'PRESIDENT TRUMP', 'PRESIDENT BIDEN', 'WHITE HOUSE',
             'EXECUTIVE ORDER', 'TARIFF WAR', 'TRADE WAR', 'CONGRESS', 'SENATE',
-            'REPUBLICAN', 'DEMOCRAT', 'ELECTION', 'POLITICAL',
-            // INTERNATIONAL MARKETS - STRICT EXCLUSION
-            'INDIA', 'CHINA', 'UK', 'EUROPE', 'ASIA', 'MEXICO', 'CANADA',
-            'LONDON', 'BEIJING', 'SHANGHAI', 'MUMBAI', 'DELHI', 'TOKYO',
-            'HONG KONG', 'SINGAPORE', 'DUBAI', 'AUSTRALIA', 'GERMANY', 'FRANCE',
-            'BRITISH', 'CHINESE', 'INDIAN', 'EUROPEAN', 'ASIAN',
-            // CRYPTO/TECH NON-CRE
-            'CRYPTOCURRENCY', 'BITCOIN', 'CRYPTO', 'NFT', 'BLOCKCHAIN',
-            'IPO', 'STOCK PRICE', 'EARNINGS REPORT', 'QUARTERLY EARNINGS'
+            'REPUBLICAN', 'DEMOCRAT', 'ELECTION', 'POLITICAL'
         ];
 
-        // Industrial property keywords (what to INCLUDE)
-        const industrialKeywords = [
+        // Real estate keywords (what to INCLUDE - broader scope now)
+        const realEstateKeywords = [
             'WAREHOUSE', 'LOGISTICS', 'DISTRIBUTION', 'MANUFACTURING', 'COLD STORAGE',
-            'LAST-MILE', 'LAST MILE', 'INDUSTRIAL OUTDOOR STORAGE', 'IOS', 'INDUSTRIAL LAND',
-            'FULFILLMENT', 'FLEX SPACE', 'SPEC INDUSTRIAL', 'INDUSTRIAL PARK', 'LOADING DOCK',
-            'TRUCK COURT', 'CROSS-DOCK', 'INDUSTRIAL DEVELOPMENT', 'INDUSTRIAL PORTFOLIO'
+            'INDUSTRIAL', 'OFFICE', 'RETAIL', 'MULTIFAMILY', 'APARTMENT', 'RESIDENTIAL',
+            'COMMERCIAL', 'REAL ESTATE', 'PROPERTY', 'BUILDING', 'DEVELOPMENT', 'LEASE',
+            'SALE', 'SOLD', 'ACQUIRED', 'TRANSACTION', 'VACANCY', 'RENT', 'CRE'
         ];
 
         // Deal thresholds: ≥100,000 SF or ≥$25M (per boss rules)
@@ -254,15 +229,15 @@ export async function buildStaticRSS(): Promise<void> {
             const isTrustedNational = trustedNationalSources.some(s => url.includes(s) || sourceName.includes(s));
             const isGoogleNews = url.includes('news.google.com') || sourceName.includes('google news');
 
-            // Check for excluded content (non-industrial)
+            // Check for excluded content (political only now)
             const hasExcludedContent = excludeContent.some(c => text.includes(c));
 
-            // Check if has industrial context (can override some exclusions)
-            const hasIndustrialContext = industrialKeywords.some(k => text.includes(k));
+            // Check if has real estate context
+            const hasRealEstateContext = realEstateKeywords.some(k => text.includes(k));
 
-            // Exclude non-industrial content UNLESS it has clear industrial context
-            if (hasExcludedContent && !hasIndustrialContext) {
-                log('info', `EXCLUDED (non-industrial): ${item.title?.substring(0, 60)}`);
+            // Exclude political content
+            if (hasExcludedContent) {
+                log('info', `EXCLUDED (political): ${item.title?.substring(0, 60)}`);
                 return false;
             }
 
@@ -280,16 +255,16 @@ export async function buildStaticRSS(): Promise<void> {
                 return true;
             }
 
-            // Google News and trusted national sources: Include if MENTIONS target region OR has industrial context
+            // Google News and trusted national sources: Include if MENTIONS target region OR has real estate context
             // Be more lenient since these are curated by our search queries
             if (isGoogleNews || isTrustedNational) {
                 // Only exclude if CLEARLY about excluded state AND no target region mention
-                if ((mentionsExcludedState || mentionsExcludedCity) && !mentionsTargetRegion && !hasIndustrialContext) {
+                if ((mentionsExcludedState || mentionsExcludedCity) && !mentionsTargetRegion && !hasRealEstateContext) {
                     log('info', `EXCLUDED (out-of-state national): ${item.title?.substring(0, 60)}`);
                     return false;
                 }
-                // Include if has industrial content OR mentions target region
-                if (hasIndustrialContext || mentionsTargetRegion) {
+                // Include if has real estate content OR mentions target region
+                if (hasRealEstateContext || mentionsTargetRegion) {
                     return true;
                 }
             }
@@ -300,8 +275,8 @@ export async function buildStaticRSS(): Promise<void> {
                 return false;
             }
 
-            // Must mention target region OR have industrial content
-            return mentionsTargetRegion || hasIndustrialContext;
+            // Must mention target region OR have real estate content
+            return mentionsTargetRegion || hasRealEstateContext;
         };
 
         // Re-categorize articles based on content (following boss's section rules)
@@ -332,7 +307,7 @@ export async function buildStaticRSS(): Promise<void> {
 
             // Apply categorization rules in order of priority:
 
-            // 1. PEOPLE NEWS - personnel moves in industrial CRE
+            // 1. PEOPLE NEWS - personnel moves in CRE
             if (hasPeopleAction && (hasBrokerage || hasPersonRole)) {
                 item.category = 'people';
                 return item;
@@ -536,29 +511,18 @@ export async function buildStaticRSS(): Promise<void> {
             'florida', 'miami', 'tampa', 'orlando', 'jacksonville', 'fort lauderdale',
             'boca raton', 'palm beach', 'broward', 'dade'
         ];
-        const residentialKeywords = [
-            'home for', 'home sale', 'house for', 'condo for', 'apartment for',
-            'residential', 'single family', 'multifamily apartment', 'housing market',
-            'mortgage rate', 'homebuyer', 'realtor group', 'realtors group', 'realtors association'
-        ];
-        const irrelevantKeywords = [
-            'snow storm', 'snowstorm', 'weather disrupts', 'flights cancel', 'power outage',
-            'stock market', 'bitcoin', 'crypto', 'nft', 'trump', 'biden', 'election',
-            'sports', 'football', 'basketball', 'concert', 'movie', 'celebrity'
+        // Only exclude political content
+        const politicalKeywords = [
+            'trump', 'biden', 'election', 'executive order', 'tariff war', 'trade war',
+            'congress', 'senate', 'republican', 'democrat', 'political'
         ];
 
         const cleanMerged = mergedArticles.filter(item => {
             const text = ((item.title || '') + ' ' + (item.description || '')).toLowerCase();
 
-            // Check for residential content (exclude)
-            if (residentialKeywords.some(kw => text.includes(kw))) {
-                log('info', `CLEANED (residential): ${(item.title || '').substring(0, 50)}`);
-                return false;
-            }
-
-            // Check for completely irrelevant content (weather, politics, sports)
-            if (irrelevantKeywords.some(kw => text.includes(kw))) {
-                log('info', `CLEANED (irrelevant): ${(item.title || '').substring(0, 50)}`);
+            // Check for political content (exclude)
+            if (politicalKeywords.some(kw => text.includes(kw))) {
+                log('info', `CLEANED (political): ${(item.title || '').substring(0, 50)}`);
                 return false;
             }
 
@@ -646,10 +610,10 @@ export async function buildStaticRSS(): Promise<void> {
  */
 function generateRSSXML(items: NormalizedItem[]): string {
     const categoryLabels: Record<string, string> = {
-        relevant: 'RELEVANT ARTICLES — Macro Trends & Industrial Real Estate News',
+        relevant: 'RELEVANT ARTICLES — Macro Trends & Real Estate News',
         transaction: 'TRANSACTIONS — Notable Sales/Leases (≥100K SF or ≥$25M)',
-        availabilities: 'AVAILABILITIES — New Industrial Properties for Sale/Lease',
-        people: 'PEOPLE NEWS — Personnel Moves in Industrial Brokerage/Development'
+        availabilities: 'AVAILABILITIES — Properties for Sale/Lease',
+        people: 'PEOPLE NEWS — Personnel Moves in CRE'
     };
 
     const rssItemsXML = items.map(item => {
@@ -720,10 +684,10 @@ function generateRSSXML(items: NormalizedItem[]): string {
  */
 function generateJSONFeed(items: NormalizedItem[]): object {
     const categoryLabels: Record<string, string> = {
-        relevant: 'RELEVANT ARTICLES — Macro Trends & Industrial Real Estate News',
+        relevant: 'RELEVANT ARTICLES — Macro Trends & Real Estate News',
         transaction: 'TRANSACTIONS — Notable Sales/Leases (≥100K SF or ≥$25M)',
-        availabilities: 'AVAILABILITIES — New Industrial Properties for Sale/Lease',
-        people: 'PEOPLE NEWS — Personnel Moves in Industrial Brokerage/Development'
+        availabilities: 'AVAILABILITIES — Properties for Sale/Lease',
+        people: 'PEOPLE NEWS — Personnel Moves in CRE'
     };
 
     return {
