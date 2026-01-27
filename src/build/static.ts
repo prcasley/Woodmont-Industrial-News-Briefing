@@ -541,6 +541,11 @@ export async function buildStaticRSS(): Promise<void> {
             'residential', 'single family', 'multifamily apartment', 'housing market',
             'mortgage rate', 'homebuyer', 'realtor group', 'realtors group', 'realtors association'
         ];
+        const irrelevantKeywords = [
+            'snow storm', 'snowstorm', 'weather disrupts', 'flights cancel', 'power outage',
+            'stock market', 'bitcoin', 'crypto', 'nft', 'trump', 'biden', 'election',
+            'sports', 'football', 'basketball', 'concert', 'movie', 'celebrity'
+        ];
 
         const cleanMerged = mergedArticles.filter(item => {
             const text = ((item.title || '') + ' ' + (item.description || '')).toLowerCase();
@@ -548,6 +553,12 @@ export async function buildStaticRSS(): Promise<void> {
             // Check for residential content (exclude)
             if (residentialKeywords.some(kw => text.includes(kw))) {
                 log('info', `CLEANED (residential): ${(item.title || '').substring(0, 50)}`);
+                return false;
+            }
+
+            // Check for completely irrelevant content (weather, politics, sports)
+            if (irrelevantKeywords.some(kw => text.includes(kw))) {
+                log('info', `CLEANED (irrelevant): ${(item.title || '').substring(0, 50)}`);
                 return false;
             }
 
