@@ -616,7 +616,222 @@ export const RSS_FEEDS: FeedConfig[] = [
             source: "Google News",
             type: FEED_TYPES.INDUSTRIAL_NEWS,
             timeout: 30000
-}
+},
+
+    // ============================================
+    // ADDITIONAL NJ/PA/FL TARGETED FEEDS
+    // Added to increase relevant article volume
+    // ============================================
+
+    // Google News - Exit 8A / NJ Turnpike Corridor (Major NJ logistics hub)
+{
+      url: "https://news.google.com/rss/search?q=%22Exit+8A%22+OR+%22NJ+Turnpike%22+OR+%22Turnpike+corridor%22+warehouse+OR+industrial+OR+logistics&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Exit 8A Corridor",
+            region: "NJ",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Central Jersey Industrial
+{
+      url: "https://news.google.com/rss/search?q=%22Central+Jersey%22+OR+%22Central+New+Jersey%22+industrial+OR+warehouse+OR+distribution&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Central Jersey",
+            region: "NJ",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Port Newark / Port Elizabeth
+{
+      url: "https://news.google.com/rss/search?q=%22Port+Newark%22+OR+%22Port+Elizabeth%22+OR+%22Newark+port%22+logistics+OR+warehouse+OR+industrial&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Port Newark",
+            region: "NJ",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Meadowlands Industrial
+{
+      url: "https://news.google.com/rss/search?q=%22Meadowlands%22+%22New+Jersey%22+industrial+OR+warehouse+OR+logistics+OR+development&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Meadowlands NJ",
+            region: "NJ",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Lehigh Valley Specific
+{
+      url: "https://news.google.com/rss/search?q=%22Lehigh+Valley%22+industrial+OR+warehouse+OR+logistics+OR+distribution+center&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Lehigh Valley",
+            region: "PA",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - I-78 Corridor PA
+{
+      url: "https://news.google.com/rss/search?q=%22I-78+corridor%22+OR+%22Interstate+78%22+Pennsylvania+industrial+OR+warehouse&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News I-78 PA",
+            region: "PA",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - I-95 Corridor Industrial
+{
+      url: "https://news.google.com/rss/search?q=%22I-95+corridor%22+industrial+OR+warehouse+OR+logistics+NJ+OR+PA+OR+Florida&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News I-95 Corridor",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Tampa Bay Industrial
+{
+      url: "https://news.google.com/rss/search?q=%22Tampa+Bay%22+OR+%22Tampa%22+industrial+OR+warehouse+OR+logistics+OR+distribution&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Tampa Industrial",
+            region: "FL",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Orlando Industrial
+{
+      url: "https://news.google.com/rss/search?q=%22Orlando%22+OR+%22Central+Florida%22+industrial+OR+warehouse+OR+logistics&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Orlando Industrial",
+            region: "FL",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Jacksonville Industrial
+{
+      url: "https://news.google.com/rss/search?q=%22Jacksonville%22+Florida+industrial+OR+warehouse+OR+logistics+OR+port&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Jacksonville FL",
+            region: "FL",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Prologis NJ/PA/FL Specific
+{
+      url: "https://news.google.com/rss/search?q=Prologis+%22New+Jersey%22+OR+Pennsylvania+OR+Florida+OR+%22South+Florida%22&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Prologis NJ/PA/FL",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Duke Realty Industrial
+{
+      url: "https://news.google.com/rss/search?q=%22Duke+Realty%22+OR+%22Duke+Industrial%22+NJ+OR+PA+OR+Florida&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Duke Realty",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - CBRE Industrial NJ/PA/FL
+{
+      url: "https://news.google.com/rss/search?q=CBRE+industrial+%22New+Jersey%22+OR+Philadelphia+OR+%22South+Florida%22+OR+Miami&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News CBRE NJ/PA/FL",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - JLL Industrial NJ/PA/FL
+{
+      url: "https://news.google.com/rss/search?q=JLL+industrial+%22New+Jersey%22+OR+Philadelphia+OR+Florida+warehouse&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News JLL NJ/PA/FL",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Cushman Wakefield Industrial
+{
+      url: "https://news.google.com/rss/search?q=%22Cushman+Wakefield%22+OR+%22Cushman+%26+Wakefield%22+industrial+NJ+OR+PA+OR+FL&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Cushman NJ/PA/FL",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Industrial Broker Hires/People News
+{
+      url: "https://news.google.com/rss/search?q=industrial+broker+%22joins%22+OR+%22hired%22+OR+%22promoted%22+OR+%22appointed%22+real+estate&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Industrial Brokers",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Last Mile Delivery NJ/PA/FL
+{
+      url: "https://news.google.com/rss/search?q=%22last+mile%22+delivery+OR+fulfillment+%22New+Jersey%22+OR+Pennsylvania+OR+Florida&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Last Mile NJ/PA/FL",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Amazon Warehouse NJ/PA/FL
+{
+      url: "https://news.google.com/rss/search?q=Amazon+warehouse+OR+fulfillment+%22New+Jersey%22+OR+Pennsylvania+OR+Florida&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Amazon NJ/PA/FL",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Industrial Land Sales NJ/PA/FL
+{
+      url: "https://news.google.com/rss/search?q=industrial+land+sale+OR+%22land+acquisition%22+%22New+Jersey%22+OR+Pennsylvania+OR+Florida&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Industrial Land",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Industrial Lease Transactions
+{
+      url: "https://news.google.com/rss/search?q=industrial+%22signed+lease%22+OR+%22leased%22+OR+%22lease+signed%22+NJ+OR+PA+OR+FL&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Industrial Leases",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
+
+    // Google News - Industrial Property Sales
+{
+      url: "https://news.google.com/rss/search?q=industrial+property+%22sold%22+OR+%22acquired%22+OR+%22purchased%22+NJ+OR+PA+OR+FL&hl=en-US&gl=US&ceid=US:en",
+            name: "Google News Industrial Sales",
+            region: "US",
+            source: "Google News",
+            type: FEED_TYPES.INDUSTRIAL_NEWS,
+            timeout: 30000
+},
 
     // NOTE: JLL, Cushman & Wakefield, Colliers brokerage feeds
     // - No public RSS feeds available from IR sites (403/404 errors)
