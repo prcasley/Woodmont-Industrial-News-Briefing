@@ -279,66 +279,45 @@ export async function buildStaticRSS(): Promise<void> {
             return mentionsTargetRegion || hasRealEstateContext;
         };
 
-        // Re-categorize articles based on content (following boss's section rules)
+        // Re-categorize articles based on content
         const recategorizeArticle = (item: NormalizedItem): NormalizedItem => {
             const text = `${item.title || ''} ${item.description || ''}`.toLowerCase();
-            const textUpper = text.toUpperCase();
 
-            // Check deal thresholds
-            const threshold = meetsDealThreshold(textUpper);
+            // Check for dollar amounts ($) or square feet (SF/sq ft)
+            const hasDollarAmount = /\$[\d,]+/.test(text) || /\d+\s*(million|m)\b/i.test(text);
+            const hasSquareFeet = /\d+[,\d]*\s*(sf|sq\.?\s*ft|square\s*feet)/i.test(text);
 
-            // Availability indicators (for sale/lease listings)
-            const isAvailability = text.includes('for sale') || text.includes('for lease') ||
-                text.includes('available') || text.includes('listing') || text.includes('on the market') ||
-                text.includes('asking') || text.includes('newly marketed');
+            // Transaction indicators (buyer/tenant actions)
+            const hasTransactionAction = /\b(purchased|acquires?d?|bought|signs?\s*lease|leased|closed|tenant|buyer|sale\s*of|sold\s*(to|for)?)\b/i.test(text);
 
-            // Transaction indicators (completed deals)
-            const isTransaction = text.includes('sold') || text.includes('sale of') || text.includes('acquired') ||
-                text.includes('closed') || text.includes('signed') || text.includes('leased') ||
-                text.includes('deal') || text.includes('transaction') || text.includes('financing');
+            // Availability indicators
+            const hasAvailabilityWords = /\b(available|listed|marketing|for\s*lease|for\s*sale|on\s*the\s*market|newly\s*marketed|asking)\b/i.test(text);
 
             // People News indicators
-            const hasPeopleAction = /\b(named|appointed|hired|promoted|joined|taps|nabs|adds|welcomes|recruits|elevated|hires|appoints|promotes|leads|heads|chair)\b/i.test(text);
-            const hasBrokerage = /\b(nai|cbre|jll|cushman|colliers|newmark|marcus|millichap|sior|ccim|prologis|duke|link logistics|rexford|exeter|blackstone|brookfield|dermody|hillwood|panattoni)\b/i.test(text);
-            const hasPersonRole = /\b(ceo|president|director|partner|principal|vice president|managing director|broker|agent|executive|chairman|head of|chief)\b/i.test(text);
-
-            // Macro/Relevant indicators
-            const isMacro = /\b(interest rate|fed |federal reserve|inflation|cpi|lending|capital markets|freight|shipping|trucking|supply chain|port|cargo|container|construction cost|material cost|labor market|vacancy rate|absorption|rent growth|cap rate)\b/i.test(text);
+            const hasPeopleWords = /\b(promoted|hired|joins|joined|names|named|appoints|appointed|expands?\s*team|announces|taps|welcomes|recruits|elevated)\b/i.test(text);
 
             // Apply categorization rules in order of priority:
 
-            // 1. PEOPLE NEWS - personnel moves in CRE
-            if (hasPeopleAction && (hasBrokerage || hasPersonRole)) {
-                item.category = 'people';
+            // 1. TRANSACTIONS - dollar amount OR square feet WITH buyer/tenant action
+            if ((hasDollarAmount || hasSquareFeet) && hasTransactionAction) {
+                item.category = 'transactions';
                 return item;
             }
 
-            // 2. AVAILABILITIES - listings ≥100K SF (for sale/lease)
-            if (isAvailability && threshold.meetsSF) {
+            // 2. AVAILABILITIES - available, listed, marketing, for lease/sale
+            if (hasAvailabilityWords) {
                 item.category = 'availabilities';
                 return item;
             }
 
-            // 3. TRANSACTIONS - deals meeting threshold (≥100K SF OR ≥$25M)
-            if (isTransaction && (threshold.meetsSF || threshold.meetsDollar)) {
-                item.category = 'transactions';
+            // 3. PEOPLE NEWS - promoted, hired, joins, names, appoints, expands team, announces
+            if (hasPeopleWords) {
+                item.category = 'people';
                 return item;
             }
 
-            // 4. For articles with SF that don't meet threshold but have transaction words
-            // Still categorize as transactions if clearly a deal
-            if (isTransaction && threshold.sizeSF && threshold.sizeSF > 0) {
-                item.category = 'transactions';
-                return item;
-            }
-
-            // 5. RELEVANT ARTICLES - macro trends affecting industrial CRE
-            if (isMacro) {
-                item.category = 'relevant';
-                return item;
-            }
-
-            // Keep original category if none of the above apply
+            // 4. RELEVANT ARTICLES - default for everything else
+            item.category = 'relevant';
             return item;
         };
 
@@ -610,10 +589,10 @@ export async function buildStaticRSS(): Promise<void> {
  */
 function generateRSSXML(items: NormalizedItem[]): string {
     const categoryLabels: Record<string, string> = {
-        relevant: 'RELEVANT ARTICLES — Macro Trends & Real Estate News',
-        transaction: 'TRANSACTIONS — Notable Sales/Leases (≥100K SF or ≥$25M)',
-        availabilities: 'AVAILABILITIES — Properties for Sale/Lease',
-        people: 'PEOPLE NEWS — Personnel Moves in CRE'
+        relevant: 'Relevant — Market Trends & Real Estate News',
+        transactions: 'Transactions — Property Sales & Leases',
+        availabilities: 'Availabilities — Properties for Sale or Lease',
+        people: 'People News — Personnel Moves in CRE'
     };
 
     const rssItemsXML = items.map(item => {
@@ -684,10 +663,10 @@ function generateRSSXML(items: NormalizedItem[]): string {
  */
 function generateJSONFeed(items: NormalizedItem[]): object {
     const categoryLabels: Record<string, string> = {
-        relevant: 'RELEVANT ARTICLES — Macro Trends & Real Estate News',
-        transaction: 'TRANSACTIONS — Notable Sales/Leases (≥100K SF or ≥$25M)',
-        availabilities: 'AVAILABILITIES — Properties for Sale/Lease',
-        people: 'PEOPLE NEWS — Personnel Moves in CRE'
+        relevant: 'Relevant — Market Trends & Real Estate News',
+        transactions: 'Transactions — Property Sales & Leases',
+        availabilities: 'Availabilities — Properties for Sale or Lease',
+        people: 'People News — Personnel Moves in CRE'
     };
 
     return {

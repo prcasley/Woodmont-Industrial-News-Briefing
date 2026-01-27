@@ -18,10 +18,10 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
     const dateRange = `${startDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} – ${now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })} (ET)`;
 
     const sections = [
-        { title: "RELEVANT ARTICLES — Macro Trends & Industrial Real Estate News", icon: "📰", items: relevant },
-        { title: "TRANSACTIONS — Notable Sales/Leases (≥100K SF or ≥$25M)", icon: "💼", items: transactions },
-        { title: "AVAILABILITIES — New Industrial Properties for Sale/Lease", icon: "🏢", items: availabilities },
-        { title: "PEOPLE NEWS — Personnel Moves in Industrial Brokerage/Development", icon: "👥", items: people }
+        { title: "RELEVANT — Market Trends & Real Estate News", icon: "📰", items: relevant },
+        { title: "TRANSACTIONS — Property Sales & Leases", icon: "💼", items: transactions },
+        { title: "AVAILABILITIES — Properties for Sale or Lease", icon: "🏢", items: availabilities },
+        { title: "PEOPLE NEWS — Personnel Moves in CRE", icon: "👥", items: people }
     ];
 
     const renderItems = (items: NormalizedItem[]) => {
@@ -74,14 +74,13 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
 
             // Clean up category names for display
             const categoryLabels: Record<string, string> = {
-                relevant: 'MACRO TRENDS',
-                transactions: 'TRANSACTION',
-                availabilities: 'AVAILABILITY',
-                people: 'PEOPLE NEWS',
-                corporate: 'Corporate'
+                relevant: 'Relevant',
+                transactions: 'Transactions',
+                availabilities: 'Availabilities',
+                people: 'People News'
             };
 
-            const categoryDisplay = categoryLabels[category] || 'RELEVANT';
+            const categoryDisplay = categoryLabels[category] || 'Relevant';
 
             // Create tags: state, category, source
             const tags = [
@@ -127,7 +126,7 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #10b981 100%);
             padding: 20px;
         }
 
@@ -141,31 +140,31 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
         }
 
         .header {
-            background-color: #e8eef7;
-            color: #1e3c72;
+            background-color: #ecfdf5;
+            color: #064e3b;
             padding: 40px 30px;
             text-align: center;
-            border-bottom: 4px solid #1e3c72;
+            border-bottom: 4px solid #059669;
         }
 
         .header h1 {
             font-size: 32px;
             margin-bottom: 10px;
-            color: #1e3c72;
+            color: #064e3b;
             font-weight: 700;
         }
 
         .header .subtitle {
             font-size: 20px;
             margin-bottom: 8px;
-            color: #1e3c72;
+            color: #064e3b;
             font-weight: 600;
         }
 
         .header .date-range {
             font-size: 14px;
             font-style: italic;
-            color: #2a5298;
+            color: #047857;
         }
 
         .content {
@@ -181,13 +180,13 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid #10b981;
         }
 
         .section-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #064e3b 0%, #10b981 100%);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -198,13 +197,13 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
 
         .section-title {
             font-size: 22px;
-            color: #1e3c72;
+            color: #064e3b;
             font-weight: 600;
         }
 
         .article-card {
             background: #f8f9fa;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #10b981;
             padding: 20px;
             margin-bottom: 20px;
             border-radius: 8px;
@@ -213,21 +212,21 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
 
         .article-card:hover {
             transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
         }
 
         .article-title-header {
-            background-color: #e8eef7;
+            background-color: #ecfdf5;
             margin: -20px -20px 15px -20px;
             padding: 15px 20px;
             border-radius: 8px 8px 0 0;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid #10b981;
         }
 
         .article-title {
             font-size: 17px;
             font-weight: 600;
-            color: #1e3c72;
+            color: #064e3b;
             margin: 0;
             line-height: 1.4;
         }
@@ -302,16 +301,16 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
 
         .source-name {
             font-size: 14px;
-            color: #1e3c72;
+            color: #064e3b;
             font-weight: 600;
         }
 
         .read-more-btn {
-            background-color: #e8eef7;
-            color: #1e3c72;
+            background-color: #ecfdf5;
+            color: #064e3b;
             padding: 8px 16px;
             border-radius: 6px;
-            border: 2px solid #667eea;
+            border: 2px solid #10b981;
             text-decoration: none;
             font-weight: 600;
             font-size: 13px;
@@ -321,9 +320,9 @@ export function buildBriefing({ relevant = [], transactions = [], availabilities
 
         .read-more-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
             text-decoration: none;
-            color: #1e3c72;
+            color: #064e3b;
         }
 
         .highlight-box {
