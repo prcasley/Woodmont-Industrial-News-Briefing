@@ -105,26 +105,44 @@ export async function classifyWithAI(
             .replace('{description}', (description || '').substring(0, 500))
             .replace('{source}', source || 'Unknown');
 
-        const response = await fetch(GROQ_API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
-            },
-            body: JSON.stringify({
-                model: MODEL,
-                messages: [
-                    { role: 'system', content: SYSTEM_PROMPT },
-                    { role: 'user', content: userPrompt }
-                ],
-                temperature: 0.1,
-                max_tokens: 300
-            })
-        });
+        // Retry logic for rate limits
+        let response: Response | null = null;
+        let retries = 0;
+        const maxRetries = 3;
 
-        if (!response.ok) {
-            const error = await response.text();
-            console.error('Groq API error:', response.status, error);
+        while (retries < maxRetries) {
+            response = await fetch(GROQ_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    model: MODEL,
+                    messages: [
+                        { role: 'system', content: SYSTEM_PROMPT },
+                        { role: 'user', content: userPrompt }
+                    ],
+                    temperature: 0.1,
+                    max_tokens: 300
+                })
+            });
+
+            if (response.status === 429) {
+                // Rate limited - wait and retry
+                retries++;
+                const waitTime = Math.pow(2, retries) * 5000; // 10s, 20s, 40s
+                console.log(`Rate limited, waiting ${waitTime / 1000}s before retry ${retries}/${maxRetries}`);
+                await new Promise(resolve => setTimeout(resolve, waitTime));
+                continue;
+            }
+
+            break;
+        }
+
+        if (!response || !response.ok) {
+            const error = response ? await response.text() : 'No response';
+            console.error('Groq API error:', response?.status, error);
             return null;
         }
 
@@ -178,8 +196,8 @@ export async function batchClassifyWithAI(
 ): Promise<Map<string, AIClassificationResult>> {
     const {
         minRelevanceScore = 25,
-        maxConcurrent = 5, // Groq has generous rate limits
-        delayMs = 200
+        maxConcurrent = 2, // Reduced to avoid Groq rate limits (6k tokens/min)
+        delayMs = 3000 // 3 second delay between batches to stay under rate limit
     } = options;
 
     const results = new Map<string, AIClassificationResult>();
