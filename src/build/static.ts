@@ -209,7 +209,15 @@ export async function buildStaticRSS(): Promise<void> {
             'bisnow.com/philadelphia', 'bisnow.com/south-florida', 'therealdeal.com/miami'];
 
         // Boss-preferred sources - VERY LIGHT filter (only exclude political, include everything else)
-        const bossPreferredSources = ['globest.com'];
+        // These sources are trusted by boss - include articles from ALL states
+        const bossPreferredSources = [
+            'globest.com',          // GlobeSt
+            'naiopnj.org',          // NAIOP NJ Chapter
+            'naioppa.org',          // NAIOP PA Chapter
+            'connect.media',        // Connect Media
+            'bisnow.com',           // Bisnow (all regional)
+            're-nj.com'             // RE-NJ
+        ];
 
         // Trusted national sources (include if industrial context present)
         const trustedNationalSources = ['news.google.com', 'bloomberg.com', 'wsj.com', 'reuters.com',
@@ -238,7 +246,7 @@ export async function buildStaticRSS(): Promise<void> {
             // Only exclude political content, include everything else regardless of state
             const isBossPreferred = bossPreferredSources.some(s => url.includes(s) || sourceName.includes(s));
             if (isBossPreferred) {
-                log('info', `INCLUDED (boss preferred - GlobeSt): ${item.title?.substring(0, 60)}`);
+                log('info', `INCLUDED (boss preferred): ${item.title?.substring(0, 60)}`);
                 return true;
             }
 
